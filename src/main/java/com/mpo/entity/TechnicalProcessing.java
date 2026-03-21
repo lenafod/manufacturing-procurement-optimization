@@ -12,4 +12,6 @@ public class TechnicalProcessing {
 
     @Id
     private Integer id;
+
+    private String name;
 }
