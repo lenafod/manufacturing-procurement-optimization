@@ -13,5 +13,8 @@ public class MaterialSectionType {
     @Id
     private Integer id;
 
-    private String typeName;
+    private String typeName; //tip preseka
+
+    private Double dim1; //duzina preseka
+    private Double dim2; //moze da postoji a ne mora
 }
