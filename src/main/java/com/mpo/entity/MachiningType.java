@@ -12,4 +12,6 @@ public class MachiningType {
 
     @Id
     private Integer id;
+
+    private String name;
 }

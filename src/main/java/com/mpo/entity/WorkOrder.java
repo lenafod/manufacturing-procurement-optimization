@@ -5,14 +5,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import jakarta.persistence.Table;
 
 @Entity
 @Data
-@Getter
-@Setter
 @Table(name = "work_order")
 public class WorkOrder {
 
@@ -50,5 +46,13 @@ public class WorkOrder {
     @ManyToOne
     @JoinColumn(name = "machining_type_id")
     private MachiningType machiningType; // sigurno cu imati PK
+
+    private Double prepLength;   // dužina pripremka
+    
+    private Double partMass;     // masa izratka
+
+    private Double blankMass;    // masa pripremka
+    
+    private Double removedMass;  // masa koja se uklanja
 
 }

@@ -6,12 +6,17 @@ import com.mpo.entity.TechnicalProcessing;
 import com.mpo.repository.TehnicalProcessingRepository;
 
 import lombok.RequiredArgsConstructor;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class TehnicalProcessingService {
+public class TechnicalProcessingService {
 
     private final TehnicalProcessingRepository tehnicalProcessingRepository;
+
+    public List<TechnicalProcessing> getAll() {
+        return tehnicalProcessingRepository.findAll();
+    }
 
     public TechnicalProcessing getById(Integer id) {
         return tehnicalProcessingRepository.findById(id)

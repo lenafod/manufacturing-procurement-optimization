@@ -6,6 +6,7 @@ import com.mpo.entity.MaterialSectionType;
 import com.mpo.repository.MaterialSectionTypeRepository;
 
 import lombok.RequiredArgsConstructor;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -13,9 +14,13 @@ public class MaterialSectionTypeService {
 
     private final MaterialSectionTypeRepository materialSectionTypeRepository;
 
+    public List<MaterialSectionType> getAll() {
+        return materialSectionTypeRepository.findAll();
+    }
+
     public MaterialSectionType getById(Integer id) {
         return materialSectionTypeRepository.findById(id)
-        .orElseThrow(() -> new RuntimeException("material section type with this id does not exist"));
+                .orElseThrow(() -> new RuntimeException("material section type with this id does not exist"));
     }
 
 }

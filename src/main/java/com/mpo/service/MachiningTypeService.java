@@ -6,12 +6,17 @@ import com.mpo.entity.MachiningType;
 import com.mpo.repository.MachiningTypeRepository;
 
 import lombok.RequiredArgsConstructor;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class MachiningTypeService {
 
     private final MachiningTypeRepository machiningTypeRepository;
+
+    public List<MachiningType> getAll() {
+        return machiningTypeRepository.findAll();
+    }
 
     public MachiningType getById(Integer id) {
         return machiningTypeRepository.findById(id)
