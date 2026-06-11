@@ -3,9 +3,10 @@ package com.mpo.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.mpo.entity.TechnicalProcessing;
+import com.mpo.entity.MaterialType;
 
 @Repository
-public interface TehnicalProcessingRepository extends JpaRepository<TechnicalProcessing, Integer> {
+public interface TechnicalSheetRepository extends JpaRepository<TechnicalSheet, Integer> {
 
+    
 }
