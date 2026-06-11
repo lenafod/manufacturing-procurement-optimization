@@ -2,10 +2,12 @@ package com.mpo.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 import jakarta.persistence.Table;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -18,5 +20,5 @@ public class WorkOrder {
     private Integer quantity; // broj komada
 
     @OneToMany(mappedBy = "workOrder")
-    private List<TechnicalSheet> technicalSheets; 
+    private List<TechnicalSheet> technicalSheets = new ArrayList<>();
 }

@@ -14,6 +14,9 @@ import jakarta.persistence.Table;
 //1 TL se moze nalaziti u n RN
 public class TechnicalSheet {
 
+    @Id
+    private String id; 
+
     @ManyToOne
     @JoinColumn(name = "work_order_id")
     private WorkOrder workOrder; // f.k

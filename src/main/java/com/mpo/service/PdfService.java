@@ -13,6 +13,7 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.UnitValue;
 import com.mpo.entity.WorkOrder;
+import com.mpo.entity.TechnicalSheet;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.io.ByteArrayOutputStream;
@@ -46,45 +47,48 @@ public class PdfService {
                 .setMarginBottom(20));
 
         //osnovni podaci
-        document.add(sectionTitle("OSNOVNI PODACI", fontBold));
-        Table basicTable = new Table(UnitValue.createPercentArray(new float[]{40, 60}))
-                .setWidth(UnitValue.createPercentValue(100));
 
-        addRow(basicTable, "Naziv pozicije:", workOrder.getPositionName(), font, fontBold);
-        addRow(basicTable, "Kolicina:", workOrder.getQuantity() + " kom", font, fontBold);
-        document.add(basicTable);
+        for (TechnicalSheet sheet : workOrder.getTechnicalSheets()) {
+                document.add(sectionTitle("OSNOVNI PODACI", fontBold));
+                Table basicTable = new Table(UnitValue.createPercentArray(new float[]{40, 60}))
+                        .setWidth(UnitValue.createPercentValue(100));
 
-        //materijal
-        document.add(sectionTitle("MATERIJAL", fontBold));
-        Table materialTable = new Table(UnitValue.createPercentArray(new float[]{40, 60}))
-                .setWidth(UnitValue.createPercentValue(100));
+                addRow(basicTable, "Naziv pozicije:", sheet.getPositionName(), font, fontBold);
+                addRow(basicTable, "Kolicina:", workOrder.getQuantity() + " kom", font, fontBold);
+                document.add(basicTable);
 
-        addRow(materialTable, "Vrsta materijala:", workOrder.getMaterialType().getMaterialName(), font, fontBold);
-        addRow(materialTable, "Presek:", workOrder.getMaterialSectionType().getTypeName(), font, fontBold);
-        addRow(materialTable, "Duzina izratka:", workOrder.getPartLength() + " mm", font, fontBold);
-        addRow(materialTable, "Tehnicki dodatak:", workOrder.getTechnicalAllowance() + " mm", font, fontBold);
-        document.add(materialTable);
+                //materijal
+                document.add(sectionTitle("MATERIJAL", fontBold));
+                Table materialTable = new Table(UnitValue.createPercentArray(new float[]{40, 60}))
+                        .setWidth(UnitValue.createPercentValue(100));
 
-        //izracunate vrednosti
-        document.add(sectionTitle("IZRACUNATE VREDNOSTI", fontBold));
-        Table calcTable = new Table(UnitValue.createPercentArray(new float[]{40, 60}))
-                .setWidth(UnitValue.createPercentValue(100));
+                addRow(materialTable, "Vrsta materijala:", sheet.getMaterialType().getMaterialName(), font, fontBold);
+                addRow(materialTable, "Presek:", sheet.getMaterialSectionType().getTypeName(), font, fontBold);
+                addRow(materialTable, "Duzina izratka:", sheet.getPartLength() + " mm", font, fontBold);
+                addRow(materialTable, "Tehnicki dodatak:", sheet.getTechnicalAllowance() + " mm", font, fontBold);
+                document.add(materialTable);
 
-        addRow(calcTable, "Duzina pripremka:", workOrder.getPrepLength() + " mm", font, fontBold);
-        addRow(calcTable, "Masa izratka:", workOrder.getPartMass() + " g", font, fontBold);
-        addRow(calcTable, "Masa pripremka:", workOrder.getBlankMass() + " g", font, fontBold);
-        addRow(calcTable, "Masa koja se uklanja:", workOrder.getRemovedMass() + " g", font, fontBold);
-        document.add(calcTable);
+                //izracunate vrednosti
+                document.add(sectionTitle("IZRACUNATE VREDNOSTI", fontBold));
+                Table calcTable = new Table(UnitValue.createPercentArray(new float[]{40, 60}))
+                        .setWidth(UnitValue.createPercentValue(100));
 
-        //obrada
-        document.add(sectionTitle("OBRADA", fontBold));
-        Table processingTable = new Table(UnitValue.createPercentArray(new float[]{40, 60}))
-                .setWidth(UnitValue.createPercentValue(100));
+                addRow(calcTable, "Duzina pripremka:", sheet.getPrepLength() + " mm", font, fontBold);
+                addRow(calcTable, "Masa izratka:", sheet.getPartMass() + " g", font, fontBold);
+                addRow(calcTable, "Masa pripremka:", sheet.getBlankMass() + " g", font, fontBold);
+                addRow(calcTable, "Masa koja se uklanja:", sheet.getRemovedMass() + " g", font, fontBold);
+                document.add(calcTable);
 
-        addRow(processingTable, "Tehnicka obrada:", workOrder.getTechnicalProcessing().getName(), font, fontBold);
-        addRow(processingTable, "Povrsinska zastita:", workOrder.getSurfaceProtection().getName(), font, fontBold);
-        addRow(processingTable, "Masinska obrada:", workOrder.getMachiningType().getName(), font, fontBold);
-        document.add(processingTable);
+                //obrada
+                document.add(sectionTitle("OBRADA", fontBold));
+                Table processingTable = new Table(UnitValue.createPercentArray(new float[]{40, 60}))
+                        .setWidth(UnitValue.createPercentValue(100));
+
+                addRow(processingTable, "Tehnicka obrada:", sheet.getTechnicalProcessing().getName(), font, fontBold);
+                addRow(processingTable, "Povrsinska zastita:", sheet.getSurfaceProtection().getName(), font, fontBold);
+                addRow(processingTable, "Masinska obrada:", sheet.getMachiningType().getName(), font, fontBold);
+                document.add(processingTable);
+        }
 
         document.close();
         return outputStream.toByteArray();

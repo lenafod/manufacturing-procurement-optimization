@@ -19,6 +19,6 @@ import java.io.IOException;
 @RestController
 //neki request mapping
 @RequiredArgsConstructor
-public class WorkOrderController {
+public class TechnicalSheetController {
 
 }

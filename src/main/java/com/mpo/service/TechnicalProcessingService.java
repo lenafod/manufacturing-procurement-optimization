@@ -3,7 +3,7 @@ package com.mpo.service;
 import org.springframework.stereotype.Service;
 
 import com.mpo.entity.TechnicalProcessing;
-import com.mpo.repository.TehnicalProcessingRepository;
+import com.mpo.repository.TechnicalProcessingRepository;
 
 import lombok.RequiredArgsConstructor;
 import java.util.List;
@@ -12,14 +12,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TechnicalProcessingService {
 
-    private final TehnicalProcessingRepository tehnicalProcessingRepository;
+    private final TechnicalProcessingRepository technicalProcessingRepository;
 
     public List<TechnicalProcessing> getAll() {
-        return tehnicalProcessingRepository.findAll();
+        return technicalProcessingRepository.findAll();
     }
 
     public TechnicalProcessing getById(Integer id) {
-        return tehnicalProcessingRepository.findById(id)
+        return technicalProcessingRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("tehnical processing with this id does not exist"));
     }
 }

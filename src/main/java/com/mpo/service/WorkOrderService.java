@@ -14,19 +14,7 @@ public class WorkOrderService {
 
     private final WorkOrderRepository workOrderRepository;
 
-    public WorkOrder saveWorkOrder(WorkOrder workOrder) {
-
-        Double prepLength = calculatePrepLength(workOrder.getPartLength(), workOrder.getTechnicalAllowance());
-        Double density = workOrder.getMaterialType().getDensity();
-        Double partMass = calculatePrepMass(workOrder.getMaterialSectionType(), workOrder.getPartLength(), density);
-        Double blankMass = calculatePrepMass(workOrder.getMaterialSectionType(), prepLength, density);
-        Double removedMass = massForRemoval(blankMass, partMass);
-
-        workOrder.setPrepLength(prepLength);
-        workOrder.setPartMass(partMass);
-        workOrder.setBlankMass(blankMass);
-        workOrder.setRemovedMass(removedMass);
-
+      public WorkOrder saveWorkOrder(WorkOrder workOrder) {
         return workOrderRepository.save(workOrder);
     }
 

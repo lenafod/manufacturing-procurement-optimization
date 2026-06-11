@@ -4,7 +4,9 @@ import org.springframework.stereotype.Service;
 
 import com.mpo.entity.MaterialSectionType;
 import com.mpo.entity.WorkOrder;
+import com.mpo.entity.TechnicalSheet;
 import com.mpo.repository.WorkOrderRepository;
+import com.mpo.repository.TechnicalSheetRepository;
 
 import lombok.RequiredArgsConstructor;
 import java.util.List;
@@ -12,19 +14,26 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TechnicalSheetService {
 
+    private final TechnicalSheetRepository technicalSheetRepository;
+
     public TechnicalSheet saveTechnicalSheet(TechnicalSheet technicalSheet) {
+    
         Double prepLength = calculatePrepLength(technicalSheet.getPartLength(), technicalSheet.getTechnicalAllowance());
         Double density = technicalSheet.getMaterialType().getDensity();
-        Double partMass = calculate
+        Double partMass = calculatePrepMass(technicalSheet.getMaterialSectionType(), technicalSheet.getPartLength(), density);
+        Double blankMass = calculatePrepMass(technicalSheet.getMaterialSectionType(), prepLength, density);
+        Double removedMass = massForRemoval(blankMass, partMass);
+
+        technicalSheet.setPrepLength(prepLength);
+        technicalSheet.setPartMass(partMass);
+        technicalSheet.setBlankMass(blankMass);
+        technicalSheet.setRemovedMass(removedMass);
+
+        return technicalSheetRepository.save(technicalSheet);
     }
 
     public List<TechnicalSheet> getAll() {
         return technicalSheetRepository.findAll();
-    }
-
-    public TechnicalSheet getById(Long id) {
-        return technicalSheetRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Tehnički list nije pronađen: " + id));
     }
 
     private Double calculatePrepLength(Double partLength, Double technicalAllowance) {

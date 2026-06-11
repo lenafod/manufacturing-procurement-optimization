@@ -5,6 +5,7 @@ import com.mpo.entity.MaterialSectionType;
 import com.mpo.entity.MaterialType;
 import com.mpo.entity.SurfaceProtection;
 import com.mpo.entity.TechnicalProcessing;
+import com.mpo.entity.TechnicalSheet;
 import com.mpo.entity.WorkOrder;
 import com.mpo.service.WorkOrderService;
 import com.mpo.service.PdfService;
@@ -51,20 +52,23 @@ public class WorkOrderController {
         machining.setName("Struganje");
 
         WorkOrder workOrder = new WorkOrder();
+        TechnicalSheet technicalSheet = new TechnicalSheet();
         workOrder.setId("RN-2025-001");
-        workOrder.setPositionName("Osovina-A1");
+        technicalSheet.setPositionName("Osovina-A1");
         workOrder.setQuantity(5);
-        workOrder.setMaterialType(material);
-        workOrder.setMaterialSectionType(section);
-        workOrder.setPartLength(250.0);
-        workOrder.setTechnicalAllowance(10.0);
-        workOrder.setPrepLength(260.0);
-        workOrder.setPartMass(385.0);
-        workOrder.setBlankMass(400.0);
-        workOrder.setRemovedMass(15.0);
-        workOrder.setTechnicalProcessing(processing);
-        workOrder.setSurfaceProtection(protection);
-        workOrder.setMachiningType(machining);
+        technicalSheet.setMaterialType(material);
+        technicalSheet.setMaterialSectionType(section);
+        technicalSheet.setPartLength(250.0);
+        technicalSheet.setTechnicalAllowance(10.0);
+        technicalSheet.setPrepLength(260.0);
+        technicalSheet.setPartMass(385.0);
+        technicalSheet.setBlankMass(400.0);
+        technicalSheet.setRemovedMass(15.0);
+        technicalSheet.setTechnicalProcessing(processing);
+        technicalSheet.setSurfaceProtection(protection);
+        technicalSheet.setMachiningType(machining);
+        technicalSheet.setWorkOrder(workOrder);
+        workOrder.getTechnicalSheets().add(technicalSheet);
 
         byte[] pdf = pdfService.generateWorkOrderPdf(workOrder);
 
