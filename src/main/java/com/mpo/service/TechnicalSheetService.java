@@ -3,18 +3,32 @@ package com.mpo.service;
 import org.springframework.stereotype.Service;
 
 import com.mpo.entity.MaterialSectionType;
-import com.mpo.entity.WorkOrder;
 import com.mpo.entity.TechnicalSheet;
-import com.mpo.repository.WorkOrderRepository;
 import com.mpo.repository.TechnicalSheetRepository;
 
 import lombok.RequiredArgsConstructor;
 import java.util.List;
+import org.springframework.data.domain.Sort;
 @Service
 @RequiredArgsConstructor
 public class TechnicalSheetService {
 
     private final TechnicalSheetRepository technicalSheetRepository;
+
+    public List<TechnicalSheet> getTechnicalSheetsBySheetId(String sheetId, String sortDirection) {
+        Sort sort = sortDirection.equalsIgnoreCase("asc") ? Sort.by("sheetVersion").ascending() : Sort.by("sheetVersion").descending();
+
+        return technicalSheetRepository.findAll((root, query, criteriaBuilder) ->
+                criteriaBuilder.equal(root.get("id"), sheetId), sort);
+    }
+
+    public TechnicalSheet getTechnicalSheetByIdAndVersion(String id, String version) {
+        return technicalSheetRepository.findAll((root, query, criteriaBuilder) ->
+                criteriaBuilder.and(
+                        criteriaBuilder.equal(root.get("id"), id),
+                        criteriaBuilder.equal(root.get("sheetVersion"), version)
+                )).stream().findFirst().orElseThrow(() -> new RuntimeException("Technical sheet not found"));
+    }
 
     public TechnicalSheet saveTechnicalSheet(TechnicalSheet technicalSheet) {
     
@@ -60,7 +74,7 @@ public class TechnicalSheetService {
                     * (sectionType.getDim1() * sectionType.getDim1() - sectionType.getDim2() * sectionType.getDim2())
                     * partLength;
 
-            default -> throw new RuntimeException("Nepoznat oblik preseka: " + sectionType.getTypeName());
+            default -> throw new RuntimeException("Unknown section type: " + sectionType.getTypeName());
         };
     }
 }

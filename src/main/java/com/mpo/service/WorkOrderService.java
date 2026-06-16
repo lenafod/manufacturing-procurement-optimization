@@ -24,6 +24,6 @@ public class WorkOrderService {
 
     public WorkOrder getById(String id) {
         return workOrderRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Radni nalog nije pronađen: " + id));
+                .orElseThrow(() -> new RuntimeException("work order not found: " + id));
     }
 }

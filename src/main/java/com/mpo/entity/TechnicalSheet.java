@@ -15,7 +15,11 @@ import jakarta.persistence.Table;
 public class TechnicalSheet {
 
     @Id
-    private String id; 
+    private String id;
+
+    private String sheetId;
+    
+    private String sheetVersion; //verzija po kojoj cu takodje filtrirati crteze
 
     @ManyToOne
     @JoinColumn(name = "work_order_id")
