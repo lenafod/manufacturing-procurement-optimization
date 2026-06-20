@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
+import org.springframework.http.ResponseEntity;
 
 import com.mpo.service.TechnicalSheetService;
+import com.mpo.service.PdfService;
 
 @RestController
 @RequestMapping("/api/technical-sheets")
@@ -16,6 +18,7 @@ import com.mpo.service.TechnicalSheetService;
 public class TechnicalSheetController {
 
     private final TechnicalSheetService technicalSheetService;
+    private final PdfService pdfService;
 
     @GetMapping("/by-sheet-id")
     public List<TechnicalSheet> getTechnicalSheetsBySheetId(@RequestParam String sheetId, @RequestParam String sortDirection) {
@@ -25,6 +28,18 @@ public class TechnicalSheetController {
     @GetMapping("/by-id-and-version")
     public TechnicalSheet getTechnicalSheetByIdAndVersion(@RequestParam String id, @RequestParam String version) {
          return technicalSheetService.getTechnicalSheetByIdAndVersion(id, version);
+    }
+
+//front ce da poziva ovu metodu tako da se preview-uje crtez, a ne downloaduje pdf
+    @GetMapping("/by-id-and-version/pdf")
+    public ResponseEntity<byte[]> getTechnicalSheetPdfByIdAndVersion(@RequestParam String id, @RequestParam String version) throws Exception {
+        TechnicalSheet technicalSheet = technicalSheetService.getTechnicalSheetByIdAndVersion(id, version);
+        byte[] pdfBytes = pdfService.generateTechnicalSheetPdf(technicalSheet);
+
+        return ResponseEntity.ok()
+                .header("Content-Disposition", "inline; filename=technical_sheet_" + id + "_v" + version + ".pdf")
+                .contentType(org.springframework.http.MediaType.APPLICATION_PDF)
+                .body(pdfBytes);
     }
 
 }

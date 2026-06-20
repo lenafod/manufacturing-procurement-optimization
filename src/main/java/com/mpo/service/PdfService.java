@@ -115,4 +115,11 @@ public class PdfService {
                 .add(new Paragraph(value).setFont(font).setFontSize(10))
                 .setPadding(5));
     }
+
+//ova metoda mora da se izmeni prema zahtevima tako da sadrzi i crtez zapravo
+    public byte[] generateTechnicalSheetPdf(TechnicalSheet technicalSheet) throws IOException {
+        WorkOrder workOrder = technicalSheet.getWorkOrder();
+        return generateWorkOrderPdf(workOrder);
+    }
+
 }
