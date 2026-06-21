@@ -23,4 +23,9 @@ public class MaterialTypeService {
         return materialTypeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("material type with id " + id + " does not exist"));
     }
+
+    public MaterialType getByMaterialTypeName(String materialTypeName) {
+        return materialTypeRepository.findByMaterialName(materialTypeName)
+                .orElseThrow(() -> new RuntimeException("material type with name " + materialTypeName + " does not exist"));
+    }
 }

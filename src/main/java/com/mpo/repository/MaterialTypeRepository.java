@@ -8,4 +8,5 @@ import com.mpo.entity.MaterialType;
 @Repository
 public interface MaterialTypeRepository extends JpaRepository<MaterialType, Integer> {
 
+    java.util.Optional<MaterialType> findByMaterialName(String materialName);
 }

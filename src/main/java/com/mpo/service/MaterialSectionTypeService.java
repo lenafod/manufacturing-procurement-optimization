@@ -23,4 +23,9 @@ public class MaterialSectionTypeService {
                 .orElseThrow(() -> new RuntimeException("material section type with this id does not exist"));
     }
 
+    public MaterialSectionType getByTypeName(String typeName) {
+        return materialSectionTypeRepository.findByTypeName(typeName)
+                .orElseThrow(() -> new RuntimeException("material section type with this name does not exist"));
+    }
+
 }
