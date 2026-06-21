@@ -17,4 +17,6 @@ public class MaterialSectionType {
 
     private Double dim1; //duzina preseka
     private Double dim2; //moze da postoji a ne mora
+
+    private Boolean usesDim2; //ovim se front bavi
 }

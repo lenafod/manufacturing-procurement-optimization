@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.mpo.entity.MaterialSectionType;
 import com.mpo.entity.TechnicalSheet;
-import com.mpo.repository.TechnicalSheetRepository;
+import com.mpo.repository.TechnicalSheetRepository; 
 
 import lombok.RequiredArgsConstructor;
 import java.util.List;
@@ -76,5 +76,16 @@ public class TechnicalSheetService {
 
             default -> throw new RuntimeException("Unknown section type: " + sectionType.getTypeName());
         };
+    }
+
+    // proverava da li su dimenzije u skladu sa tipom preseka, ako nisu baca exception
+    public void validateDimensions(MaterialSectionType materialSectionType, Double dim1, Double dim2) {
+        if(dim1 == null || dim1 <= 0) {
+            throw new RuntimeException("dim1 must be a positive number");
+        }
+
+        if(materialSectionType.getUsesDim2() && (dim2 == null || dim2 <= 0)) {
+            throw new RuntimeException("dim2 must be a positive number for section type: " + materialSectionType.getTypeName());
+        }
     }
 }
