@@ -14,10 +14,4 @@ public interface SupplierMaterialRepository extends JpaRepository<SupplierMateri
         MaterialType materialType,
         MaterialSectionType materialSectionType
     );
-    List<SupplierMaterial> findByMaterialTypeAndMaterialSectionTypeAndDim1AndDim2(
-        MaterialType materialType,
-        MaterialSectionType materialSectionType,
-        Double dim1,
-        Double dim2
-    );
 }

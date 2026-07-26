@@ -12,12 +12,9 @@ import java.util.List;
 public class SupplierMaterialService {
 
     private final SupplierMaterialRepository supplierMaterialRepository;
-    private final TechnicalSheetService technicalSheetService;
 
-    public SupplierMaterialService(SupplierMaterialRepository supplierMaterialRepository,
-                                    TechnicalSheetService technicalSheetService) {
+    public SupplierMaterialService(SupplierMaterialRepository supplierMaterialRepository) {
         this.supplierMaterialRepository = supplierMaterialRepository;
-        this.technicalSheetService = technicalSheetService;
     }
 
     public List<SupplierMaterial> getAll() {
@@ -33,13 +30,9 @@ public class SupplierMaterialService {
         return supplierMaterialRepository.save(supplierMaterial);
     }
 
-    //sve ponude za dati materijal, presek i dimenzije
-    public List<SupplierMaterial> findOffersForMaterial(MaterialType materialType, MaterialSectionType materialSectionType,
-                                                          Double dim1, Double dim2) {
-        technicalSheetService.validateDimensions(materialSectionType, dim1, dim2);
-
-        return supplierMaterialRepository.findByMaterialTypeAndMaterialSectionTypeAndDim1AndDim2(
-                materialType, materialSectionType, dim1, dim2);
+    //sve ponude za dati materijal i presek (presek vec odredjuje dimenzije)
+    public List<SupplierMaterial> findOffersForMaterial(MaterialType materialType, MaterialSectionType materialSectionType) {
+        return supplierMaterialRepository.findByMaterialTypeAndMaterialSectionType(materialType, materialSectionType);
     }
 
     private double normalizeCriteria(SupplierMaterial offer,

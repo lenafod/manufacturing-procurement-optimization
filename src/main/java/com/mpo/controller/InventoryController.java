@@ -3,6 +3,7 @@ package com.mpo.controller;
 import com.mpo.entity.Inventory;
 import com.mpo.entity.MaterialSectionType;
 import com.mpo.entity.MaterialType;
+import com.mpo.enums.SectionShape;
 import com.mpo.service.InventoryService;
 import com.mpo.service.MaterialSectionTypeService;
 import com.mpo.service.MaterialTypeService;
@@ -38,14 +39,12 @@ public class InventoryController {
     @GetMapping("/check")
     public boolean checkInventory(
             @RequestParam String materialTypeName,
-            @RequestParam String materialSectionTypeName,
-            @RequestParam Double dim1,
-            @RequestParam Double dim2,
+            @RequestParam SectionShape materialSectionTypeName,
             @RequestParam Double requiredQuantity) {
 
         MaterialType materialType = materialTypeService.getByMaterialTypeName(materialTypeName);
         MaterialSectionType materialSectionType = materialSectionTypeService.getByTypeName(materialSectionTypeName);
 
-        return inventoryService.checkInventory(materialType, materialSectionType, dim1, dim2, requiredQuantity);
+        return inventoryService.checkInventory(materialType, materialSectionType, requiredQuantity);
     }
 }

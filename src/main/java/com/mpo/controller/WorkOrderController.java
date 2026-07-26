@@ -17,6 +17,8 @@ import java.util.List;
 
 import java.io.IOException;
 
+import static com.mpo.enums.SectionShape.ROUND;
+
 @RestController
 @RequestMapping("/api/work-orders")
 @RequiredArgsConstructor
@@ -38,7 +40,7 @@ public class WorkOrderController {
         material.setDensity(7.85);
 
         MaterialSectionType section = new MaterialSectionType();
-        section.setTypeName("ROUND");
+        section.setTypeName(ROUND);
         section.setDim1(30.0);
         section.setDim2(null);
 

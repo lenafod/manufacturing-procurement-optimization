@@ -9,7 +9,6 @@ import com.mpo.entity.MaterialSectionType;
 import com.mpo.entity.MaterialType;
 import com.mpo.exception.ResourceNotFoundException;
 import com.mpo.repository.InventoryRepository;
-import com.mpo.service.TechnicalSheetService;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -17,7 +16,6 @@ import lombok.RequiredArgsConstructor;
 public class InventoryService {
 
     private final InventoryRepository inventoryRepository;
-    private final TechnicalSheetService technicalSheetService;
 
     public Inventory save(Inventory inventory) {
         return inventoryRepository.save(inventory);
@@ -37,13 +35,11 @@ public class InventoryService {
         return prepLength <= availableQuantity;
     }
 
-    //provera lagera prema matrijalu, dimenzijama, preseku
+    //provera lagera prema matrijalu i preseku (presek vec odredjuje dimenzije)
     public boolean checkInventory(MaterialType materialType, MaterialSectionType materialSectionType,
-                                  Double dim1, Double dim2, Double requiredQuantity) {
-        technicalSheetService.validateDimensions(materialSectionType, dim1, dim2);
-
-       Inventory inventory = inventoryRepository
-            .findByMaterialTypeAndMaterialSectionTypeAndDim1AndDim2(materialType, materialSectionType, dim1, dim2)
+                                  Double requiredQuantity) {
+        Inventory inventory = inventoryRepository
+            .findByMaterialTypeAndMaterialSectionType(materialType, materialSectionType)
             .orElse(null);
 
         if (inventory == null) {

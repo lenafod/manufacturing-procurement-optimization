@@ -3,6 +3,7 @@ package com.mpo.service;
 import org.springframework.stereotype.Service;
 
 import com.mpo.entity.MaterialSectionType;
+import com.mpo.enums.SectionShape;
 import com.mpo.exception.ResourceNotFoundException;
 import com.mpo.repository.MaterialSectionTypeRepository;
 
@@ -24,7 +25,7 @@ public class MaterialSectionTypeService {
                 .orElseThrow(() -> new ResourceNotFoundException("material section type with this id does not exist"));
     }
 
-    public MaterialSectionType getByTypeName(String typeName) {
+    public MaterialSectionType getByTypeName(SectionShape typeName) {
         return materialSectionTypeRepository.findByTypeName(typeName)
                 .orElseThrow(() -> new ResourceNotFoundException("material section type with this name does not exist"));
     }

@@ -11,7 +11,7 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 @Data
-@Table(name = "supplierMaterial")
+@Table(name = "supplier_material")
 public class SupplierMaterial {
 //jedan dobavljac moze da prodaje vise razlicitih materijala,
 // a jedan materijal moze da se nabavlja od vise dobavljaca
@@ -31,9 +31,6 @@ public class SupplierMaterial {
     @ManyToOne
     @JoinColumn(name = "material_section_type_id")
     private MaterialSectionType materialSectionType;
-
-    private Double dim1; //required
-    private Double dim2; //opciono, zavisi od oblika preseka
 
     private Double pricePerUnit; //cena po jedinici mere
     private Integer deliveryTime; //vreme isporuke u danima

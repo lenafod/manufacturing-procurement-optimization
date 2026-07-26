@@ -28,9 +28,6 @@ public class Inventory {
     @JoinColumn(name = "material_section_id")
     private MaterialSectionType materialSectionType;
 
-    private double dim1; //required
-    private double dim2; //opciono, zavisi od oblika preseka
-
     //quantity == totalLengthAvailable
     //odnosno ukupna duzina materijala u magacinu, zavisi od jedinice mere
     private Double quantity; 

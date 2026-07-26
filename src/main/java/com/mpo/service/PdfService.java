@@ -63,7 +63,7 @@ public class PdfService {
                         .setWidth(UnitValue.createPercentValue(100));
 
                 addRow(materialTable, "Vrsta materijala:", sheet.getMaterialType().getMaterialName(), font, fontBold);
-                addRow(materialTable, "Presek:", sheet.getMaterialSectionType().getTypeName(), font, fontBold);
+                addRow(materialTable, "Presek:", sheet.getMaterialSectionType().getTypeName().name(), font, fontBold);
                 addRow(materialTable, "Duzina izratka:", sheet.getPartLength() + " mm", font, fontBold);
                 addRow(materialTable, "Tehnicki dodatak:", sheet.getTechnicalAllowance() + " mm", font, fontBold);
                 document.add(materialTable);

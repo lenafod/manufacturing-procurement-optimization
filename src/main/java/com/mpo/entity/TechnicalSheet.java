@@ -35,10 +35,6 @@ public class TechnicalSheet {
     @JoinColumn(name = "material_section_id")
     private MaterialSectionType materialSectionType; // f.k. iz tabele materialsection - oblik preseka
 
-    ////////// ????????????????????????/
-    private Integer materialSectionLength; // dimenzija preseka, u zavisnosti od MST
-    // proveriti dal da bude 1 promenljiva
-
     private Double partLength; // duzina izratka
     private Double technicalAllowance; // tehnicki dodatak
 

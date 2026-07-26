@@ -11,9 +11,7 @@ import com.mpo.entity.MaterialType;
 
 @Repository
 public interface InventoryRepository extends JpaRepository<Inventory, Long> {
-    Optional<Inventory> findByMaterialTypeAndMaterialSectionTypeAndDim1AndDim2(
+    Optional<Inventory> findByMaterialTypeAndMaterialSectionType(
             MaterialType materialType,
-            MaterialSectionType materialSectionType,
-            Double dim1,
-            Double dim2);
+            MaterialSectionType materialSectionType);
 }
