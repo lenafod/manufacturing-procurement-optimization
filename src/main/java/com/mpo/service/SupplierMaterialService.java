@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import com.mpo.entity.MaterialSectionType;
 import com.mpo.entity.MaterialType;
 import com.mpo.entity.SupplierMaterial;
+import com.mpo.exception.InvalidRequestException;
 import com.mpo.exception.ResourceNotFoundException;
 import com.mpo.repository.SupplierMaterialRepository;
 import java.util.List;
@@ -61,6 +62,10 @@ public class SupplierMaterialService {
                                 .mapToDouble(SupplierMaterial::getDeliveryTime)
                                 .max()
                                 .orElse(0.0);
+
+        if (maxPrice == 0 || maxDeliveryTime == 0) {
+            throw new InvalidRequestException("maxPrice and maxDeliveryTime must be greater than 0");
+        }
 
         SupplierMaterial optimalOffer = null;
         double bestScore = Double.MAX_VALUE;

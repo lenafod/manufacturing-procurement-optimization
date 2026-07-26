@@ -30,6 +30,13 @@ public class TechnicalSheetController {
          return technicalSheetService.getTechnicalSheetByIdAndVersion(id, version);
     }
 
+    @PostMapping
+    public TechnicalSheet save(@RequestBody TechnicalSheet technicalSheet) {
+        return technicalSheetService.saveTechnicalSheet(technicalSheet);
+    }
+
+
+
 //front ce da poziva ovu metodu tako da se preview-uje crtez, a ne downloaduje pdf
     @GetMapping("/by-id-and-version/pdf")
     public ResponseEntity<byte[]> getTechnicalSheetPdfByIdAndVersion(@RequestParam String id, @RequestParam String version) throws Exception {

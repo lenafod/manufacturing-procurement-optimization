@@ -11,9 +11,10 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
-@RequestMapping("/api/materialtype")
+@RequestMapping("/api/material-types")
 @RequiredArgsConstructor
 public class MaterialTypeController {
 
@@ -25,7 +26,7 @@ public class MaterialTypeController {
     }
 
     @GetMapping("/{id}")
-    public MaterialType getById(Integer id) {
+    public MaterialType getById(@PathVariable Integer id) {
         return materialTypeService.getById(id);
     }
 
