@@ -57,7 +57,7 @@ public class WorkOrderController {
         TechnicalSheet technicalSheet = new TechnicalSheet();
         workOrder.setId("RN-2025-001");
         technicalSheet.setPositionName("Osovina-A1");
-        workOrder.setQuantity(5);
+        technicalSheet.setQuantity(5);
         technicalSheet.setMaterialType(material);
         technicalSheet.setMaterialSectionType(section);
         technicalSheet.setPartLength(250.0);

@@ -16,9 +16,7 @@ public class WorkOrder {
 
     @Id
     private String id; // proveriti u kom obliku je id radnog naloga
-
-    private Integer quantity; // broj komada
-
+    
     @OneToMany(mappedBy = "workOrder")
     private List<TechnicalSheet> technicalSheets = new ArrayList<>();
 }

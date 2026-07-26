@@ -54,7 +54,7 @@ public class PdfService {
                         .setWidth(UnitValue.createPercentValue(100));
 
                 addRow(basicTable, "Naziv pozicije:", sheet.getPositionName(), font, fontBold);
-                addRow(basicTable, "Kolicina:", workOrder.getQuantity() + " kom", font, fontBold);
+                addRow(basicTable, "Kolicina:", sheet.getQuantity() + " kom", font, fontBold);
                 document.add(basicTable);
 
                 //materijal

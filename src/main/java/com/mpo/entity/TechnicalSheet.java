@@ -17,6 +17,8 @@ public class TechnicalSheet {
     @Id
     private String id;
 
+    private Integer quantity; // broj komada
+
     private String sheetId;
     
     private String sheetVersion; //verzija po kojoj cu takodje filtrirati crteze
