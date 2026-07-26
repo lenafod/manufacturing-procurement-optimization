@@ -49,49 +49,53 @@ public class PdfService {
         //osnovni podaci
 
         for (TechnicalSheet sheet : workOrder.getTechnicalSheets()) {
-                document.add(sectionTitle("OSNOVNI PODACI", fontBold));
-                Table basicTable = new Table(UnitValue.createPercentArray(new float[]{40, 60}))
-                        .setWidth(UnitValue.createPercentValue(100));
-
-                addRow(basicTable, "Naziv pozicije:", sheet.getPositionName(), font, fontBold);
-                addRow(basicTable, "Kolicina:", sheet.getQuantity() + " kom", font, fontBold);
-                document.add(basicTable);
-
-                //materijal
-                document.add(sectionTitle("MATERIJAL", fontBold));
-                Table materialTable = new Table(UnitValue.createPercentArray(new float[]{40, 60}))
-                        .setWidth(UnitValue.createPercentValue(100));
-
-                addRow(materialTable, "Vrsta materijala:", sheet.getMaterialType().getMaterialName(), font, fontBold);
-                addRow(materialTable, "Presek:", sheet.getMaterialSectionType().getTypeName().name(), font, fontBold);
-                addRow(materialTable, "Duzina izratka:", sheet.getPartLength() + " mm", font, fontBold);
-                addRow(materialTable, "Tehnicki dodatak:", sheet.getTechnicalAllowance() + " mm", font, fontBold);
-                document.add(materialTable);
-
-                //izracunate vrednosti
-                document.add(sectionTitle("IZRACUNATE VREDNOSTI", fontBold));
-                Table calcTable = new Table(UnitValue.createPercentArray(new float[]{40, 60}))
-                        .setWidth(UnitValue.createPercentValue(100));
-
-                addRow(calcTable, "Duzina pripremka:", sheet.getPrepLength() + " mm", font, fontBold);
-                addRow(calcTable, "Masa izratka:", sheet.getPartMass() + " g", font, fontBold);
-                addRow(calcTable, "Masa pripremka:", sheet.getBlankMass() + " g", font, fontBold);
-                addRow(calcTable, "Masa koja se uklanja:", sheet.getRemovedMass() + " g", font, fontBold);
-                document.add(calcTable);
-
-                //obrada
-                document.add(sectionTitle("OBRADA", fontBold));
-                Table processingTable = new Table(UnitValue.createPercentArray(new float[]{40, 60}))
-                        .setWidth(UnitValue.createPercentValue(100));
-
-                addRow(processingTable, "Tehnicka obrada:", sheet.getTechnicalProcessing().getName(), font, fontBold);
-                addRow(processingTable, "Povrsinska zastita:", sheet.getSurfaceProtection().getName(), font, fontBold);
-                addRow(processingTable, "Masinska obrada:", sheet.getMachiningType().getName(), font, fontBold);
-                document.add(processingTable);
+            addTechnicalSheetSections(document, sheet, font, fontBold);
         }
 
         document.close();
         return outputStream.toByteArray();
+    }
+
+    private void addTechnicalSheetSections(Document document, TechnicalSheet sheet, PdfFont font, PdfFont fontBold) {
+        document.add(sectionTitle("OSNOVNI PODACI", fontBold));
+        Table basicTable = new Table(UnitValue.createPercentArray(new float[]{40, 60}))
+                .setWidth(UnitValue.createPercentValue(100));
+
+        addRow(basicTable, "Naziv pozicije:", sheet.getPositionName(), font, fontBold);
+        addRow(basicTable, "Kolicina:", sheet.getQuantity() + " kom", font, fontBold);
+        document.add(basicTable);
+
+        //materijal
+        document.add(sectionTitle("MATERIJAL", fontBold));
+        Table materialTable = new Table(UnitValue.createPercentArray(new float[]{40, 60}))
+                .setWidth(UnitValue.createPercentValue(100));
+
+        addRow(materialTable, "Vrsta materijala:", sheet.getMaterialType().getMaterialName(), font, fontBold);
+        addRow(materialTable, "Presek:", sheet.getMaterialSectionType().getTypeName().name(), font, fontBold);
+        addRow(materialTable, "Duzina izratka:", sheet.getPartLength() + " mm", font, fontBold);
+        addRow(materialTable, "Tehnicki dodatak:", sheet.getTechnicalAllowance() + " mm", font, fontBold);
+        document.add(materialTable);
+
+        //izracunate vrednosti
+        document.add(sectionTitle("IZRACUNATE VREDNOSTI", fontBold));
+        Table calcTable = new Table(UnitValue.createPercentArray(new float[]{40, 60}))
+                .setWidth(UnitValue.createPercentValue(100));
+
+        addRow(calcTable, "Duzina pripremka:", sheet.getPrepLength() + " mm", font, fontBold);
+        addRow(calcTable, "Masa izratka:", sheet.getPartMass() + " g", font, fontBold);
+        addRow(calcTable, "Masa pripremka:", sheet.getBlankMass() + " g", font, fontBold);
+        addRow(calcTable, "Masa koja se uklanja:", sheet.getRemovedMass() + " g", font, fontBold);
+        document.add(calcTable);
+
+        //obrada
+        document.add(sectionTitle("OBRADA", fontBold));
+        Table processingTable = new Table(UnitValue.createPercentArray(new float[]{40, 60}))
+                .setWidth(UnitValue.createPercentValue(100));
+
+        addRow(processingTable, "Tehnicka obrada:", sheet.getTechnicalProcessing().getName(), font, fontBold);
+        addRow(processingTable, "Povrsinska zastita:", sheet.getSurfaceProtection().getName(), font, fontBold);
+        addRow(processingTable, "Masinska obrada:", sheet.getMachiningType().getName(), font, fontBold);
+        document.add(processingTable);
     }
 
     private Paragraph sectionTitle(String title, PdfFont fontBold) {
@@ -118,8 +122,32 @@ public class PdfService {
 
 //ova metoda mora da se izmeni prema zahtevima tako da sadrzi i crtez zapravo
     public byte[] generateTechnicalSheetPdf(TechnicalSheet technicalSheet) throws IOException {
-        WorkOrder workOrder = technicalSheet.getWorkOrder();
-        return generateWorkOrderPdf(workOrder);
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PdfWriter writer = new PdfWriter(outputStream);
+        PdfDocument pdf = new PdfDocument(writer);
+        Document document = new Document(pdf);
+
+        PdfFont font = PdfFontFactory.createFont(StandardFonts.HELVETICA);
+        PdfFont fontBold = PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD);
+
+        //naslov
+        document.add(new Paragraph("TEHNICKI LIST")
+                .setFont(fontBold)
+                .setFontSize(18)
+                .setTextAlignment(TextAlignment.CENTER)
+                .setMarginBottom(5));
+
+        document.add(new Paragraph(technicalSheet.getPositionName())
+                .setFont(fontBold)
+                .setFontSize(14)
+                .setTextAlignment(TextAlignment.CENTER)
+                .setMarginBottom(20));
+
+        addTechnicalSheetSections(document, technicalSheet, font, fontBold);
+
+        document.close();
+        return outputStream.toByteArray();
     }
 
 }
