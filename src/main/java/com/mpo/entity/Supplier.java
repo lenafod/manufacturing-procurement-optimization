@@ -5,6 +5,7 @@ import jakarta.persistence.Id;
 import lombok.Data;
 import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 
 @Entity
 @Data

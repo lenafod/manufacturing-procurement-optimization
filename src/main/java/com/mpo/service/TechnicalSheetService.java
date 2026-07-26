@@ -4,7 +4,9 @@ import org.springframework.stereotype.Service;
 
 import com.mpo.entity.MaterialSectionType;
 import com.mpo.entity.TechnicalSheet;
-import com.mpo.repository.TechnicalSheetRepository; 
+import com.mpo.exception.InvalidRequestException;
+import com.mpo.exception.ResourceNotFoundException;
+import com.mpo.repository.TechnicalSheetRepository;
 
 import lombok.RequiredArgsConstructor;
 import java.util.List;
@@ -27,7 +29,7 @@ public class TechnicalSheetService {
                 criteriaBuilder.and(
                         criteriaBuilder.equal(root.get("id"), id),
                         criteriaBuilder.equal(root.get("sheetVersion"), version)
-                )).stream().findFirst().orElseThrow(() -> new RuntimeException("Technical sheet not found"));
+                )).stream().findFirst().orElseThrow(() -> new ResourceNotFoundException("Technical sheet not found"));
     }
 
     public TechnicalSheet saveTechnicalSheet(TechnicalSheet technicalSheet) {
@@ -74,18 +76,18 @@ public class TechnicalSheetService {
                     * (sectionType.getDim1() * sectionType.getDim1() - sectionType.getDim2() * sectionType.getDim2())
                     * partLength;
 
-            default -> throw new RuntimeException("Unknown section type: " + sectionType.getTypeName());
+            default -> throw new InvalidRequestException("Unknown section type: " + sectionType.getTypeName());
         };
     }
 
     // proverava da li su dimenzije u skladu sa tipom preseka, ako nisu baca exception
     public void validateDimensions(MaterialSectionType materialSectionType, Double dim1, Double dim2) {
         if(dim1 == null || dim1 <= 0) {
-            throw new RuntimeException("dim1 must be a positive number");
+            throw new InvalidRequestException("dim1 must be a positive number");
         }
 
         if(materialSectionType.getUsesDim2() && (dim2 == null || dim2 <= 0)) {
-            throw new RuntimeException("dim2 must be a positive number for section type: " + materialSectionType.getTypeName());
+            throw new InvalidRequestException("dim2 must be a positive number for section type: " + materialSectionType.getTypeName());
         }
     }
 }

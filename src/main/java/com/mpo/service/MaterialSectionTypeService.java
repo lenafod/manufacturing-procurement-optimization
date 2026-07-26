@@ -3,6 +3,7 @@ package com.mpo.service;
 import org.springframework.stereotype.Service;
 
 import com.mpo.entity.MaterialSectionType;
+import com.mpo.exception.ResourceNotFoundException;
 import com.mpo.repository.MaterialSectionTypeRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -20,12 +21,12 @@ public class MaterialSectionTypeService {
 
     public MaterialSectionType getById(Integer id) {
         return materialSectionTypeRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("material section type with this id does not exist"));
+                .orElseThrow(() -> new ResourceNotFoundException("material section type with this id does not exist"));
     }
 
     public MaterialSectionType getByTypeName(String typeName) {
         return materialSectionTypeRepository.findByTypeName(typeName)
-                .orElseThrow(() -> new RuntimeException("material section type with this name does not exist"));
+                .orElseThrow(() -> new ResourceNotFoundException("material section type with this name does not exist"));
     }
 
 }

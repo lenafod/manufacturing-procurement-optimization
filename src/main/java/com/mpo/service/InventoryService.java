@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import com.mpo.entity.Inventory;
 import com.mpo.entity.MaterialSectionType;
 import com.mpo.entity.MaterialType;
+import com.mpo.exception.ResourceNotFoundException;
 import com.mpo.repository.InventoryRepository;
 import com.mpo.service.TechnicalSheetService;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +25,7 @@ public class InventoryService {
 
     public Inventory getById(Long id) {
         return inventoryRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Inventory with this id does not exist"));
+                .orElseThrow(() -> new ResourceNotFoundException("Inventory with this id does not exist"));
     }
 
     public List<Inventory> getAll() {

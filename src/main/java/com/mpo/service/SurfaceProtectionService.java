@@ -3,6 +3,7 @@ package com.mpo.service;
 import org.springframework.stereotype.Service;
 
 import com.mpo.entity.SurfaceProtection;
+import com.mpo.exception.ResourceNotFoundException;
 import com.mpo.repository.SurfaceProtectionRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,6 @@ public class SurfaceProtectionService {
 
     public SurfaceProtection getById(Integer id) {
         return surfaceProtectionRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("surface protection with this id does not exist"));
+                .orElseThrow(() -> new ResourceNotFoundException("surface protection with this id does not exist"));
     }
 }

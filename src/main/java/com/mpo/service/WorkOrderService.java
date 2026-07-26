@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.mpo.entity.MaterialSectionType;
 import com.mpo.entity.WorkOrder;
+import com.mpo.exception.ResourceNotFoundException;
 import com.mpo.repository.WorkOrderRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,6 @@ public class WorkOrderService {
 
     public WorkOrder getById(String id) {
         return workOrderRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("work order not found: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("work order not found: " + id));
     }
 }

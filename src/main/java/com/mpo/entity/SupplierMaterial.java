@@ -5,6 +5,9 @@ import jakarta.persistence.Id;
 import lombok.Data;
 import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 @Data
@@ -28,6 +31,9 @@ public class SupplierMaterial {
     @ManyToOne
     @JoinColumn(name = "material_section_type_id")
     private MaterialSectionType materialSectionType;
+
+    private Double dim1; //required
+    private Double dim2; //opciono, zavisi od oblika preseka
 
     private Double pricePerUnit; //cena po jedinici mere
     private Integer deliveryTime; //vreme isporuke u danima
