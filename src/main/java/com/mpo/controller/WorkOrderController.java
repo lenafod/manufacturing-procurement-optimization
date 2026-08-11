@@ -85,6 +85,17 @@ public class WorkOrderController {
         return workOrderService.getById(id);
     }
 
+    @GetMapping("/{id}/pdf")
+    public ResponseEntity<byte[]> getWorkOrderPdf(@PathVariable String id) throws IOException {
+        WorkOrder workOrder = workOrderService.getById(id);
+        byte[] pdf = pdfService.generateWorkOrderPdf(workOrder);
+
+        return ResponseEntity.ok()
+                .header("Content-Disposition", "inline; filename=radni_nalog_" + id + ".pdf")
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(pdf);
+    }
+
     @PostMapping
     public WorkOrder save(@RequestBody WorkOrder workOrder) {
         return workOrderService.saveWorkOrder(workOrder);

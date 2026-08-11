@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.mpo.entity.MaterialSectionType;
 import com.mpo.entity.WorkOrder;
+import com.mpo.exception.DuplicateResourceException;
 import com.mpo.exception.ResourceNotFoundException;
 import com.mpo.repository.WorkOrderRepository;
 
@@ -15,7 +16,10 @@ public class WorkOrderService {
 
     private final WorkOrderRepository workOrderRepository;
 
-      public WorkOrder saveWorkOrder(WorkOrder workOrder) {
+    public WorkOrder saveWorkOrder(WorkOrder workOrder) {
+        if (workOrderRepository.existsById(workOrder.getId())) {
+            throw new DuplicateResourceException("work order with id " + workOrder.getId() + " already exists");
+        }
         return workOrderRepository.save(workOrder);
     }
 
