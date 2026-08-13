@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <!-- lookup / sifarnik tabele: rucno dodeljeni ID-jevi, bez auto-increment -->
+
+    <changeSet id="001-1-material-type" author="lenafod">
+        <createTable tableName="material_type">
+            <column name="id" type="INT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="material_name" type="VARCHAR(255)"/>
+            <column name="density" type="DOUBLE PRECISION"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="001-2-material-section-type" author="lenafod">
+        <createTable tableName="material_section_type">
+            <column name="id" type="INT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="type_name" type="VARCHAR(255)"/>
+            <column name="dim1" type="DOUBLE PRECISION"/>
+            <column name="dim2" type="DOUBLE PRECISION"/>
+            <column name="uses_dim2" type="BOOLEAN"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="001-3-machining-type" author="lenafod">
+        <createTable tableName="machining_type">
+            <column name="id" type="INT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="001-4-surface-protection" author="lenafod">
+        <createTable tableName="surface_protection">
+            <column name="id" type="INT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="001-5-technical-processing" author="lenafod">
+        <createTable tableName="technical_processing">
+            <column name="id" type="INT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <!-- entiteti sa auto-generisanim ID-jevima -->
+
+    <changeSet id="001-6-supplier" author="lenafod">
+        <createTable tableName="supplier">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="address" type="VARCHAR(255)"/>
+            <column name="phone_number" type="VARCHAR(255)"/>
+            <column name="email" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="001-7-supplier-material" author="lenafod">
+        <createTable tableName="supplier_material">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="supplier_id" type="INT">
+                <constraints nullable="true" foreignKeyName="fk_supplier_material_supplier" references="supplier(id)"/>
+            </column>
+            <column name="material_type_id" type="INT">
+                <constraints nullable="true" foreignKeyName="fk_supplier_material_material_type" references="material_type(id)"/>
+            </column>
+            <column name="material_section_type_id" type="INT">
+                <constraints nullable="true" foreignKeyName="fk_supplier_material_section_type" references="material_section_type(id)"/>
+            </column>
+            <column name="price_per_unit" type="DOUBLE PRECISION"/>
+            <column name="delivery_time" type="INT"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="001-8-inventory" author="lenafod">
+        <createTable tableName="inventory">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="material_type_id" type="INT">
+                <constraints nullable="true" foreignKeyName="fk_inventory_material_type" references="material_type(id)"/>
+            </column>
+            <column name="material_section_id" type="INT">
+                <constraints nullable="true" foreignKeyName="fk_inventory_section_type" references="material_section_type(id)"/>
+            </column>
+            <column name="quantity" type="DOUBLE PRECISION"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="001-9-work-order" author="lenafod">
+        <createTable tableName="work_order">
+            <column name="id" type="VARCHAR(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="001-10-technical-sheet" author="lenafod">
+        <createTable tableName="technical_sheet">
+            <column name="id" type="VARCHAR(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="quantity" type="INT"/>
+            <column name="sheet_id" type="VARCHAR(255)"/>
+            <column name="sheet_version" type="VARCHAR(255)"/>
+            <column name="work_order_id" type="VARCHAR(255)">
+                <constraints nullable="true" foreignKeyName="fk_technical_sheet_work_order" references="work_order(id)"/>
+            </column>
+            <column name="position_name" type="VARCHAR(255)"/>
+            <column name="material_type_id" type="INT">
+                <constraints nullable="true" foreignKeyName="fk_technical_sheet_material_type" references="material_type(id)"/>
+            </column>
+            <column name="material_section_id" type="INT">
+                <constraints nullable="true" foreignKeyName="fk_technical_sheet_section_type" references="material_section_type(id)"/>
+            </column>
+            <column name="part_length" type="DOUBLE PRECISION"/>
+            <column name="technical_allowance" type="DOUBLE PRECISION"/>
+            <column name="position_surface" type="INT"/>
+            <column name="technical_processing_id" type="INT">
+                <constraints nullable="true" foreignKeyName="fk_technical_sheet_processing" references="technical_processing(id)"/>
+            </column>
+            <column name="surface_protection_id" type="INT">
+                <constraints nullable="true" foreignKeyName="fk_technical_sheet_protection" references="surface_protection(id)"/>
+            </column>
+            <column name="machining_type_id" type="INT">
+                <constraints nullable="true" foreignKeyName="fk_technical_sheet_machining" references="machining_type(id)"/>
+            </column>
+            <column name="prep_length" type="DOUBLE PRECISION"/>
+            <column name="part_mass" type="DOUBLE PRECISION"/>
+            <column name="blank_mass" type="DOUBLE PRECISION"/>
+            <column name="removed_mass" type="DOUBLE PRECISION"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="001-11-purchase-request" author="lenafod">
+        <createTable tableName="purchase_request">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="technical_sheet_id" type="VARCHAR(255)">
+                <constraints nullable="true" foreignKeyName="fk_purchase_request_technical_sheet" references="technical_sheet(id)"/>
+            </column>
+            <column name="supplier_material_id" type="INT">
+                <constraints nullable="true" foreignKeyName="fk_purchase_request_supplier_material" references="supplier_material(id)"/>
+            </column>
+            <column name="required_quantity" type="DOUBLE PRECISION"/>
+            <column name="total_price" type="DOUBLE PRECISION"/>
+            <column name="status" type="VARCHAR(255)"/>
+            <column name="created_at" type="DATE"/>
+            <column name="expected_delivery_date" type="DATE"/>
+            <column name="actual_delivery_date" type="DATE"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <!-- gustina (density) je u g/cm3, koristi se u TechnicalSheetService.calculatePrepMass -->
+    <changeSet id="002-1-material-type-data" author="lenafod">
+        <insert tableName="material_type">
+            <column name="id" valueNumeric="1"/>
+            <column name="material_name" value="Č0361 (S235JR)"/>
+            <column name="density" valueNumeric="7.85"/>
+        </insert>
+        <insert tableName="material_type">
+            <column name="id" valueNumeric="2"/>
+            <column name="material_name" value="Č1530 (S355J2)"/>
+            <column name="density" valueNumeric="7.85"/>
+        </insert>
+        <insert tableName="material_type">
+            <column name="id" valueNumeric="3"/>
+            <column name="material_name" value="Č4732 (42CrMo4)"/>
+            <column name="density" valueNumeric="7.85"/>
+        </insert>
+        <insert tableName="material_type">
+            <column name="id" valueNumeric="4"/>
+            <column name="material_name" value="Č4720 (41Cr4)"/>
+            <column name="density" valueNumeric="7.85"/>
+        </insert>
+        <insert tableName="material_type">
+            <column name="id" valueNumeric="5"/>
+            <column name="material_name" value="AlCu4Mg (2017A)"/>
+            <column name="density" valueNumeric="2.79"/>
+        </insert>
+    </changeSet>
+
+    <!-- dim1/dim2 u mm; type_name mora da odgovara com.mpo.enums.SectionShape -->
+    <changeSet id="002-2-material-section-type-data" author="lenafod">
+        <insert tableName="material_section_type">
+            <column name="id" valueNumeric="1"/>
+            <column name="type_name" value="ROUND"/>
+            <column name="dim1" valueNumeric="20"/>
+            <column name="dim2"/>
+            <column name="uses_dim2" valueBoolean="false"/>
+        </insert>
+        <insert tableName="material_section_type">
+            <column name="id" valueNumeric="2"/>
+            <column name="type_name" value="ROUND"/>
+            <column name="dim1" valueNumeric="30"/>
+            <column name="dim2"/>
+            <column name="uses_dim2" valueBoolean="false"/>
+        </insert>
+        <insert tableName="material_section_type">
+            <column name="id" valueNumeric="3"/>
+            <column name="type_name" value="ROUND"/>
+            <column name="dim1" valueNumeric="40"/>
+            <column name="dim2"/>
+            <column name="uses_dim2" valueBoolean="false"/>
+        </insert>
+        <insert tableName="material_section_type">
+            <column name="id" valueNumeric="4"/>
+            <column name="type_name" value="ROUND"/>
+            <column name="dim1" valueNumeric="50"/>
+            <column name="dim2"/>
+            <column name="uses_dim2" valueBoolean="false"/>
+        </insert>
+        <insert tableName="material_section_type">
+            <column name="id" valueNumeric="5"/>
+            <column name="type_name" value="RECTANGULAR"/>
+            <column name="dim1" valueNumeric="40"/>
+            <column name="dim2" valueNumeric="20"/>
+            <column name="uses_dim2" valueBoolean="true"/>
+        </insert>
+        <insert tableName="material_section_type">
+            <column name="id" valueNumeric="6"/>
+            <column name="type_name" value="RECTANGULAR"/>
+            <column name="dim1" valueNumeric="60"/>
+            <column name="dim2" valueNumeric="30"/>
+            <column name="uses_dim2" valueBoolean="true"/>
+        </insert>
+        <insert tableName="material_section_type">
+            <column name="id" valueNumeric="7"/>
+            <column name="type_name" value="CUBE"/>
+            <column name="dim1" valueNumeric="25"/>
+            <column name="dim2"/>
+            <column name="uses_dim2" valueBoolean="false"/>
+        </insert>
+        <insert tableName="material_section_type">
+            <column name="id" valueNumeric="8"/>
+            <column name="type_name" value="CUBE"/>
+            <column name="dim1" valueNumeric="40"/>
+            <column name="dim2"/>
+            <column name="uses_dim2" valueBoolean="false"/>
+        </insert>
+        <insert tableName="material_section_type">
+            <column name="id" valueNumeric="9"/>
+            <column name="type_name" value="HEXAGONAL"/>
+            <column name="dim1" valueNumeric="22"/>
+            <column name="dim2"/>
+            <column name="uses_dim2" valueBoolean="false"/>
+        </insert>
+        <insert tableName="material_section_type">
+            <column name="id" valueNumeric="10"/>
+            <column name="type_name" value="PIPE"/>
+            <column name="dim1" valueNumeric="30"/>
+            <column name="dim2" valueNumeric="20"/>
+            <column name="uses_dim2" valueBoolean="true"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="002-3-machining-type-data" author="lenafod">
+        <insert tableName="machining_type">
+            <column name="id" valueNumeric="1"/>
+            <column name="name" value="Struganje"/>
+        </insert>
+        <insert tableName="machining_type">
+            <column name="id" valueNumeric="2"/>
+            <column name="name" value="Glodanje"/>
+        </insert>
+        <insert tableName="machining_type">
+            <column name="id" valueNumeric="3"/>
+            <column name="name" value="Bušenje"/>
+        </insert>
+        <insert tableName="machining_type">
+            <column name="id" valueNumeric="4"/>
+            <column name="name" value="Brušenje"/>
+        </insert>
+        <insert tableName="machining_type">
+            <column name="id" valueNumeric="5"/>
+            <column name="name" value="Rezanje"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="002-4-surface-protection-data" author="lenafod">
+        <insert tableName="surface_protection">
+            <column name="id" valueNumeric="1"/>
+            <column name="name" value="Fosfatiranje"/>
+        </insert>
+        <insert tableName="surface_protection">
+            <column name="id" valueNumeric="2"/>
+            <column name="name" value="Cink premaz"/>
+        </insert>
+        <insert tableName="surface_protection">
+            <column name="id" valueNumeric="3"/>
+            <column name="name" value="Lakiranje"/>
+        </insert>
+        <insert tableName="surface_protection">
+            <column name="id" valueNumeric="4"/>
+            <column name="name" value="Bruniranje"/>
+        </insert>
+        <insert tableName="surface_protection">
+            <column name="id" valueNumeric="5"/>
+            <column name="name" value="Bez zaštite"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="002-5-technical-processing-data" author="lenafod">
+        <insert tableName="technical_processing">
+            <column name="id" valueNumeric="1"/>
+            <column name="name" value="Kaljenje"/>
+        </insert>
+        <insert tableName="technical_processing">
+            <column name="id" valueNumeric="2"/>
+            <column name="name" value="Poboljšanje"/>
+        </insert>
+        <insert tableName="technical_processing">
+            <column name="id" valueNumeric="3"/>
+            <column name="name" value="Žarenje"/>
+        </insert>
+        <insert tableName="technical_processing">
+            <column name="id" valueNumeric="4"/>
+            <column name="name" value="Cementacija"/>
+        </insert>
+        <insert tableName="technical_processing">
+            <column name="id" valueNumeric="5"/>
+            <column name="name" value="Normalizacija"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
