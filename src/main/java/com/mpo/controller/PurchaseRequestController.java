@@ -3,6 +3,8 @@ package com.mpo.controller;
 import org.springframework.web.bind.annotation.RestController;
 import com.mpo.service.PurchaseRequestService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -25,4 +27,20 @@ public class PurchaseRequestController {
     public List<PurchaseRequest> getPurchaseRequestsByStatus(@RequestParam("status") PurchaseRequestStatus status) {
         return purchaseRequestService.getPurchaseRequestsByStatus(status);
     }
+
+    @GetMapping
+    public List<PurchaseRequest> getAllPurchaseRequests() {
+        return purchaseRequestService.getAllPurchaseRequests();
+    }
+
+    @GetMapping("/{id}")
+    public PurchaseRequest getPurchaseRequestById(@PathVariable Long id) {
+        return purchaseRequestService.getPurchaseRequestById(id);
+    }
+
+    @PatchMapping("/{id}/status")
+    public PurchaseRequest updateStatus(@PathVariable Long id, @RequestParam PurchaseRequestStatus status) {
+        return purchaseRequestService.updateStatus(id, status);
+    }
+
 }

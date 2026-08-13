@@ -43,11 +43,27 @@ public class InventoryService {
             .orElse(null);
 
         if (inventory == null) {
-            return false; 
+            return false;
         }
 
         return checkQuantity(requiredQuantity, inventory.getQuantity());
-                     
+
+    }
+
+    //poveca stanje lagera kad porudzbina stigne (PurchaseRequest -> DELIVERED); pravi novi red ako materijal+presek jos nema stanje
+    public Inventory increaseQuantity(MaterialType materialType, MaterialSectionType materialSectionType, Double amount) {
+        Inventory inventory = inventoryRepository
+                .findByMaterialTypeAndMaterialSectionType(materialType, materialSectionType)
+                .orElseGet(() -> {
+                    Inventory newInventory = new Inventory();
+                    newInventory.setMaterialType(materialType);
+                    newInventory.setMaterialSectionType(materialSectionType);
+                    newInventory.setQuantity(0.0);
+                    return newInventory;
+                });
+
+        inventory.setQuantity(inventory.getQuantity() + amount);
+        return inventoryRepository.save(inventory);
     }
 
 }
