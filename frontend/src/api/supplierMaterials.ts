@@ -1,5 +1,5 @@
 import { apiClient } from './client';
-import type { SectionShape, SupplierMaterial } from '../types';
+import type { SupplierMaterial } from '../types';
 
 export interface CreateSupplierMaterialPayload {
   supplier: { id: number };
@@ -16,13 +16,13 @@ export const supplierMaterialsApi = {
     apiClient.post<SupplierMaterial>('/supplier-materials', payload),
   findOptimal: (
     materialTypeName: string,
-    materialSectionTypeName: SectionShape,
+    materialSectionTypeId: number,
     weightPrice: number,
     weightDeliveryTime: number,
   ) =>
     apiClient.get<SupplierMaterial>(
       `/supplier-materials/optimal?materialTypeName=${encodeURIComponent(materialTypeName)}` +
-        `&materialSectionTypeName=${materialSectionTypeName}` +
+        `&materialSectionTypeId=${materialSectionTypeId}` +
         `&weightPrice=${weightPrice}&weightDeliveryTime=${weightDeliveryTime}`,
     ),
 };

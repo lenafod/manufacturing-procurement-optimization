@@ -2,7 +2,6 @@ import { NavLink, Outlet } from 'react-router-dom';
 
 const navItems = [
   { to: '/', label: 'Početna', end: true },
-  { to: '/reference-data', label: 'Šifarnici' },
   { to: '/suppliers', label: 'Dobavljači' },
   { to: '/inventory', label: 'Magacin' },
   { to: '/work-orders', label: 'Radni nalozi' },
@@ -13,9 +12,22 @@ const navItems = [
 export function Layout() {
   return (
     <div>
-      <nav style={{ display: 'flex', gap: '1rem', padding: '1rem', borderBottom: '1px solid #ccc' }}>
+      {/* privremena header slika - placeholder dok ne stigne prava, videti komentar u razgovoru */}
+      <div style={{ height: '140px', overflow: 'hidden' }}>
+        <img
+          src="/header.jpg"
+          alt=""
+          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+        />
+      </div>
+      <nav className="nav-underline">
         {navItems.map((item) => (
-          <NavLink key={item.to} to={item.to} end={item.end}>
+          <NavLink
+            key={item.to}
+            to={item.to}
+            end={item.end}
+            className={({ isActive }) => (isActive ? 'active' : undefined)}
+          >
             {item.label}
           </NavLink>
         ))}

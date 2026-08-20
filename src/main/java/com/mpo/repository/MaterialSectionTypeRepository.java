@@ -4,10 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.mpo.entity.MaterialSectionType;
-import com.mpo.enums.SectionShape;
 
 @Repository
 public interface MaterialSectionTypeRepository extends JpaRepository<MaterialSectionType, Integer> {
 
-    java.util.Optional<MaterialSectionType> findByTypeName(SectionShape typeName);
 }

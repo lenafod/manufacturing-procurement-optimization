@@ -30,6 +30,15 @@ public class PurchaseRequestService {
         return purchaseRequestRepository.findAll();
     }
 
+    public List<PurchaseRequest> getPurchaseRequestsByWorkOrderId(String workOrderId) {
+        return purchaseRequestRepository.findByTechnicalSheet_WorkOrder_Id(workOrderId);
+    }
+
+    public List<PurchaseRequest> getOverduePurchaseRequests() {
+        List<PurchaseRequestStatus> excludedStatuses = List.of(PurchaseRequestStatus.DELIVERED, PurchaseRequestStatus.CANCELED);
+        return purchaseRequestRepository.findByStatusNotInAndExpectedDeliveryDateBefore(excludedStatuses, LocalDate.now());
+    }
+
     public PurchaseRequest getPurchaseRequestById(Long id) {
         return purchaseRequestRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("purchase request with id " + id + " not found"));

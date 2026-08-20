@@ -3,7 +3,6 @@ package com.mpo.controller;
 import com.mpo.entity.MaterialSectionType;
 import com.mpo.entity.MaterialType;
 import com.mpo.entity.SupplierMaterial;
-import com.mpo.enums.SectionShape;
 import com.mpo.service.MaterialSectionTypeService;
 import com.mpo.service.MaterialTypeService;
 import com.mpo.service.SupplierMaterialService;
@@ -40,12 +39,12 @@ public class SupplierMaterialController {
     @GetMapping("/optimal")
     public SupplierMaterial findOptimal(
             @RequestParam String materialTypeName,
-            @RequestParam SectionShape materialSectionTypeName,
+            @RequestParam Integer materialSectionTypeId,
             @RequestParam Double weightPrice,
             @RequestParam Double weightDeliveryTime) {
 
         MaterialType materialType = materialTypeService.getByMaterialTypeName(materialTypeName);
-        MaterialSectionType materialSectionType = materialSectionTypeService.getByTypeName(materialSectionTypeName);
+        MaterialSectionType materialSectionType = materialSectionTypeService.getById(materialSectionTypeId);
 
         List<SupplierMaterial> offers = supplierMaterialService.findOffersForMaterial(materialType, materialSectionType);
 

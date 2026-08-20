@@ -33,6 +33,16 @@ public class PurchaseRequestController {
         return purchaseRequestService.getAllPurchaseRequests();
     }
 
+    @GetMapping("/by-work-order")
+    public List<PurchaseRequest> getPurchaseRequestsByWorkOrder(@RequestParam String workOrderId) {
+        return purchaseRequestService.getPurchaseRequestsByWorkOrderId(workOrderId);
+    }
+
+    @GetMapping("/overdue")
+    public List<PurchaseRequest> getOverduePurchaseRequests() {
+        return purchaseRequestService.getOverduePurchaseRequests();
+    }
+
     @GetMapping("/{id}")
     public PurchaseRequest getPurchaseRequestById(@PathVariable Long id) {
         return purchaseRequestService.getPurchaseRequestById(id);

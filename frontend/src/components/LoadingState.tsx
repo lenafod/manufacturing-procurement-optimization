@@ -1,3 +1,3 @@
 export function LoadingState() {
-  return <p>Učitavanje...</p>;
+  return <p style={{ color: 'var(--steel)' }}>Učitavanje...</p>;
 }

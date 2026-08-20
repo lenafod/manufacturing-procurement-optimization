@@ -17,6 +17,8 @@ import org.springframework.data.domain.Sort;
 public class TechnicalSheetService {
 
     private final TechnicalSheetRepository technicalSheetRepository;
+    private final MaterialTypeService materialTypeService;
+    private final MaterialSectionTypeService materialSectionTypeService;
 
     public List<TechnicalSheet> getTechnicalSheetsBySheetId(String sheetId, String sortDirection) {
         Sort sort = sortDirection.equalsIgnoreCase("asc") ? Sort.by("sheetVersion").ascending() : Sort.by("sheetVersion").descending();
@@ -34,11 +36,17 @@ public class TechnicalSheetService {
     }
 
     public TechnicalSheet saveTechnicalSheet(TechnicalSheet technicalSheet) {
-    
+
+        // klijent salje samo {id: X} reference za materialType/materialSectionType - moraju se
+        // ucitati puni entiteti pre proracuna, jer stub objekat ima sva ostala polja null
+        MaterialSectionType materialSectionType = materialSectionTypeService.getById(technicalSheet.getMaterialSectionType().getId());
+        technicalSheet.setMaterialSectionType(materialSectionType);
+        technicalSheet.setMaterialType(materialTypeService.getById(technicalSheet.getMaterialType().getId()));
+
         Double prepLength = calculatePrepLength(technicalSheet.getPartLength(), technicalSheet.getTechnicalAllowance());
         Double density = technicalSheet.getMaterialType().getDensity();
-        Double partMass = calculatePrepMass(technicalSheet.getMaterialSectionType(), technicalSheet.getPartLength(), density);
-        Double blankMass = calculatePrepMass(technicalSheet.getMaterialSectionType(), prepLength, density);
+        Double partMass = calculatePrepMass(materialSectionType, technicalSheet.getPartLength(), density);
+        Double blankMass = calculatePrepMass(materialSectionType, prepLength, density);
         Double removedMass = massForRemoval(blankMass, partMass);
 
         technicalSheet.setPrepLength(prepLength);

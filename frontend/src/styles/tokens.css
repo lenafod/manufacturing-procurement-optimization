@@ -1,0 +1,45 @@
+/* Paleta i tipografija preuzeti iz UX wireframe-a za Radne naloge, da ceo front deli isti vizuelni jezik. */
+:root {
+  --bg: #f1efea;
+  --surface: #ffffff;
+  --surface-2: #f7f4ee;
+  --ink: #21262b;
+  --steel: #5c6b74;
+  --steel-soft: #8b96a0;
+  --line: #dad5c9;
+  --accent: #c2540a;
+  --accent-ink: #ffffff;
+  --accent-soft: #f3e0d2;
+  --ok: #2f7a4f;
+  --ok-soft: #dceee1;
+  --warn: #96660b;
+  --warn-soft: #f3e7cb;
+  --crit: #ae3327;
+  --crit-soft: #f5deda;
+  --shadow: 0 1px 2px rgba(33, 38, 43, 0.06), 0 6px 20px rgba(33, 38, 43, 0.05);
+
+  --font-sans: -apple-system, "Segoe UI", Roboto, system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14171a;
+    --surface: #1c2024;
+    --surface-2: #23282d;
+    --ink: #ece9e2;
+    --steel: #9aa7af;
+    --steel-soft: #6c7780;
+    --line: #2e3338;
+    --accent: #e07a3f;
+    --accent-ink: #191008;
+    --accent-soft: #3a2a1e;
+    --ok: #4fae74;
+    --ok-soft: #1b2e22;
+    --warn: #d2a53b;
+    --warn-soft: #332b14;
+    --crit: #e2685a;
+    --crit-soft: #3a1e1a;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.35);
+  }
+}

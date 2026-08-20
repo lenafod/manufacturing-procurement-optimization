@@ -1,5 +1,6 @@
 package com.mpo.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -25,6 +26,7 @@ public class TechnicalSheet {
 
     @ManyToOne
     @JoinColumn(name = "work_order_id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // moze da se posalje u POST telu, ali se ne vraca u JSON-u (spreci petlju WorkOrder.technicalSheets <-> TechnicalSheet.workOrder)
     private WorkOrder workOrder; // f.k
 
     private String positionName; // naziv ili sifra pozicije

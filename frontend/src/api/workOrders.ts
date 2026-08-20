@@ -5,4 +5,5 @@ export const workOrdersApi = {
   getAll: () => apiClient.get<WorkOrder[]>('/work-orders'),
   getById: (id: string) => apiClient.get<WorkOrder>(`/work-orders/${id}`),
   create: (workOrder: { id: string }) => apiClient.post<WorkOrder>('/work-orders', workOrder),
+  pdfUrl: (id: string) => `/api/work-orders/${encodeURIComponent(id)}/pdf`,
 };
