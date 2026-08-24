@@ -11,30 +11,30 @@ const navItems = [
 
 export function Layout() {
   return (
-    <div>
-      {/* privremena header slika - placeholder dok ne stigne prava, videti komentar u razgovoru */}
-      <div style={{ height: '140px', overflow: 'hidden' }}>
-        <img
-          src="/header.jpg"
-          alt=""
-          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-        />
+    <div className="app-shell">
+      <header className="app-header">
+        <span className="app-header-brand">MPO</span>
+      </header>
+
+      <div className="app-title">Manufacturing Procurement Optimization</div>
+
+      <div className="app-frame">
+        <nav className="nav-underline">
+          {navItems.map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              end={item.end}
+              className={({ isActive }) => (isActive ? 'active' : undefined)}
+            >
+              {item.label}
+            </NavLink>
+          ))}
+        </nav>
+        <main style={{ padding: '1rem' }}>
+          <Outlet />
+        </main>
       </div>
-      <nav className="nav-underline">
-        {navItems.map((item) => (
-          <NavLink
-            key={item.to}
-            to={item.to}
-            end={item.end}
-            className={({ isActive }) => (isActive ? 'active' : undefined)}
-          >
-            {item.label}
-          </NavLink>
-        ))}
-      </nav>
-      <main style={{ padding: '1rem' }}>
-        <Outlet />
-      </main>
     </div>
   );
 }

@@ -48,6 +48,12 @@ public class PurchaseRequestService {
         return purchaseRequestRepository.save(purchaseRequest);
     }
 
+    // sprecava duplirane zahteve - ako vec postoji nezavrsen zahtev za ovu poziciju, ne pravi se novi
+    public boolean hasActiveRequestForTechnicalSheet(String technicalSheetId) {
+        List<PurchaseRequestStatus> excludedStatuses = List.of(PurchaseRequestStatus.DELIVERED, PurchaseRequestStatus.CANCELED);
+        return purchaseRequestRepository.existsByTechnicalSheet_IdAndStatusNotIn(technicalSheetId, excludedStatuses);
+    }
+
     public PurchaseRequest updateStatus(Long purchaseRequestId, PurchaseRequestStatus newStatus) {
         PurchaseRequest purchaseRequest = purchaseRequestRepository.findById(purchaseRequestId)
                 .orElseThrow(() -> new ResourceNotFoundException("purchase request with id " + purchaseRequestId + " not found"));

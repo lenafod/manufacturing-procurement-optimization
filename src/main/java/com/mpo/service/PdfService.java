@@ -91,7 +91,7 @@ public class PdfService {
         addSectionTab(document, "MATERIJAL", fontBold);
         addFieldGrid(document, font, fontBold,
                 "Vrsta materijala", sheet.getMaterialType().getMaterialName(),
-                "Presek", sheet.getMaterialSectionType().getTypeName().name(),
+                "Presek", sheet.getMaterialSectionType().getTypeName().getDisplayName(),
                 "Dužina izratka", sheet.getPartLength() + " mm",
                 "Tehnički dodatak", sheet.getTechnicalAllowance() + " mm");
 

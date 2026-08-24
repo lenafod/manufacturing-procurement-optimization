@@ -1,22 +1,22 @@
-/* Paleta i tipografija preuzeti iz UX wireframe-a za Radne naloge, da ceo front deli isti vizuelni jezik. */
+/* Zuckasto-bez pozadina iza belog uokvirenog dela + indigo akcenat (izmedju plave i ljubicaste). */
 :root {
-  --bg: #f1efea;
+  --bg: #f7f3ea;
   --surface: #ffffff;
-  --surface-2: #f7f4ee;
-  --ink: #21262b;
-  --steel: #5c6b74;
-  --steel-soft: #8b96a0;
-  --line: #dad5c9;
-  --accent: #c2540a;
+  --surface-2: #f3f4f8;
+  --ink: #1a1d29;
+  --steel: #565b6e;
+  --steel-soft: #8b8fa3;
+  --line: #dfe1ea;
+  --accent: #363795;
   --accent-ink: #ffffff;
-  --accent-soft: #f3e0d2;
+  --accent-soft: #e8e8f5;
   --ok: #2f7a4f;
   --ok-soft: #dceee1;
   --warn: #96660b;
   --warn-soft: #f3e7cb;
   --crit: #ae3327;
   --crit-soft: #f5deda;
-  --shadow: 0 1px 2px rgba(33, 38, 43, 0.06), 0 6px 20px rgba(33, 38, 43, 0.05);
+  --shadow: 0 1px 2px rgba(26, 29, 41, 0.06), 0 6px 20px rgba(26, 29, 41, 0.06);
 
   --font-sans: -apple-system, "Segoe UI", Roboto, system-ui, sans-serif;
   --font-mono: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace;
@@ -24,16 +24,16 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #14171a;
-    --surface: #1c2024;
-    --surface-2: #23282d;
-    --ink: #ece9e2;
-    --steel: #9aa7af;
-    --steel-soft: #6c7780;
-    --line: #2e3338;
-    --accent: #e07a3f;
-    --accent-ink: #191008;
-    --accent-soft: #3a2a1e;
+    --bg: #14161f;
+    --surface: #1b1e2b;
+    --surface-2: #232637;
+    --ink: #eceef5;
+    --steel: #9a9db3;
+    --steel-soft: #6b6e85;
+    --line: #2f3345;
+    --accent: #6366d6;
+    --accent-ink: #14161f;
+    --accent-soft: #2a2b52;
     --ok: #4fae74;
     --ok-soft: #1b2e22;
     --warn: #d2a53b;

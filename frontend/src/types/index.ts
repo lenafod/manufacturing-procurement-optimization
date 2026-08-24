@@ -99,3 +99,13 @@ export interface PurchaseRequest {
   expectedDeliveryDate: string;
   actualDeliveryDate: string | null;
 }
+
+export interface SkippedPosition {
+  positionName: string;
+  reason: string;
+}
+
+export interface OptimizationResult {
+  created: PurchaseRequest[];
+  skipped: SkippedPosition[];
+}

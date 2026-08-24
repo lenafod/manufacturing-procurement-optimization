@@ -6,6 +6,7 @@ import { materialSectionTypesApi } from '../../api/materialSectionTypes';
 import { machiningTypesApi } from '../../api/machiningTypes';
 import { surfaceProtectionsApi } from '../../api/surfaceProtections';
 import { technicalProcessingsApi } from '../../api/technicalProcessings';
+import { sectionShapeLabel } from '../../utils/sectionShapeLabel';
 
 // Ovo su seed-only šifarnici na backendu (bez @GeneratedValue, bez POST endpoint-a),
 // pa je ovaj ekran samo za pregled - koriste se kao dropdown izvor u drugim formama.
@@ -52,7 +53,7 @@ export function ReferenceDataPage() {
           <ul>
             {materialSectionTypes.data.map((s) => (
               <li key={s.id}>
-                {s.typeName} — dim1: {s.dim1}
+                {sectionShapeLabel(s.typeName)} — dim1: {s.dim1}
                 {s.usesDim2 ? `, dim2: ${s.dim2}` : ''}
               </li>
             ))}

@@ -1,14 +1,20 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { purchaseRequestsApi } from '../../api/purchaseRequests';
+import { useApiMutation } from '../../hooks/useApiMutation';
 import { DataTable } from '../../components/DataTable';
 import { Select } from '../../components/Select';
+import { Button } from '../../components/Button';
+import { ErrorBanner } from '../../components/ErrorBanner';
 import { PurchaseRequestStatusPill } from '../../components/StatusPill';
 import { LoadingState } from '../../components/LoadingState';
 import { ErrorState } from '../../components/ErrorState';
 import type { PurchaseRequest, PurchaseRequestStatus } from '../../types';
 
-const STATUS_OPTIONS: { value: PurchaseRequestStatus; label: string }[] = [
+type StatusFilter = PurchaseRequestStatus | 'ALL';
+
+const STATUS_OPTIONS: { value: StatusFilter; label: string }[] = [
+  { value: 'ALL', label: 'Svi statusi' },
   { value: 'CREATED', label: 'Kreiran' },
   { value: 'SENT', label: 'Poslat' },
   { value: 'IN_DELIVERY', label: 'U isporuci' },
@@ -16,13 +22,23 @@ const STATUS_OPTIONS: { value: PurchaseRequestStatus; label: string }[] = [
   { value: 'CANCELED', label: 'Otkazan' },
 ];
 
+// sledeci korak u toku CREATED -> SENT -> IN_DELIVERY -> DELIVERED (nema ga za DELIVERED/CANCELED)
+const NEXT_STEP: Partial<Record<PurchaseRequestStatus, { status: PurchaseRequestStatus; label: string }>> = {
+  CREATED: { status: 'SENT', label: 'Pošalji' },
+  SENT: { status: 'IN_DELIVERY', label: 'U isporuci' },
+  IN_DELIVERY: { status: 'DELIVERED', label: 'Isporučeno' },
+};
+const CANCELABLE_STATUSES: PurchaseRequestStatus[] = ['CREATED', 'SENT', 'IN_DELIVERY'];
+
 export function PurchaseRequestsPage() {
-  const [status, setStatus] = useState<PurchaseRequestStatus>('CREATED');
+  const [status, setStatus] = useState<StatusFilter>('CREATED');
 
   const purchaseRequests = useQuery({
     queryKey: ['purchaseRequests', status],
-    queryFn: () => purchaseRequestsApi.getByStatus(status),
+    queryFn: () => (status === 'ALL' ? purchaseRequestsApi.getAll() : purchaseRequestsApi.getByStatus(status)),
   });
+
+  const overdue = useQuery({ queryKey: ['purchaseRequests', 'overdue'], queryFn: purchaseRequestsApi.getOverdue });
 
   return (
     <div className="card">
@@ -32,10 +48,27 @@ export function PurchaseRequestsPage() {
           label="Status"
           options={STATUS_OPTIONS.map((o) => ({ value: o.value, label: o.label }))}
           value={status}
-          onChange={(e) => setStatus(e.target.value as PurchaseRequestStatus)}
+          onChange={(e) => setStatus(e.target.value as StatusFilter)}
           style={{ minWidth: '160px' }}
         />
       </div>
+
+      {overdue.data && overdue.data.length > 0 && (
+        <div className="warn-banner">
+          <span className="icon">⚠</span>
+          <div>
+            <strong>{overdue.data.length}</strong> {overdue.data.length === 1 ? 'zahtev kasni' : 'zahteva kasni'} sa
+            očekivanom isporukom.
+            <ul>
+              {overdue.data.map((p) => (
+                <li key={p.id}>
+                  {p.technicalSheet.positionName} — očekivano {p.expectedDeliveryDate}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
 
       {purchaseRequests.isLoading && <LoadingState />}
       {purchaseRequests.isError && <ErrorState error={purchaseRequests.error} />}
@@ -50,11 +83,45 @@ export function PurchaseRequestsPage() {
             { header: 'Status', render: (p) => <PurchaseRequestStatusPill status={p.status} /> },
             { header: 'Kreiran', render: (p) => p.createdAt },
             { header: 'Očekivana isporuka', render: (p) => p.expectedDeliveryDate },
+            { header: 'Akcija', render: (p) => <StatusActions request={p} /> },
           ]}
           rows={purchaseRequests.data}
           rowKey={(p) => p.id}
-          emptyMessage="Nema zahteva za nabavku sa ovim statusom."
+          emptyMessage={status === 'ALL' ? 'Nema nijednog zahteva za nabavku.' : 'Nema zahteva za nabavku sa ovim statusom.'}
         />
+      )}
+    </div>
+  );
+}
+
+function StatusActions({ request }: { request: PurchaseRequest }) {
+  const updateStatus = useApiMutation((newStatus: PurchaseRequestStatus) => purchaseRequestsApi.updateStatus(request.id, newStatus), {
+    invalidateKeys: [['purchaseRequests']],
+  });
+
+  const nextStep = NEXT_STEP[request.status];
+  const canCancel = CANCELABLE_STATUSES.includes(request.status);
+
+  if (!nextStep && !canCancel) {
+    return null;
+  }
+
+  return (
+    <div style={{ display: 'flex', gap: '0.4rem', justifyContent: 'flex-end' }}>
+      {updateStatus.isError && <ErrorBanner error={updateStatus.error} />}
+      {nextStep && (
+        <Button
+          variant="accent"
+          disabled={updateStatus.isPending}
+          onClick={() => updateStatus.mutate(nextStep.status)}
+        >
+          {nextStep.label}
+        </Button>
+      )}
+      {canCancel && (
+        <Button variant="ghost" disabled={updateStatus.isPending} onClick={() => updateStatus.mutate('CANCELED')}>
+          Otkaži
+        </Button>
       )}
     </div>
   );

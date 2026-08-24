@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <!-- id se ne navodi - supplier.id je GenerationType.IDENTITY, bazu pusta da sama dodeli -->
+    <changeSet id="003-1-supplier-data" author="lenafod">
+        <insert tableName="supplier">
+            <column name="name" value="Metalprom Inženjering d.o.o."/>
+            <column name="address" value="Industrijska zona bb, 11000 Beograd"/>
+            <column name="phone_number" value="011/234-5678"/>
+            <column name="email" value="nabavka@metalprom.rs"/>
+        </insert>
+        <insert tableName="supplier">
+            <column name="name" value="Čelik Komerc a.d."/>
+            <column name="address" value="Radinačka 15, 11300 Smederevo"/>
+            <column name="phone_number" value="026/321-654"/>
+            <column name="email" value="prodaja@celikkomerc.rs"/>
+        </insert>
+        <insert tableName="supplier">
+            <column name="name" value="Inoxmetal d.o.o."/>
+            <column name="address" value="Temerinska 88, 21000 Novi Sad"/>
+            <column name="phone_number" value="021/478-912"/>
+            <column name="email" value="office@inoxmetal.rs"/>
+        </insert>
+        <insert tableName="supplier">
+            <column name="name" value="Alumina Trade d.o.o."/>
+            <column name="address" value="Kragujevačkog oktobra 42, 34000 Kragujevac"/>
+            <column name="phone_number" value="034/556-210"/>
+            <column name="email" value="nabavka@aluminatrade.rs"/>
+        </insert>
+        <insert tableName="supplier">
+            <column name="name" value="Kovas Metali d.o.o."/>
+            <column name="address" value="Cara Lazara 7, 36000 Kraljevo"/>
+            <column name="phone_number" value="036/312-889"/>
+            <column name="email" value="prodaja@kovasmetali.rs"/>
+        </insert>
+        <insert tableName="supplier">
+            <column name="name" value="Feromont Šipke d.o.o."/>
+            <column name="address" value="Bulevar Nemanjića 130, 18000 Niš"/>
+            <column name="phone_number" value="018/245-773"/>
+            <column name="email" value="office@feromont.rs"/>
+        </insert>
+        <insert tableName="supplier">
+            <column name="name" value="Legura Plus d.o.o."/>
+            <column name="address" value="Đorđa Vajferta 21, 32000 Čačak"/>
+            <column name="phone_number" value="032/366-104"/>
+            <column name="email" value="nabavka@leguraplus.rs"/>
+        </insert>
+        <insert tableName="supplier">
+            <column name="name" value="Metalurg Grupa a.d."/>
+            <column name="address" value="Kralja Aleksandra I 56, 23000 Zrenjanin"/>
+            <column name="phone_number" value="023/561-447"/>
+            <column name="email" value="prodaja@metalurggrupa.rs"/>
+        </insert>
+        <insert tableName="supplier">
+            <column name="name" value="Termoval Obrada d.o.o."/>
+            <column name="address" value="Vlade Jovanovića 9, 14000 Valjevo"/>
+            <column name="phone_number" value="014/223-590"/>
+            <column name="email" value="office@termoval.rs"/>
+        </insert>
+        <insert tableName="supplier">
+            <column name="name" value="Precizna Livnica d.o.o."/>
+            <column name="address" value="Trg Kosturnice 3, 37000 Kruševac"/>
+            <column name="phone_number" value="037/418-267"/>
+            <column name="email" value="nabavka@preciznalivnica.rs"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

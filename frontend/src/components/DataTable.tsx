@@ -25,7 +25,9 @@ export function DataTable<T>({ columns, rows, rowKey, emptyMessage, onRowClick }
         <thead>
           <tr>
             {columns.map((column) => (
-              <th key={column.header}>{column.header}</th>
+              <th key={column.header} className={column.numeric ? 'num' : undefined}>
+                {column.header}
+              </th>
             ))}
           </tr>
         </thead>

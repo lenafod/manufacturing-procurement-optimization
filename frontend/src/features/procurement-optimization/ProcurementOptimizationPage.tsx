@@ -5,13 +5,13 @@ import { procurementOptimizationApi } from '../../api/procurementOptimization';
 import { useApiMutation } from '../../hooks/useApiMutation';
 import { Button } from '../../components/Button';
 import { Select } from '../../components/Select';
-import { WeightBalanceSlider } from '../../components/WeightBalanceSlider';
+import { WeightStepper } from '../../components/WeightStepper';
 import { DataTable } from '../../components/DataTable';
 import { PurchaseRequestStatusPill } from '../../components/StatusPill';
 import { ErrorBanner } from '../../components/ErrorBanner';
 import { LoadingState } from '../../components/LoadingState';
 import { ErrorState } from '../../components/ErrorState';
-import type { PurchaseRequest } from '../../types';
+import type { PurchaseRequest, SkippedPosition } from '../../types';
 
 export function ProcurementOptimizationPage() {
   const workOrders = useQuery({ queryKey: ['workOrders'], queryFn: workOrdersApi.getAll });
@@ -51,7 +51,7 @@ export function ProcurementOptimizationPage() {
       )}
 
       <div className="panel-section-label">2. Odnos kriterijuma</div>
-      <WeightBalanceSlider pricePercent={pricePercent} onChange={setPricePercent} />
+      <WeightStepper pricePercent={pricePercent} onChange={setPricePercent} />
 
       <div style={{ marginTop: '1.2rem' }}>
         <ErrorBanner error={optimize.error} />
@@ -72,10 +72,20 @@ export function ProcurementOptimizationPage() {
               { header: 'Rok', render: (p) => `${p.supplierMaterial.deliveryTime} d`, numeric: true },
               { header: 'Status', render: (p) => <PurchaseRequestStatusPill status={p.status} /> },
             ]}
-            rows={optimize.data}
+            rows={optimize.data.created}
             rowKey={(p) => p.id}
-            emptyMessage="Sve pozicije ovog naloga već imaju dovoljno zaliha — nema potrebe za nabavkom."
+            emptyMessage="Nijedna pozicija ovog naloga nije dobila novi zahtev za nabavku."
           />
+
+          {optimize.data.skipped.length > 0 && (
+            <ul style={{ marginTop: '0.9rem', paddingLeft: '1.1rem', color: 'var(--steel)', fontSize: '0.86rem' }}>
+              {optimize.data.skipped.map((s: SkippedPosition) => (
+                <li key={s.positionName}>
+                  <strong style={{ color: 'var(--ink)' }}>{s.positionName}</strong> — {s.reason}
+                </li>
+              ))}
+            </ul>
+          )}
         </>
       )}
     </div>

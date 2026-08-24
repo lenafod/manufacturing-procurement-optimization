@@ -6,12 +6,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.mpo.entity.PurchaseRequest;
+import com.mpo.dto.OptimizationResult;
 import com.mpo.entity.WorkOrder;
 import com.mpo.service.ProcurementOptimizationService;
 import com.mpo.service.WorkOrderService;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/procurement-optimization")
@@ -27,9 +25,9 @@ public class ProcurementOptimizationController {
     }
 
     @GetMapping("/optimize/{workOrderId}")
-    public List<PurchaseRequest> optimizeProcurement(@PathVariable String workOrderId,
-                                                      @RequestParam Double weightPrice,
-                                                      @RequestParam Double weightDeliveryTime) {
+    public OptimizationResult optimizeProcurement(@PathVariable String workOrderId,
+                                                   @RequestParam Double weightPrice,
+                                                   @RequestParam Double weightDeliveryTime) {
 
         WorkOrder workOrder = workOrderService.getById(workOrderId);
 

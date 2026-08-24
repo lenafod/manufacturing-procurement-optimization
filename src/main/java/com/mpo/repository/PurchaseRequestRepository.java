@@ -15,4 +15,6 @@ public interface PurchaseRequestRepository extends JpaRepository<PurchaseRequest
     List<PurchaseRequest> findByTechnicalSheet_WorkOrder_Id(String workOrderId);
 
     List<PurchaseRequest> findByStatusNotInAndExpectedDeliveryDateBefore(List<PurchaseRequestStatus> excludedStatuses, LocalDate date);
+
+    boolean existsByTechnicalSheet_IdAndStatusNotIn(String technicalSheetId, List<PurchaseRequestStatus> excludedStatuses);
 }
