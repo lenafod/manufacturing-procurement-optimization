@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <!-- prosirenje sifarnika materijala (id nastavlja od 002-1, koji ide do 5) - gustina u g/cm3 -->
+    <changeSet id="006-1-more-material-type-data" author="lenafod">
+        <insert tableName="material_type">
+            <column name="id" valueNumeric="6"/>
+            <column name="material_name" value="Č0562 (S275J0)"/>
+            <column name="density" valueNumeric="7.85"/>
+        </insert>
+        <insert tableName="material_type">
+            <column name="id" valueNumeric="7"/>
+            <column name="material_name" value="Č1221 (C25)"/>
+            <column name="density" valueNumeric="7.85"/>
+        </insert>
+        <insert tableName="material_type">
+            <column name="id" valueNumeric="8"/>
+            <column name="material_name" value="Č1730 (16MnCr5)"/>
+            <column name="density" valueNumeric="7.85"/>
+        </insert>
+        <insert tableName="material_type">
+            <column name="id" valueNumeric="9"/>
+            <column name="material_name" value="Č4171 (34CrNiMo6)"/>
+            <column name="density" valueNumeric="7.85"/>
+        </insert>
+        <insert tableName="material_type">
+            <column name="id" valueNumeric="10"/>
+            <column name="material_name" value="Č9720 (100Cr6)"/>
+            <column name="density" valueNumeric="7.85"/>
+        </insert>
+        <insert tableName="material_type">
+            <column name="id" valueNumeric="11"/>
+            <column name="material_name" value="Č4574 (X5CrNi18-10)"/>
+            <column name="density" valueNumeric="7.90"/>
+        </insert>
+        <insert tableName="material_type">
+            <column name="id" valueNumeric="12"/>
+            <column name="material_name" value="Č4580 (X2CrNiMo17-12-2)"/>
+            <column name="density" valueNumeric="8.00"/>
+        </insert>
+        <insert tableName="material_type">
+            <column name="id" valueNumeric="13"/>
+            <column name="material_name" value="Č0645 (E295)"/>
+            <column name="density" valueNumeric="7.85"/>
+        </insert>
+        <insert tableName="material_type">
+            <column name="id" valueNumeric="14"/>
+            <column name="material_name" value="MS58 (CuZn37)"/>
+            <column name="density" valueNumeric="8.44"/>
+        </insert>
+        <insert tableName="material_type">
+            <column name="id" valueNumeric="15"/>
+            <column name="material_name" value="CuSn6"/>
+            <column name="density" valueNumeric="8.80"/>
+        </insert>
+        <insert tableName="material_type">
+            <column name="id" valueNumeric="16"/>
+            <column name="material_name" value="AlMgSi1 (EN AW-6082)"/>
+            <column name="density" valueNumeric="2.70"/>
+        </insert>
+        <insert tableName="material_type">
+            <column name="id" valueNumeric="17"/>
+            <column name="material_name" value="AlZn5.5MgCu (EN AW-7075)"/>
+            <column name="density" valueNumeric="2.81"/>
+        </insert>
+        <insert tableName="material_type">
+            <column name="id" valueNumeric="18"/>
+            <column name="material_name" value="SL250 (GJL-250)"/>
+            <column name="density" valueNumeric="7.20"/>
+        </insert>
+        <insert tableName="material_type">
+            <column name="id" valueNumeric="19"/>
+            <column name="material_name" value="SN400 (GJS-400)"/>
+            <column name="density" valueNumeric="7.10"/>
+        </insert>
+        <insert tableName="material_type">
+            <column name="id" valueNumeric="20"/>
+            <column name="material_name" value="Č1450 (S355K2)"/>
+            <column name="density" valueNumeric="7.85"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

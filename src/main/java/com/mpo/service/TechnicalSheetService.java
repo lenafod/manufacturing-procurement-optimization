@@ -61,6 +61,11 @@ public class TechnicalSheetService {
         return technicalSheetRepository.findAll();
     }
 
+    public TechnicalSheet getById(String id) {
+        return technicalSheetRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("technical sheet with id " + id + " not found"));
+    }
+
     private Double calculatePrepLength(Double partLength, Double technicalAllowance) {
         return partLength + technicalAllowance;
     }

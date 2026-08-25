@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <!-- id se ne navodi - supplier.id je GenerationType.IDENTITY, bazu pusta da sama dodeli -->
+    <changeSet id="008-1-more-supplier-data" author="lenafod">
+        <insert tableName="supplier">
+            <column name="name" value="Subotica Metal d.o.o."/>
+            <column name="address" value="Segedinski put 84, 24000 Subotica"/>
+            <column name="phone_number" value="024/553-217"/>
+            <column name="email" value="prodaja@suboticametal.rs"/>
+        </insert>
+        <insert tableName="supplier">
+            <column name="name" value="Pančevo Legure a.d."/>
+            <column name="address" value="Industrijska 22, 26000 Pančevo"/>
+            <column name="phone_number" value="013/342-108"/>
+            <column name="email" value="nabavka@pancevolegure.rs"/>
+        </insert>
+        <insert tableName="supplier">
+            <column name="name" value="Nerđajući Sistem d.o.o."/>
+            <column name="address" value="Kralja Milana 45, 15000 Šabac"/>
+            <column name="phone_number" value="015/362-771"/>
+            <column name="email" value="office@nerdjajucisistem.rs"/>
+        </insert>
+        <insert tableName="supplier">
+            <column name="name" value="Zapadna Metalurgija d.o.o."/>
+            <column name="address" value="Dimitrija Tucovića 9, 31000 Užice"/>
+            <column name="phone_number" value="031/512-634"/>
+            <column name="email" value="prodaja@zapadnametalurgija.rs"/>
+        </insert>
+        <insert tableName="supplier">
+            <column name="name" value="Jug Čelik a.d."/>
+            <column name="address" value="Kneza Miloša 61, 16000 Leskovac"/>
+            <column name="phone_number" value="016/234-890"/>
+            <column name="email" value="nabavka@jugcelik.rs"/>
+        </insert>
+        <insert tableName="supplier">
+            <column name="name" value="Vranjska Livnica d.o.o."/>
+            <column name="address" value="Pčinjska 14, 17500 Vranje"/>
+            <column name="phone_number" value="017/421-356"/>
+            <column name="email" value="office@vranjskalivnica.rs"/>
+        </insert>
+        <insert tableName="supplier">
+            <column name="name" value="Bačka Aluminijum d.o.o."/>
+            <column name="address" value="Venac Radomira Putnika 5, 25000 Sombor"/>
+            <column name="phone_number" value="025/447-902"/>
+            <column name="email" value="prodaja@backaaluminijum.rs"/>
+        </insert>
+        <insert tableName="supplier">
+            <column name="name" value="Pirot Metali d.o.o."/>
+            <column name="address" value="Srpskih vladara 33, 18300 Pirot"/>
+            <column name="phone_number" value="010/321-445"/>
+            <column name="email" value="nabavka@pirotmetali.rs"/>
+        </insert>
+        <insert tableName="supplier">
+            <column name="name" value="Timok Legure a.d."/>
+            <column name="address" value="Nikole Pašića 17, 19000 Zaječar"/>
+            <column name="phone_number" value="019/443-267"/>
+            <column name="email" value="office@timoklegure.rs"/>
+        </insert>
+        <insert tableName="supplier">
+            <column name="name" value="Podrinje Čelik d.o.o."/>
+            <column name="address" value="Jovana Cvijića 28, 15300 Loznica"/>
+            <column name="phone_number" value="015/881-503"/>
+            <column name="email" value="prodaja@podrinjecelik.rs"/>
+        </insert>
+        <insert tableName="supplier">
+            <column name="name" value="Sirmium Metal Trade d.o.o."/>
+            <column name="address" value="Trg Vojvođanskih brigada 6, 22000 Sremska Mitrovica"/>
+            <column name="phone_number" value="022/612-734"/>
+            <column name="email" value="nabavka@sirmiummetal.rs"/>
+        </insert>
+        <insert tableName="supplier">
+            <column name="name" value="Bakar i Bronza d.o.o."/>
+            <column name="address" value="Moše Pijade 11, 19210 Bor"/>
+            <column name="phone_number" value="030/423-819"/>
+            <column name="email" value="office@bakaribronza.rs"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <!-- upiti dobavljacima da potvrde stvarnu raspolozivu kolicinu pre optimizacije -->
+    <changeSet id="005-1-procurement-inquiry" author="lenafod">
+        <createTable tableName="procurement_inquiry">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="technical_sheet_id" type="VARCHAR(255)">
+                <constraints nullable="true" foreignKeyName="fk_procurement_inquiry_technical_sheet" references="technical_sheet(id)"/>
+            </column>
+            <column name="supplier_material_id" type="INT">
+                <constraints nullable="true" foreignKeyName="fk_procurement_inquiry_supplier_material" references="supplier_material(id)"/>
+            </column>
+            <column name="requested_quantity" type="DOUBLE PRECISION"/>
+            <column name="confirmed_quantity" type="DOUBLE PRECISION"/>
+            <column name="status" type="VARCHAR(255)"/>
+            <column name="sent_at" type="DATE"/>
+            <column name="responded_at" type="DATE"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

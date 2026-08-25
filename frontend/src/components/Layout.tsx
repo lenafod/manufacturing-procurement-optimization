@@ -2,11 +2,12 @@ import { NavLink, Outlet } from 'react-router-dom';
 
 const navItems = [
   { to: '/', label: 'Početna', end: true },
-  { to: '/suppliers', label: 'Dobavljači' },
   { to: '/inventory', label: 'Magacin' },
+  { to: '/suppliers', label: 'Dobavljači' },
   { to: '/work-orders', label: 'Radni nalozi' },
-  { to: '/purchase-requests', label: 'Zahtevi za nabavku' },
+  { to: '/procurement-inquiries', label: 'Upiti' },
   { to: '/procurement-optimization', label: 'Optimizacija nabavke' },
+  { to: '/purchase-requests', label: 'Zahtevi za nabavku' },
 ];
 
 export function Layout() {

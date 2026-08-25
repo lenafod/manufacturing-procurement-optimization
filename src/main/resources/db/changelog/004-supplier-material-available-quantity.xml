@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <!-- omogucava deljenje jedne potrebe (Q) izmedju vise ponuda dobavljaca kad nijedna sama nema dovoljno -->
+    <changeSet id="004-1-supplier-material-available-quantity" author="lenafod">
+        <addColumn tableName="supplier_material">
+            <column name="available_quantity" type="DOUBLE PRECISION" defaultValueNumeric="0"/>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

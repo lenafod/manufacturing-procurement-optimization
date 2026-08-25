@@ -5,23 +5,35 @@ import { procurementOptimizationApi } from '../../api/procurementOptimization';
 import { useApiMutation } from '../../hooks/useApiMutation';
 import { Button } from '../../components/Button';
 import { Select } from '../../components/Select';
+import { Modal } from '../../components/Modal';
 import { WeightStepper } from '../../components/WeightStepper';
 import { DataTable } from '../../components/DataTable';
 import { PurchaseRequestStatusPill } from '../../components/StatusPill';
 import { ErrorBanner } from '../../components/ErrorBanner';
 import { LoadingState } from '../../components/LoadingState';
 import { ErrorState } from '../../components/ErrorState';
-import type { PurchaseRequest, SkippedPosition } from '../../types';
+import type { OptimizationResult, PartialFulfillment, PurchaseRequest, SkippedPosition } from '../../types';
 
 export function ProcurementOptimizationPage() {
   const workOrders = useQuery({ queryKey: ['workOrders'], queryFn: workOrdersApi.getAll });
 
   const [workOrderId, setWorkOrderId] = useState('');
   const [pricePercent, setPricePercent] = useState(50);
+  const [previewOpen, setPreviewOpen] = useState(false);
+
+  const preview = useApiMutation(() =>
+    procurementOptimizationApi.preview(workOrderId, pricePercent / 100, (100 - pricePercent) / 100),
+  );
 
   const optimize = useApiMutation(() =>
     procurementOptimizationApi.optimize(workOrderId, pricePercent / 100, (100 - pricePercent) / 100),
   );
+
+  const resetResults = () => {
+    preview.reset();
+    optimize.reset();
+    setPreviewOpen(false);
+  };
 
   return (
     <div className="card">
@@ -45,49 +57,121 @@ export function ProcurementOptimizationPage() {
           value={workOrderId}
           onChange={(e) => {
             setWorkOrderId(e.target.value);
-            optimize.reset();
+            resetResults();
           }}
         />
       )}
 
       <div className="panel-section-label">2. Odnos kriterijuma</div>
-      <WeightStepper pricePercent={pricePercent} onChange={setPricePercent} />
+      <WeightStepper
+        pricePercent={pricePercent}
+        onChange={(value) => {
+          setPricePercent(value);
+          resetResults();
+        }}
+      />
 
       <div style={{ marginTop: '1.2rem' }}>
-        <ErrorBanner error={optimize.error} />
-        <Button variant="accent" disabled={!workOrderId || optimize.isPending} onClick={() => optimize.mutate(undefined)}>
-          {optimize.isPending ? 'Optimizujem...' : 'Pokreni optimizaciju'}
+        <Button
+          variant="accent"
+          disabled={!workOrderId || preview.isPending}
+          onClick={() => {
+            setPreviewOpen(true);
+            preview.mutate(undefined);
+          }}
+        >
+          {preview.isPending ? 'Učitavam pregled...' : 'Prikaži pregled'}
         </Button>
       </div>
 
-      {optimize.isSuccess && (
-        <>
-          <div className="panel-section-label">3. Rezultat</div>
-          <DataTable<PurchaseRequest>
-            columns={[
-              { header: 'Pozicija', render: (p) => p.technicalSheet.positionName },
-              { header: 'Dobavljač', render: (p) => p.supplierMaterial.supplier.name },
-              { header: 'Materijal', render: (p) => p.supplierMaterial.materialType.materialName },
-              { header: 'Cena', render: (p) => p.totalPrice.toFixed(2), numeric: true },
-              { header: 'Rok', render: (p) => `${p.supplierMaterial.deliveryTime} d`, numeric: true },
-              { header: 'Status', render: (p) => <PurchaseRequestStatusPill status={p.status} /> },
-            ]}
-            rows={optimize.data.created}
-            rowKey={(p) => p.id}
-            emptyMessage="Nijedna pozicija ovog naloga nije dobila novi zahtev za nabavku."
-          />
+      {previewOpen && (
+        <Modal title={`Pregled — ${workOrderId}`} onClose={resetResults} wide>
+          {preview.isError && <ErrorBanner error={preview.error} />}
+          {preview.isPending && <LoadingState />}
 
-          {optimize.data.skipped.length > 0 && (
-            <ul style={{ marginTop: '0.9rem', paddingLeft: '1.1rem', color: 'var(--steel)', fontSize: '0.86rem' }}>
-              {optimize.data.skipped.map((s: SkippedPosition) => (
-                <li key={s.positionName}>
-                  <strong style={{ color: 'var(--ink)' }}>{s.positionName}</strong> — {s.reason}
+          {optimize.isSuccess ? (
+            <>
+              <p style={{ margin: '0 0 0.9rem', color: 'var(--ok)', fontSize: '0.86rem' }}>
+                Zahtevi za nabavku su kreirani.
+              </p>
+              <OptimizationResultView result={optimize.data} />
+              <div className="modal-actions">
+                <Button variant="ghost" onClick={resetResults}>
+                  Zatvori
+                </Button>
+              </div>
+            </>
+          ) : (
+            preview.isSuccess && (
+              <>
+                <p style={{ margin: '0 0 0.9rem', color: 'var(--steel)', fontSize: '0.86rem' }}>
+                  Predlog na osnovu trenutno poznatih količina — ništa još nije sačuvano.
+                </p>
+                <OptimizationResultView result={preview.data} draft />
+                <ErrorBanner error={optimize.error} />
+                <div className="modal-actions">
+                  <Button variant="ghost" onClick={resetResults}>
+                    Otkaži
+                  </Button>
+                  <Button variant="accent" disabled={optimize.isPending} onClick={() => optimize.mutate(undefined)}>
+                    {optimize.isPending ? 'Pokrećem...' : 'Pokreni optimizaciju'}
+                  </Button>
+                </div>
+              </>
+            )
+          )}
+        </Modal>
+      )}
+    </div>
+  );
+}
+
+// draft=true za pregled (dry-run): PurchaseRequest redovi jos nemaju id (nista nije sacuvano u
+// bazi), pa se rowKey pravi od pozicije + ponude umesto od id-ja
+function OptimizationResultView({ result, draft = false }: { result: OptimizationResult; draft?: boolean }) {
+  return (
+    <>
+      <DataTable<PurchaseRequest>
+        columns={[
+          { header: 'Pozicija', render: (p) => p.technicalSheet.positionName },
+          { header: 'Dobavljač', render: (p) => p.supplierMaterial.supplier.name },
+          { header: 'Materijal', render: (p) => p.supplierMaterial.materialType.materialName },
+          { header: 'Količina', render: (p) => p.requiredQuantity, numeric: true },
+          { header: 'Cena', render: (p) => p.totalPrice.toFixed(2), numeric: true },
+          { header: 'Rok', render: (p) => `${p.supplierMaterial.deliveryTime} d`, numeric: true },
+          ...(draft ? [] : [{ header: 'Status', render: (p: PurchaseRequest) => <PurchaseRequestStatusPill status={p.status} /> }]),
+        ]}
+        rows={result.created}
+        rowKey={(p) => (draft ? `${p.technicalSheet.id}-${p.supplierMaterial.id}` : p.id)}
+        emptyMessage="Nijedna pozicija ovog naloga nije dobila novi zahtev za nabavku."
+      />
+
+      {result.partial.length > 0 && (
+        <div className="warn-banner">
+          <span className="icon">⚠</span>
+          <div>
+            Kombinovana raspoloživa količina svih dobavljača nije dovoljna za sledeće pozicije — {draft ? 'bila bi' : 'je'}{' '}
+            napravljen zahtev za ono što je pokriveno, ostatak nedostaje:
+            <ul>
+              {result.partial.map((p: PartialFulfillment) => (
+                <li key={p.positionName}>
+                  <strong>{p.positionName}</strong> — nedostaje {p.missingQuantity.toFixed(2)}
                 </li>
               ))}
             </ul>
-          )}
-        </>
+          </div>
+        </div>
       )}
-    </div>
+
+      {result.skipped.length > 0 && (
+        <ul style={{ marginTop: '0.9rem', paddingLeft: '1.1rem', color: 'var(--steel)', fontSize: '0.86rem' }}>
+          {result.skipped.map((s: SkippedPosition) => (
+            <li key={s.positionName}>
+              <strong style={{ color: 'var(--ink)' }}>{s.positionName}</strong> — {s.reason}
+            </li>
+          ))}
+        </ul>
+      )}
+    </>
   );
 }

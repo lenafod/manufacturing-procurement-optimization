@@ -9,6 +9,7 @@ import { WorkOrdersPage } from './features/work-orders/WorkOrdersPage';
 import { WorkOrderDetailPage } from './features/work-orders/WorkOrderDetailPage';
 import { PurchaseRequestsPage } from './features/purchase-requests/PurchaseRequestsPage';
 import { ProcurementOptimizationPage } from './features/procurement-optimization/ProcurementOptimizationPage';
+import { ProcurementInquiriesPage } from './features/procurement-inquiries/ProcurementInquiriesPage';
 
 export const router = createBrowserRouter([
   {
@@ -23,6 +24,7 @@ export const router = createBrowserRouter([
       { path: 'work-orders', element: <WorkOrdersPage /> },
       { path: 'work-orders/:id', element: <WorkOrderDetailPage /> },
       { path: 'purchase-requests', element: <PurchaseRequestsPage /> },
+      { path: 'procurement-inquiries', element: <ProcurementInquiriesPage /> },
       { path: 'procurement-optimization', element: <ProcurementOptimizationPage /> },
     ],
   },

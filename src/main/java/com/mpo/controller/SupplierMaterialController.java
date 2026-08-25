@@ -36,6 +36,11 @@ public class SupplierMaterialController {
         return supplierMaterialService.saveSupplierMaterial(supplierMaterial);
     }
 
+    @PutMapping("/{id}")
+    public SupplierMaterial update(@PathVariable Integer id, @RequestBody SupplierMaterial supplierMaterial) {
+        return supplierMaterialService.updateSupplierMaterial(id, supplierMaterial);
+    }
+
     @GetMapping("/optimal")
     public SupplierMaterial findOptimal(
             @RequestParam String materialTypeName,

@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <!-- ispravka 010: proizvoljne mm vrednosti (npr. 27711mm) nisu realisticne za sipke sirovine -
+         sirovina se nabavlja u standardnim komercijalnim duzinama (6000mm), pa je realnije da
+         ukupna kolicina na stanju bude umnozak te duzine (N sipki x 6000mm) -->
+    <changeSet id="011-1-round-inventory-to-bar-lengths" author="lenafod">
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="102000"/>
+            <where>material_type_id = 1 AND material_section_id = 3</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="120000"/>
+            <where>material_type_id = 1 AND material_section_id = 7</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="102000"/>
+            <where>material_type_id = 1 AND material_section_id = 12</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="102000"/>
+            <where>material_type_id = 1 AND material_section_id = 13</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="114000"/>
+            <where>material_type_id = 1 AND material_section_id = 18</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="54000"/>
+            <where>material_type_id = 1 AND material_section_id = 30</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="48000"/>
+            <where>material_type_id = 2 AND material_section_id = 2</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="114000"/>
+            <where>material_type_id = 2 AND material_section_id = 8</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="108000"/>
+            <where>material_type_id = 2 AND material_section_id = 14</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="48000"/>
+            <where>material_type_id = 2 AND material_section_id = 18</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="36000"/>
+            <where>material_type_id = 3 AND material_section_id = 2</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="102000"/>
+            <where>material_type_id = 3 AND material_section_id = 8</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="72000"/>
+            <where>material_type_id = 3 AND material_section_id = 19</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="42000"/>
+            <where>material_type_id = 3 AND material_section_id = 21</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="30000"/>
+            <where>material_type_id = 4 AND material_section_id = 5</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="120000"/>
+            <where>material_type_id = 4 AND material_section_id = 8</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="24000"/>
+            <where>material_type_id = 4 AND material_section_id = 14</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="90000"/>
+            <where>material_type_id = 4 AND material_section_id = 18</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="54000"/>
+            <where>material_type_id = 5 AND material_section_id = 4</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="72000"/>
+            <where>material_type_id = 5 AND material_section_id = 18</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="78000"/>
+            <where>material_type_id = 5 AND material_section_id = 19</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="66000"/>
+            <where>material_type_id = 5 AND material_section_id = 22</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="48000"/>
+            <where>material_type_id = 6 AND material_section_id = 2</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="18000"/>
+            <where>material_type_id = 6 AND material_section_id = 3</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="114000"/>
+            <where>material_type_id = 6 AND material_section_id = 7</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="30000"/>
+            <where>material_type_id = 6 AND material_section_id = 12</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="24000"/>
+            <where>material_type_id = 6 AND material_section_id = 18</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="24000"/>
+            <where>material_type_id = 7 AND material_section_id = 3</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="54000"/>
+            <where>material_type_id = 7 AND material_section_id = 6</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="60000"/>
+            <where>material_type_id = 7 AND material_section_id = 8</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="18000"/>
+            <where>material_type_id = 7 AND material_section_id = 12</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="102000"/>
+            <where>material_type_id = 7 AND material_section_id = 15</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="78000"/>
+            <where>material_type_id = 7 AND material_section_id = 25</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="102000"/>
+            <where>material_type_id = 7 AND material_section_id = 30</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="54000"/>
+            <where>material_type_id = 8 AND material_section_id = 3</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="114000"/>
+            <where>material_type_id = 8 AND material_section_id = 10</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="60000"/>
+            <where>material_type_id = 8 AND material_section_id = 14</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="72000"/>
+            <where>material_type_id = 8 AND material_section_id = 17</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="108000"/>
+            <where>material_type_id = 8 AND material_section_id = 24</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="18000"/>
+            <where>material_type_id = 8 AND material_section_id = 29</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="30000"/>
+            <where>material_type_id = 9 AND material_section_id = 5</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="102000"/>
+            <where>material_type_id = 9 AND material_section_id = 14</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="66000"/>
+            <where>material_type_id = 9 AND material_section_id = 19</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="96000"/>
+            <where>material_type_id = 9 AND material_section_id = 22</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="120000"/>
+            <where>material_type_id = 9 AND material_section_id = 25</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="30000"/>
+            <where>material_type_id = 9 AND material_section_id = 29</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="66000"/>
+            <where>material_type_id = 10 AND material_section_id = 3</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="78000"/>
+            <where>material_type_id = 10 AND material_section_id = 9</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="60000"/>
+            <where>material_type_id = 10 AND material_section_id = 11</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="114000"/>
+            <where>material_type_id = 10 AND material_section_id = 12</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="72000"/>
+            <where>material_type_id = 10 AND material_section_id = 16</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="18000"/>
+            <where>material_type_id = 10 AND material_section_id = 26</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="12000"/>
+            <where>material_type_id = 11 AND material_section_id = 2</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="12000"/>
+            <where>material_type_id = 11 AND material_section_id = 21</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="42000"/>
+            <where>material_type_id = 11 AND material_section_id = 22</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="12000"/>
+            <where>material_type_id = 11 AND material_section_id = 23</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="30000"/>
+            <where>material_type_id = 12 AND material_section_id = 1</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="42000"/>
+            <where>material_type_id = 12 AND material_section_id = 10</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="12000"/>
+            <where>material_type_id = 12 AND material_section_id = 12</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="6000"/>
+            <where>material_type_id = 12 AND material_section_id = 13</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="6000"/>
+            <where>material_type_id = 12 AND material_section_id = 16</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="24000"/>
+            <where>material_type_id = 12 AND material_section_id = 20</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="24000"/>
+            <where>material_type_id = 12 AND material_section_id = 22</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="24000"/>
+            <where>material_type_id = 13 AND material_section_id = 5</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="108000"/>
+            <where>material_type_id = 13 AND material_section_id = 8</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="90000"/>
+            <where>material_type_id = 13 AND material_section_id = 13</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="90000"/>
+            <where>material_type_id = 13 AND material_section_id = 16</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="96000"/>
+            <where>material_type_id = 13 AND material_section_id = 25</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="6000"/>
+            <where>material_type_id = 14 AND material_section_id = 15</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="30000"/>
+            <where>material_type_id = 14 AND material_section_id = 18</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="12000"/>
+            <where>material_type_id = 14 AND material_section_id = 27</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="18000"/>
+            <where>material_type_id = 14 AND material_section_id = 28</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="18000"/>
+            <where>material_type_id = 14 AND material_section_id = 29</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="6000"/>
+            <where>material_type_id = 15 AND material_section_id = 3</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="18000"/>
+            <where>material_type_id = 15 AND material_section_id = 5</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="18000"/>
+            <where>material_type_id = 15 AND material_section_id = 8</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="6000"/>
+            <where>material_type_id = 15 AND material_section_id = 12</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="24000"/>
+            <where>material_type_id = 15 AND material_section_id = 22</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="6000"/>
+            <where>material_type_id = 15 AND material_section_id = 23</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="24000"/>
+            <where>material_type_id = 16 AND material_section_id = 1</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="30000"/>
+            <where>material_type_id = 16 AND material_section_id = 9</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="78000"/>
+            <where>material_type_id = 16 AND material_section_id = 16</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="18000"/>
+            <where>material_type_id = 16 AND material_section_id = 19</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="12000"/>
+            <where>material_type_id = 17 AND material_section_id = 11</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="12000"/>
+            <where>material_type_id = 17 AND material_section_id = 17</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="54000"/>
+            <where>material_type_id = 17 AND material_section_id = 18</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="84000"/>
+            <where>material_type_id = 17 AND material_section_id = 20</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="54000"/>
+            <where>material_type_id = 17 AND material_section_id = 21</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="24000"/>
+            <where>material_type_id = 17 AND material_section_id = 23</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="72000"/>
+            <where>material_type_id = 17 AND material_section_id = 24</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="120000"/>
+            <where>material_type_id = 18 AND material_section_id = 2</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="54000"/>
+            <where>material_type_id = 18 AND material_section_id = 3</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="102000"/>
+            <where>material_type_id = 18 AND material_section_id = 4</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="114000"/>
+            <where>material_type_id = 18 AND material_section_id = 13</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="54000"/>
+            <where>material_type_id = 18 AND material_section_id = 15</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="42000"/>
+            <where>material_type_id = 18 AND material_section_id = 21</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="96000"/>
+            <where>material_type_id = 18 AND material_section_id = 29</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="138000"/>
+            <where>material_type_id = 19 AND material_section_id = 4</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="90000"/>
+            <where>material_type_id = 19 AND material_section_id = 11</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="36000"/>
+            <where>material_type_id = 19 AND material_section_id = 18</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="90000"/>
+            <where>material_type_id = 19 AND material_section_id = 19</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="96000"/>
+            <where>material_type_id = 20 AND material_section_id = 3</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="54000"/>
+            <where>material_type_id = 20 AND material_section_id = 7</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="18000"/>
+            <where>material_type_id = 20 AND material_section_id = 12</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="66000"/>
+            <where>material_type_id = 20 AND material_section_id = 13</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="72000"/>
+            <where>material_type_id = 20 AND material_section_id = 20</where>
+        </update>
+        <update tableName="inventory">
+            <column name="quantity" valueNumeric="18000"/>
+            <where>material_type_id = 20 AND material_section_id = 21</where>
+        </update>
+    </changeSet>
+
+</databaseChangeLog>

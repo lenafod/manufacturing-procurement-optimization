@@ -34,4 +34,5 @@ public class SupplierMaterial {
 
     private Double pricePerUnit; //cena po jedinici mere
     private Integer deliveryTime; //vreme isporuke u danima
+    private Double availableQuantity; //raspoloziva kolicina kod dobavljaca, opada kako se prave zahtevi za nabavku
 }

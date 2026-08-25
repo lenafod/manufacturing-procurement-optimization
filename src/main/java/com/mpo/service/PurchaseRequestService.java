@@ -16,10 +16,12 @@ public class PurchaseRequestService {
 
     private final PurchaseRequestRepository purchaseRequestRepository;
     private final InventoryService inventoryService;
+    private final SupplierMaterialService supplierMaterialService;
 
-    public PurchaseRequestService(PurchaseRequestRepository purchaseRequestRepository, InventoryService inventoryService) {
+    public PurchaseRequestService(PurchaseRequestRepository purchaseRequestRepository, InventoryService inventoryService, SupplierMaterialService supplierMaterialService) {
         this.purchaseRequestRepository = purchaseRequestRepository;
         this.inventoryService = inventoryService;
+        this.supplierMaterialService = supplierMaterialService;
     }
 
     public List<PurchaseRequest> getPurchaseRequestsByStatus(PurchaseRequestStatus status) {
@@ -65,6 +67,14 @@ public class PurchaseRequestService {
             inventoryService.increaseQuantity(
                     purchaseRequest.getTechnicalSheet().getMaterialType(),
                     purchaseRequest.getTechnicalSheet().getMaterialSectionType(),
+                    purchaseRequest.getRequiredQuantity()
+            );
+        }
+
+        // otkazivanje vraca rezervisanu kolicinu nazad dobavljacu (oduzeta je od availableQuantity kad je zahtev napravljen)
+        if (newStatus == PurchaseRequestStatus.CANCELED) {
+            supplierMaterialService.increaseAvailableQuantity(
+                    purchaseRequest.getSupplierMaterial(),
                     purchaseRequest.getRequiredQuantity()
             );
         }

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <!-- prosirenje sifarnika preseka (id nastavlja od 002-2, koji ide do 10) - dim1/dim2 u mm -->
+    <changeSet id="007-1-more-material-section-type-data" author="lenafod">
+        <insert tableName="material_section_type">
+            <column name="id" valueNumeric="11"/>
+            <column name="type_name" value="ROUND"/>
+            <column name="dim1" valueNumeric="8"/>
+            <column name="dim2"/>
+            <column name="uses_dim2" valueBoolean="false"/>
+        </insert>
+        <insert tableName="material_section_type">
+            <column name="id" valueNumeric="12"/>
+            <column name="type_name" value="ROUND"/>
+            <column name="dim1" valueNumeric="10"/>
+            <column name="dim2"/>
+            <column name="uses_dim2" valueBoolean="false"/>
+        </insert>
+        <insert tableName="material_section_type">
+            <column name="id" valueNumeric="13"/>
+            <column name="type_name" value="ROUND"/>
+            <column name="dim1" valueNumeric="12"/>
+            <column name="dim2"/>
+            <column name="uses_dim2" valueBoolean="false"/>
+        </insert>
+        <insert tableName="material_section_type">
+            <column name="id" valueNumeric="14"/>
+            <column name="type_name" value="ROUND"/>
+            <column name="dim1" valueNumeric="16"/>
+            <column name="dim2"/>
+            <column name="uses_dim2" valueBoolean="false"/>
+        </insert>
+        <insert tableName="material_section_type">
+            <column name="id" valueNumeric="15"/>
+            <column name="type_name" value="ROUND"/>
+            <column name="dim1" valueNumeric="25"/>
+            <column name="dim2"/>
+            <column name="uses_dim2" valueBoolean="false"/>
+        </insert>
+        <insert tableName="material_section_type">
+            <column name="id" valueNumeric="16"/>
+            <column name="type_name" value="ROUND"/>
+            <column name="dim1" valueNumeric="60"/>
+            <column name="dim2"/>
+            <column name="uses_dim2" valueBoolean="false"/>
+        </insert>
+        <insert tableName="material_section_type">
+            <column name="id" valueNumeric="17"/>
+            <column name="type_name" value="ROUND"/>
+            <column name="dim1" valueNumeric="80"/>
+            <column name="dim2"/>
+            <column name="uses_dim2" valueBoolean="false"/>
+        </insert>
+        <insert tableName="material_section_type">
+            <column name="id" valueNumeric="18"/>
+            <column name="type_name" value="ROUND"/>
+            <column name="dim1" valueNumeric="100"/>
+            <column name="dim2"/>
+            <column name="uses_dim2" valueBoolean="false"/>
+        </insert>
+        <insert tableName="material_section_type">
+            <column name="id" valueNumeric="19"/>
+            <column name="type_name" value="RECTANGULAR"/>
+            <column name="dim1" valueNumeric="20"/>
+            <column name="dim2" valueNumeric="10"/>
+            <column name="uses_dim2" valueBoolean="true"/>
+        </insert>
+        <insert tableName="material_section_type">
+            <column name="id" valueNumeric="20"/>
+            <column name="type_name" value="RECTANGULAR"/>
+            <column name="dim1" valueNumeric="30"/>
+            <column name="dim2" valueNumeric="15"/>
+            <column name="uses_dim2" valueBoolean="true"/>
+        </insert>
+        <insert tableName="material_section_type">
+            <column name="id" valueNumeric="21"/>
+            <column name="type_name" value="RECTANGULAR"/>
+            <column name="dim1" valueNumeric="50"/>
+            <column name="dim2" valueNumeric="25"/>
+            <column name="uses_dim2" valueBoolean="true"/>
+        </insert>
+        <insert tableName="material_section_type">
+            <column name="id" valueNumeric="22"/>
+            <column name="type_name" value="RECTANGULAR"/>
+            <column name="dim1" valueNumeric="100"/>
+            <column name="dim2" valueNumeric="50"/>
+            <column name="uses_dim2" valueBoolean="true"/>
+        </insert>
+        <insert tableName="material_section_type">
+            <column name="id" valueNumeric="23"/>
+            <column name="type_name" value="CUBE"/>
+            <column name="dim1" valueNumeric="10"/>
+            <column name="dim2"/>
+            <column name="uses_dim2" valueBoolean="false"/>
+        </insert>
+        <insert tableName="material_section_type">
+            <column name="id" valueNumeric="24"/>
+            <column name="type_name" value="CUBE"/>
+            <column name="dim1" valueNumeric="16"/>
+            <column name="dim2"/>
+            <column name="uses_dim2" valueBoolean="false"/>
+        </insert>
+        <insert tableName="material_section_type">
+            <column name="id" valueNumeric="25"/>
+            <column name="type_name" value="CUBE"/>
+            <column name="dim1" valueNumeric="50"/>
+            <column name="dim2"/>
+            <column name="uses_dim2" valueBoolean="false"/>
+        </insert>
+        <insert tableName="material_section_type">
+            <column name="id" valueNumeric="26"/>
+            <column name="type_name" value="HEXAGONAL"/>
+            <column name="dim1" valueNumeric="17"/>
+            <column name="dim2"/>
+            <column name="uses_dim2" valueBoolean="false"/>
+        </insert>
+        <insert tableName="material_section_type">
+            <column name="id" valueNumeric="27"/>
+            <column name="type_name" value="HEXAGONAL"/>
+            <column name="dim1" valueNumeric="30"/>
+            <column name="dim2"/>
+            <column name="uses_dim2" valueBoolean="false"/>
+        </insert>
+        <insert tableName="material_section_type">
+            <column name="id" valueNumeric="28"/>
+            <column name="type_name" value="PIPE"/>
+            <column name="dim1" valueNumeric="40"/>
+            <column name="dim2" valueNumeric="30"/>
+            <column name="uses_dim2" valueBoolean="true"/>
+        </insert>
+        <insert tableName="material_section_type">
+            <column name="id" valueNumeric="29"/>
+            <column name="type_name" value="PIPE"/>
+            <column name="dim1" valueNumeric="50"/>
+            <column name="dim2" valueNumeric="35"/>
+            <column name="uses_dim2" valueBoolean="true"/>
+        </insert>
+        <insert tableName="material_section_type">
+            <column name="id" valueNumeric="30"/>
+            <column name="type_name" value="PIPE"/>
+            <column name="dim1" valueNumeric="60"/>
+            <column name="dim2" valueNumeric="45"/>
+            <column name="uses_dim2" valueBoolean="true"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

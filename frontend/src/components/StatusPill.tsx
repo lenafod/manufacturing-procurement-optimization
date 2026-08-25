@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import type { PurchaseRequestStatus } from '../types';
+import type { ProcurementInquiryStatus, PurchaseRequestStatus } from '../types';
 
 type Tone = 'neutral' | 'ok' | 'warn' | 'crit';
 
@@ -25,4 +25,20 @@ const PURCHASE_REQUEST_STATUS_TONE: Record<PurchaseRequestStatus, Tone> = {
 
 export function PurchaseRequestStatusPill({ status }: { status: PurchaseRequestStatus }) {
   return <StatusPill tone={PURCHASE_REQUEST_STATUS_TONE[status]}>{PURCHASE_REQUEST_STATUS_LABEL[status]}</StatusPill>;
+}
+
+const PROCUREMENT_INQUIRY_STATUS_LABEL: Record<ProcurementInquiryStatus, string> = {
+  POSLAT: 'Poslat',
+  ODGOVOREN: 'Odgovoreno',
+};
+
+const PROCUREMENT_INQUIRY_STATUS_TONE: Record<ProcurementInquiryStatus, Tone> = {
+  POSLAT: 'warn',
+  ODGOVOREN: 'ok',
+};
+
+export function ProcurementInquiryStatusPill({ status }: { status: ProcurementInquiryStatus }) {
+  return (
+    <StatusPill tone={PROCUREMENT_INQUIRY_STATUS_TONE[status]}>{PROCUREMENT_INQUIRY_STATUS_LABEL[status]}</StatusPill>
+  );
 }

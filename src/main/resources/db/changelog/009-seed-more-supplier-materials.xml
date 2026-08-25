@@ -1,0 +1,1351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <!-- ponude dobavljaca za prosireni sifarnik materijala/preseka - id se ne navodi (IDENTITY).
+         kombinacije koje vec koriste postojeci tehnicki listovi (npr. materijal 1/presek 2,
+         materijal 2/preseci 3,4,6,7,9,10, materijal 4/preseci 3,10) namerno imaju vise
+         konkurentskih ponuda da bi multi-source alokacija imala sta da bira -->
+    <changeSet id="009-1-more-supplier-material-data" author="lenafod">
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="7"/>
+            <column name="material_type_id" valueNumeric="1"/>
+            <column name="material_section_type_id" valueNumeric="2"/>
+            <column name="price_per_unit" valueNumeric="110.18"/>
+            <column name="delivery_time" valueNumeric="4"/>
+            <column name="available_quantity" valueNumeric="1435"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="2"/>
+            <column name="material_type_id" valueNumeric="1"/>
+            <column name="material_section_type_id" valueNumeric="2"/>
+            <column name="price_per_unit" valueNumeric="203.32"/>
+            <column name="delivery_time" valueNumeric="11"/>
+            <column name="available_quantity" valueNumeric="228"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="17"/>
+            <column name="material_type_id" valueNumeric="1"/>
+            <column name="material_section_type_id" valueNumeric="2"/>
+            <column name="price_per_unit" valueNumeric="176.29"/>
+            <column name="delivery_time" valueNumeric="3"/>
+            <column name="available_quantity" valueNumeric="111"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="8"/>
+            <column name="material_type_id" valueNumeric="1"/>
+            <column name="material_section_type_id" valueNumeric="2"/>
+            <column name="price_per_unit" valueNumeric="86.87"/>
+            <column name="delivery_time" valueNumeric="6"/>
+            <column name="available_quantity" valueNumeric="1084"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="23"/>
+            <column name="material_type_id" valueNumeric="1"/>
+            <column name="material_section_type_id" valueNumeric="2"/>
+            <column name="price_per_unit" valueNumeric="178.36"/>
+            <column name="delivery_time" valueNumeric="11"/>
+            <column name="available_quantity" valueNumeric="457"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="21"/>
+            <column name="material_type_id" valueNumeric="1"/>
+            <column name="material_section_type_id" valueNumeric="5"/>
+            <column name="price_per_unit" valueNumeric="215.7"/>
+            <column name="delivery_time" valueNumeric="3"/>
+            <column name="available_quantity" valueNumeric="376"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="7"/>
+            <column name="material_type_id" valueNumeric="1"/>
+            <column name="material_section_type_id" valueNumeric="5"/>
+            <column name="price_per_unit" valueNumeric="195.67"/>
+            <column name="delivery_time" valueNumeric="8"/>
+            <column name="available_quantity" valueNumeric="619"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="11"/>
+            <column name="material_type_id" valueNumeric="1"/>
+            <column name="material_section_type_id" valueNumeric="5"/>
+            <column name="price_per_unit" valueNumeric="97.99"/>
+            <column name="delivery_time" valueNumeric="8"/>
+            <column name="available_quantity" valueNumeric="259"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="14"/>
+            <column name="material_type_id" valueNumeric="1"/>
+            <column name="material_section_type_id" valueNumeric="5"/>
+            <column name="price_per_unit" valueNumeric="86.69"/>
+            <column name="delivery_time" valueNumeric="4"/>
+            <column name="available_quantity" valueNumeric="785"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="8"/>
+            <column name="material_type_id" valueNumeric="1"/>
+            <column name="material_section_type_id" valueNumeric="5"/>
+            <column name="price_per_unit" valueNumeric="222.55"/>
+            <column name="delivery_time" valueNumeric="12"/>
+            <column name="available_quantity" valueNumeric="591"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="22"/>
+            <column name="material_type_id" valueNumeric="2"/>
+            <column name="material_section_type_id" valueNumeric="3"/>
+            <column name="price_per_unit" valueNumeric="245.16"/>
+            <column name="delivery_time" valueNumeric="9"/>
+            <column name="available_quantity" valueNumeric="211"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="13"/>
+            <column name="material_type_id" valueNumeric="2"/>
+            <column name="material_section_type_id" valueNumeric="3"/>
+            <column name="price_per_unit" valueNumeric="169.37"/>
+            <column name="delivery_time" valueNumeric="12"/>
+            <column name="available_quantity" valueNumeric="790"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="3"/>
+            <column name="material_type_id" valueNumeric="2"/>
+            <column name="material_section_type_id" valueNumeric="3"/>
+            <column name="price_per_unit" valueNumeric="173.92"/>
+            <column name="delivery_time" valueNumeric="4"/>
+            <column name="available_quantity" valueNumeric="143"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="11"/>
+            <column name="material_type_id" valueNumeric="2"/>
+            <column name="material_section_type_id" valueNumeric="4"/>
+            <column name="price_per_unit" valueNumeric="225.97"/>
+            <column name="delivery_time" valueNumeric="9"/>
+            <column name="available_quantity" valueNumeric="619"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="20"/>
+            <column name="material_type_id" valueNumeric="2"/>
+            <column name="material_section_type_id" valueNumeric="4"/>
+            <column name="price_per_unit" valueNumeric="151.61"/>
+            <column name="delivery_time" valueNumeric="8"/>
+            <column name="available_quantity" valueNumeric="383"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="8"/>
+            <column name="material_type_id" valueNumeric="2"/>
+            <column name="material_section_type_id" valueNumeric="4"/>
+            <column name="price_per_unit" valueNumeric="136.63"/>
+            <column name="delivery_time" valueNumeric="6"/>
+            <column name="available_quantity" valueNumeric="1422"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="3"/>
+            <column name="material_type_id" valueNumeric="2"/>
+            <column name="material_section_type_id" valueNumeric="4"/>
+            <column name="price_per_unit" valueNumeric="118.06"/>
+            <column name="delivery_time" valueNumeric="4"/>
+            <column name="available_quantity" valueNumeric="1297"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="7"/>
+            <column name="material_type_id" valueNumeric="2"/>
+            <column name="material_section_type_id" valueNumeric="4"/>
+            <column name="price_per_unit" valueNumeric="184.3"/>
+            <column name="delivery_time" valueNumeric="11"/>
+            <column name="available_quantity" valueNumeric="551"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="22"/>
+            <column name="material_type_id" valueNumeric="2"/>
+            <column name="material_section_type_id" valueNumeric="6"/>
+            <column name="price_per_unit" valueNumeric="248.11"/>
+            <column name="delivery_time" valueNumeric="11"/>
+            <column name="available_quantity" valueNumeric="499"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="10"/>
+            <column name="material_type_id" valueNumeric="2"/>
+            <column name="material_section_type_id" valueNumeric="6"/>
+            <column name="price_per_unit" valueNumeric="193.23"/>
+            <column name="delivery_time" valueNumeric="3"/>
+            <column name="available_quantity" valueNumeric="519"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="8"/>
+            <column name="material_type_id" valueNumeric="2"/>
+            <column name="material_section_type_id" valueNumeric="6"/>
+            <column name="price_per_unit" valueNumeric="217.92"/>
+            <column name="delivery_time" valueNumeric="8"/>
+            <column name="available_quantity" valueNumeric="871"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="4"/>
+            <column name="material_type_id" valueNumeric="2"/>
+            <column name="material_section_type_id" valueNumeric="7"/>
+            <column name="price_per_unit" valueNumeric="126.64"/>
+            <column name="delivery_time" valueNumeric="10"/>
+            <column name="available_quantity" valueNumeric="860"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="7"/>
+            <column name="material_type_id" valueNumeric="2"/>
+            <column name="material_section_type_id" valueNumeric="7"/>
+            <column name="price_per_unit" valueNumeric="229.24"/>
+            <column name="delivery_time" valueNumeric="10"/>
+            <column name="available_quantity" valueNumeric="342"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="14"/>
+            <column name="material_type_id" valueNumeric="2"/>
+            <column name="material_section_type_id" valueNumeric="7"/>
+            <column name="price_per_unit" valueNumeric="117.68"/>
+            <column name="delivery_time" valueNumeric="6"/>
+            <column name="available_quantity" valueNumeric="1199"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="17"/>
+            <column name="material_type_id" valueNumeric="2"/>
+            <column name="material_section_type_id" valueNumeric="7"/>
+            <column name="price_per_unit" valueNumeric="167.02"/>
+            <column name="delivery_time" valueNumeric="12"/>
+            <column name="available_quantity" valueNumeric="927"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="20"/>
+            <column name="material_type_id" valueNumeric="2"/>
+            <column name="material_section_type_id" valueNumeric="9"/>
+            <column name="price_per_unit" valueNumeric="158.83"/>
+            <column name="delivery_time" valueNumeric="3"/>
+            <column name="available_quantity" valueNumeric="274"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="9"/>
+            <column name="material_type_id" valueNumeric="2"/>
+            <column name="material_section_type_id" valueNumeric="9"/>
+            <column name="price_per_unit" valueNumeric="97.51"/>
+            <column name="delivery_time" valueNumeric="5"/>
+            <column name="available_quantity" valueNumeric="1443"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="7"/>
+            <column name="material_type_id" valueNumeric="2"/>
+            <column name="material_section_type_id" valueNumeric="9"/>
+            <column name="price_per_unit" valueNumeric="145.99"/>
+            <column name="delivery_time" valueNumeric="4"/>
+            <column name="available_quantity" valueNumeric="838"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="4"/>
+            <column name="material_type_id" valueNumeric="2"/>
+            <column name="material_section_type_id" valueNumeric="9"/>
+            <column name="price_per_unit" valueNumeric="138.69"/>
+            <column name="delivery_time" valueNumeric="10"/>
+            <column name="available_quantity" valueNumeric="1133"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="13"/>
+            <column name="material_type_id" valueNumeric="2"/>
+            <column name="material_section_type_id" valueNumeric="9"/>
+            <column name="price_per_unit" valueNumeric="115.25"/>
+            <column name="delivery_time" valueNumeric="11"/>
+            <column name="available_quantity" valueNumeric="73"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="7"/>
+            <column name="material_type_id" valueNumeric="2"/>
+            <column name="material_section_type_id" valueNumeric="10"/>
+            <column name="price_per_unit" valueNumeric="208.35"/>
+            <column name="delivery_time" valueNumeric="8"/>
+            <column name="available_quantity" valueNumeric="278"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="16"/>
+            <column name="material_type_id" valueNumeric="2"/>
+            <column name="material_section_type_id" valueNumeric="10"/>
+            <column name="price_per_unit" valueNumeric="122.83"/>
+            <column name="delivery_time" valueNumeric="5"/>
+            <column name="available_quantity" valueNumeric="979"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="13"/>
+            <column name="material_type_id" valueNumeric="2"/>
+            <column name="material_section_type_id" valueNumeric="10"/>
+            <column name="price_per_unit" valueNumeric="70.58"/>
+            <column name="delivery_time" valueNumeric="7"/>
+            <column name="available_quantity" valueNumeric="1075"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="20"/>
+            <column name="material_type_id" valueNumeric="2"/>
+            <column name="material_section_type_id" valueNumeric="10"/>
+            <column name="price_per_unit" valueNumeric="207.15"/>
+            <column name="delivery_time" valueNumeric="11"/>
+            <column name="available_quantity" valueNumeric="267"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="8"/>
+            <column name="material_type_id" valueNumeric="2"/>
+            <column name="material_section_type_id" valueNumeric="10"/>
+            <column name="price_per_unit" valueNumeric="226.69"/>
+            <column name="delivery_time" valueNumeric="7"/>
+            <column name="available_quantity" valueNumeric="1358"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="10"/>
+            <column name="material_type_id" valueNumeric="4"/>
+            <column name="material_section_type_id" valueNumeric="3"/>
+            <column name="price_per_unit" valueNumeric="167.09"/>
+            <column name="delivery_time" valueNumeric="11"/>
+            <column name="available_quantity" valueNumeric="51"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="4"/>
+            <column name="material_type_id" valueNumeric="4"/>
+            <column name="material_section_type_id" valueNumeric="3"/>
+            <column name="price_per_unit" valueNumeric="177.81"/>
+            <column name="delivery_time" valueNumeric="10"/>
+            <column name="available_quantity" valueNumeric="89"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="9"/>
+            <column name="material_type_id" valueNumeric="4"/>
+            <column name="material_section_type_id" valueNumeric="3"/>
+            <column name="price_per_unit" valueNumeric="90.14"/>
+            <column name="delivery_time" valueNumeric="8"/>
+            <column name="available_quantity" valueNumeric="679"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="20"/>
+            <column name="material_type_id" valueNumeric="4"/>
+            <column name="material_section_type_id" valueNumeric="3"/>
+            <column name="price_per_unit" valueNumeric="113.1"/>
+            <column name="delivery_time" valueNumeric="6"/>
+            <column name="available_quantity" valueNumeric="1211"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="22"/>
+            <column name="material_type_id" valueNumeric="4"/>
+            <column name="material_section_type_id" valueNumeric="3"/>
+            <column name="price_per_unit" valueNumeric="240.45"/>
+            <column name="delivery_time" valueNumeric="4"/>
+            <column name="available_quantity" valueNumeric="1045"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="8"/>
+            <column name="material_type_id" valueNumeric="4"/>
+            <column name="material_section_type_id" valueNumeric="10"/>
+            <column name="price_per_unit" valueNumeric="155.55"/>
+            <column name="delivery_time" valueNumeric="11"/>
+            <column name="available_quantity" valueNumeric="388"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="4"/>
+            <column name="material_type_id" valueNumeric="4"/>
+            <column name="material_section_type_id" valueNumeric="10"/>
+            <column name="price_per_unit" valueNumeric="117.71"/>
+            <column name="delivery_time" valueNumeric="12"/>
+            <column name="available_quantity" valueNumeric="916"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="16"/>
+            <column name="material_type_id" valueNumeric="4"/>
+            <column name="material_section_type_id" valueNumeric="10"/>
+            <column name="price_per_unit" valueNumeric="243.59"/>
+            <column name="delivery_time" valueNumeric="11"/>
+            <column name="available_quantity" valueNumeric="1462"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="2"/>
+            <column name="material_type_id" valueNumeric="6"/>
+            <column name="material_section_type_id" valueNumeric="13"/>
+            <column name="price_per_unit" valueNumeric="249.13"/>
+            <column name="delivery_time" valueNumeric="8"/>
+            <column name="available_quantity" valueNumeric="947"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="2"/>
+            <column name="material_type_id" valueNumeric="10"/>
+            <column name="material_section_type_id" valueNumeric="15"/>
+            <column name="price_per_unit" valueNumeric="91.78"/>
+            <column name="delivery_time" valueNumeric="6"/>
+            <column name="available_quantity" valueNumeric="181"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="2"/>
+            <column name="material_type_id" valueNumeric="7"/>
+            <column name="material_section_type_id" valueNumeric="1"/>
+            <column name="price_per_unit" valueNumeric="175.9"/>
+            <column name="delivery_time" valueNumeric="6"/>
+            <column name="available_quantity" valueNumeric="1255"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="2"/>
+            <column name="material_type_id" valueNumeric="4"/>
+            <column name="material_section_type_id" valueNumeric="1"/>
+            <column name="price_per_unit" valueNumeric="82.78"/>
+            <column name="delivery_time" valueNumeric="3"/>
+            <column name="available_quantity" valueNumeric="518"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="2"/>
+            <column name="material_type_id" valueNumeric="2"/>
+            <column name="material_section_type_id" valueNumeric="29"/>
+            <column name="price_per_unit" valueNumeric="75.65"/>
+            <column name="delivery_time" valueNumeric="8"/>
+            <column name="available_quantity" valueNumeric="195"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="3"/>
+            <column name="material_type_id" valueNumeric="6"/>
+            <column name="material_section_type_id" valueNumeric="22"/>
+            <column name="price_per_unit" valueNumeric="157.37"/>
+            <column name="delivery_time" valueNumeric="11"/>
+            <column name="available_quantity" valueNumeric="320"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="3"/>
+            <column name="material_type_id" valueNumeric="13"/>
+            <column name="material_section_type_id" valueNumeric="19"/>
+            <column name="price_per_unit" valueNumeric="155.08"/>
+            <column name="delivery_time" valueNumeric="10"/>
+            <column name="available_quantity" valueNumeric="883"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="3"/>
+            <column name="material_type_id" valueNumeric="4"/>
+            <column name="material_section_type_id" valueNumeric="4"/>
+            <column name="price_per_unit" valueNumeric="87.45"/>
+            <column name="delivery_time" valueNumeric="9"/>
+            <column name="available_quantity" valueNumeric="775"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="3"/>
+            <column name="material_type_id" valueNumeric="8"/>
+            <column name="material_section_type_id" valueNumeric="14"/>
+            <column name="price_per_unit" valueNumeric="154.06"/>
+            <column name="delivery_time" valueNumeric="3"/>
+            <column name="available_quantity" valueNumeric="1429"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="3"/>
+            <column name="material_type_id" valueNumeric="20"/>
+            <column name="material_section_type_id" valueNumeric="21"/>
+            <column name="price_per_unit" valueNumeric="87.72"/>
+            <column name="delivery_time" valueNumeric="9"/>
+            <column name="available_quantity" valueNumeric="744"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="4"/>
+            <column name="material_type_id" valueNumeric="4"/>
+            <column name="material_section_type_id" valueNumeric="7"/>
+            <column name="price_per_unit" valueNumeric="104.24"/>
+            <column name="delivery_time" valueNumeric="10"/>
+            <column name="available_quantity" valueNumeric="337"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="4"/>
+            <column name="material_type_id" valueNumeric="8"/>
+            <column name="material_section_type_id" valueNumeric="6"/>
+            <column name="price_per_unit" valueNumeric="120.14"/>
+            <column name="delivery_time" valueNumeric="6"/>
+            <column name="available_quantity" valueNumeric="204"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="4"/>
+            <column name="material_type_id" valueNumeric="9"/>
+            <column name="material_section_type_id" valueNumeric="26"/>
+            <column name="price_per_unit" valueNumeric="225.04"/>
+            <column name="delivery_time" valueNumeric="11"/>
+            <column name="available_quantity" valueNumeric="250"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="4"/>
+            <column name="material_type_id" valueNumeric="1"/>
+            <column name="material_section_type_id" valueNumeric="21"/>
+            <column name="price_per_unit" valueNumeric="249.87"/>
+            <column name="delivery_time" valueNumeric="3"/>
+            <column name="available_quantity" valueNumeric="241"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="5"/>
+            <column name="material_type_id" valueNumeric="11"/>
+            <column name="material_section_type_id" valueNumeric="14"/>
+            <column name="price_per_unit" valueNumeric="494.26"/>
+            <column name="delivery_time" valueNumeric="11"/>
+            <column name="available_quantity" valueNumeric="225"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="5"/>
+            <column name="material_type_id" valueNumeric="11"/>
+            <column name="material_section_type_id" valueNumeric="6"/>
+            <column name="price_per_unit" valueNumeric="451.59"/>
+            <column name="delivery_time" valueNumeric="17"/>
+            <column name="available_quantity" valueNumeric="155"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="5"/>
+            <column name="material_type_id" valueNumeric="12"/>
+            <column name="material_section_type_id" valueNumeric="10"/>
+            <column name="price_per_unit" valueNumeric="469.2"/>
+            <column name="delivery_time" valueNumeric="20"/>
+            <column name="available_quantity" valueNumeric="99"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="5"/>
+            <column name="material_type_id" valueNumeric="11"/>
+            <column name="material_section_type_id" valueNumeric="10"/>
+            <column name="price_per_unit" valueNumeric="387.08"/>
+            <column name="delivery_time" valueNumeric="6"/>
+            <column name="available_quantity" valueNumeric="316"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="5"/>
+            <column name="material_type_id" valueNumeric="11"/>
+            <column name="material_section_type_id" valueNumeric="24"/>
+            <column name="price_per_unit" valueNumeric="425.44"/>
+            <column name="delivery_time" valueNumeric="6"/>
+            <column name="available_quantity" valueNumeric="319"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="6"/>
+            <column name="material_type_id" valueNumeric="17"/>
+            <column name="material_section_type_id" valueNumeric="30"/>
+            <column name="price_per_unit" valueNumeric="413.18"/>
+            <column name="delivery_time" valueNumeric="6"/>
+            <column name="available_quantity" valueNumeric="88"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="6"/>
+            <column name="material_type_id" valueNumeric="17"/>
+            <column name="material_section_type_id" valueNumeric="3"/>
+            <column name="price_per_unit" valueNumeric="412.84"/>
+            <column name="delivery_time" valueNumeric="5"/>
+            <column name="available_quantity" valueNumeric="99"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="6"/>
+            <column name="material_type_id" valueNumeric="17"/>
+            <column name="material_section_type_id" valueNumeric="28"/>
+            <column name="price_per_unit" valueNumeric="258.8"/>
+            <column name="delivery_time" valueNumeric="5"/>
+            <column name="available_quantity" valueNumeric="282"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="6"/>
+            <column name="material_type_id" valueNumeric="17"/>
+            <column name="material_section_type_id" valueNumeric="20"/>
+            <column name="price_per_unit" valueNumeric="209.94"/>
+            <column name="delivery_time" valueNumeric="5"/>
+            <column name="available_quantity" valueNumeric="459"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="6"/>
+            <column name="material_type_id" valueNumeric="17"/>
+            <column name="material_section_type_id" valueNumeric="19"/>
+            <column name="price_per_unit" valueNumeric="341.31"/>
+            <column name="delivery_time" valueNumeric="9"/>
+            <column name="available_quantity" valueNumeric="297"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="6"/>
+            <column name="material_type_id" valueNumeric="5"/>
+            <column name="material_section_type_id" valueNumeric="22"/>
+            <column name="price_per_unit" valueNumeric="379.05"/>
+            <column name="delivery_time" valueNumeric="7"/>
+            <column name="available_quantity" valueNumeric="301"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="6"/>
+            <column name="material_type_id" valueNumeric="16"/>
+            <column name="material_section_type_id" valueNumeric="5"/>
+            <column name="price_per_unit" valueNumeric="367.92"/>
+            <column name="delivery_time" valueNumeric="8"/>
+            <column name="available_quantity" valueNumeric="498"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="7"/>
+            <column name="material_type_id" valueNumeric="2"/>
+            <column name="material_section_type_id" valueNumeric="1"/>
+            <column name="price_per_unit" valueNumeric="152.49"/>
+            <column name="delivery_time" valueNumeric="12"/>
+            <column name="available_quantity" valueNumeric="254"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="7"/>
+            <column name="material_type_id" valueNumeric="2"/>
+            <column name="material_section_type_id" valueNumeric="18"/>
+            <column name="price_per_unit" valueNumeric="108.37"/>
+            <column name="delivery_time" valueNumeric="7"/>
+            <column name="available_quantity" valueNumeric="321"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="7"/>
+            <column name="material_type_id" valueNumeric="7"/>
+            <column name="material_section_type_id" valueNumeric="29"/>
+            <column name="price_per_unit" valueNumeric="82.38"/>
+            <column name="delivery_time" valueNumeric="6"/>
+            <column name="available_quantity" valueNumeric="806"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="7"/>
+            <column name="material_type_id" valueNumeric="6"/>
+            <column name="material_section_type_id" valueNumeric="6"/>
+            <column name="price_per_unit" valueNumeric="148.87"/>
+            <column name="delivery_time" valueNumeric="11"/>
+            <column name="available_quantity" valueNumeric="1490"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="7"/>
+            <column name="material_type_id" valueNumeric="6"/>
+            <column name="material_section_type_id" valueNumeric="20"/>
+            <column name="price_per_unit" valueNumeric="247.09"/>
+            <column name="delivery_time" valueNumeric="11"/>
+            <column name="available_quantity" valueNumeric="66"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="7"/>
+            <column name="material_type_id" valueNumeric="20"/>
+            <column name="material_section_type_id" valueNumeric="27"/>
+            <column name="price_per_unit" valueNumeric="169.83"/>
+            <column name="delivery_time" valueNumeric="4"/>
+            <column name="available_quantity" valueNumeric="325"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="8"/>
+            <column name="material_type_id" valueNumeric="2"/>
+            <column name="material_section_type_id" valueNumeric="29"/>
+            <column name="price_per_unit" valueNumeric="89.27"/>
+            <column name="delivery_time" valueNumeric="11"/>
+            <column name="available_quantity" valueNumeric="368"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="8"/>
+            <column name="material_type_id" valueNumeric="6"/>
+            <column name="material_section_type_id" valueNumeric="10"/>
+            <column name="price_per_unit" valueNumeric="178.87"/>
+            <column name="delivery_time" valueNumeric="8"/>
+            <column name="available_quantity" valueNumeric="466"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="8"/>
+            <column name="material_type_id" valueNumeric="20"/>
+            <column name="material_section_type_id" valueNumeric="21"/>
+            <column name="price_per_unit" valueNumeric="223.52"/>
+            <column name="delivery_time" valueNumeric="11"/>
+            <column name="available_quantity" valueNumeric="1050"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="8"/>
+            <column name="material_type_id" valueNumeric="6"/>
+            <column name="material_section_type_id" valueNumeric="29"/>
+            <column name="price_per_unit" valueNumeric="233.47"/>
+            <column name="delivery_time" valueNumeric="3"/>
+            <column name="available_quantity" valueNumeric="239"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="8"/>
+            <column name="material_type_id" valueNumeric="20"/>
+            <column name="material_section_type_id" valueNumeric="14"/>
+            <column name="price_per_unit" valueNumeric="219.28"/>
+            <column name="delivery_time" valueNumeric="3"/>
+            <column name="available_quantity" valueNumeric="57"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="8"/>
+            <column name="material_type_id" valueNumeric="7"/>
+            <column name="material_section_type_id" valueNumeric="25"/>
+            <column name="price_per_unit" valueNumeric="93.55"/>
+            <column name="delivery_time" valueNumeric="7"/>
+            <column name="available_quantity" valueNumeric="380"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="9"/>
+            <column name="material_type_id" valueNumeric="10"/>
+            <column name="material_section_type_id" valueNumeric="23"/>
+            <column name="price_per_unit" valueNumeric="146.98"/>
+            <column name="delivery_time" valueNumeric="3"/>
+            <column name="available_quantity" valueNumeric="279"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="9"/>
+            <column name="material_type_id" valueNumeric="2"/>
+            <column name="material_section_type_id" valueNumeric="29"/>
+            <column name="price_per_unit" valueNumeric="194.38"/>
+            <column name="delivery_time" valueNumeric="5"/>
+            <column name="available_quantity" valueNumeric="1167"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="9"/>
+            <column name="material_type_id" valueNumeric="1"/>
+            <column name="material_section_type_id" valueNumeric="27"/>
+            <column name="price_per_unit" valueNumeric="136.46"/>
+            <column name="delivery_time" valueNumeric="11"/>
+            <column name="available_quantity" valueNumeric="353"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="9"/>
+            <column name="material_type_id" valueNumeric="8"/>
+            <column name="material_section_type_id" valueNumeric="5"/>
+            <column name="price_per_unit" valueNumeric="77.53"/>
+            <column name="delivery_time" valueNumeric="8"/>
+            <column name="available_quantity" valueNumeric="131"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="9"/>
+            <column name="material_type_id" valueNumeric="7"/>
+            <column name="material_section_type_id" valueNumeric="7"/>
+            <column name="price_per_unit" valueNumeric="192.77"/>
+            <column name="delivery_time" valueNumeric="4"/>
+            <column name="available_quantity" valueNumeric="774"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="9"/>
+            <column name="material_type_id" valueNumeric="10"/>
+            <column name="material_section_type_id" valueNumeric="29"/>
+            <column name="price_per_unit" valueNumeric="227.45"/>
+            <column name="delivery_time" valueNumeric="12"/>
+            <column name="available_quantity" valueNumeric="366"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="9"/>
+            <column name="material_type_id" valueNumeric="4"/>
+            <column name="material_section_type_id" valueNumeric="28"/>
+            <column name="price_per_unit" valueNumeric="99.25"/>
+            <column name="delivery_time" valueNumeric="5"/>
+            <column name="available_quantity" valueNumeric="894"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="10"/>
+            <column name="material_type_id" valueNumeric="3"/>
+            <column name="material_section_type_id" valueNumeric="24"/>
+            <column name="price_per_unit" valueNumeric="236.41"/>
+            <column name="delivery_time" valueNumeric="9"/>
+            <column name="available_quantity" valueNumeric="1421"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="10"/>
+            <column name="material_type_id" valueNumeric="4"/>
+            <column name="material_section_type_id" valueNumeric="9"/>
+            <column name="price_per_unit" valueNumeric="98.66"/>
+            <column name="delivery_time" valueNumeric="4"/>
+            <column name="available_quantity" valueNumeric="833"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="10"/>
+            <column name="material_type_id" valueNumeric="1"/>
+            <column name="material_section_type_id" valueNumeric="28"/>
+            <column name="price_per_unit" valueNumeric="154.72"/>
+            <column name="delivery_time" valueNumeric="6"/>
+            <column name="available_quantity" valueNumeric="992"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="10"/>
+            <column name="material_type_id" valueNumeric="7"/>
+            <column name="material_section_type_id" valueNumeric="10"/>
+            <column name="price_per_unit" valueNumeric="217.7"/>
+            <column name="delivery_time" valueNumeric="6"/>
+            <column name="available_quantity" valueNumeric="506"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="11"/>
+            <column name="material_type_id" valueNumeric="20"/>
+            <column name="material_section_type_id" valueNumeric="7"/>
+            <column name="price_per_unit" valueNumeric="141.72"/>
+            <column name="delivery_time" valueNumeric="7"/>
+            <column name="available_quantity" valueNumeric="192"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="11"/>
+            <column name="material_type_id" valueNumeric="6"/>
+            <column name="material_section_type_id" valueNumeric="12"/>
+            <column name="price_per_unit" valueNumeric="185.47"/>
+            <column name="delivery_time" valueNumeric="9"/>
+            <column name="available_quantity" valueNumeric="1441"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="11"/>
+            <column name="material_type_id" valueNumeric="10"/>
+            <column name="material_section_type_id" valueNumeric="11"/>
+            <column name="price_per_unit" valueNumeric="239.06"/>
+            <column name="delivery_time" valueNumeric="4"/>
+            <column name="available_quantity" valueNumeric="584"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="11"/>
+            <column name="material_type_id" valueNumeric="3"/>
+            <column name="material_section_type_id" valueNumeric="19"/>
+            <column name="price_per_unit" valueNumeric="243.26"/>
+            <column name="delivery_time" valueNumeric="7"/>
+            <column name="available_quantity" valueNumeric="128"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="12"/>
+            <column name="material_type_id" valueNumeric="19"/>
+            <column name="material_section_type_id" valueNumeric="12"/>
+            <column name="price_per_unit" valueNumeric="147.43"/>
+            <column name="delivery_time" valueNumeric="17"/>
+            <column name="available_quantity" valueNumeric="993"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="12"/>
+            <column name="material_type_id" valueNumeric="18"/>
+            <column name="material_section_type_id" valueNumeric="13"/>
+            <column name="price_per_unit" valueNumeric="167.94"/>
+            <column name="delivery_time" valueNumeric="13"/>
+            <column name="available_quantity" valueNumeric="621"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="12"/>
+            <column name="material_type_id" valueNumeric="18"/>
+            <column name="material_section_type_id" valueNumeric="23"/>
+            <column name="price_per_unit" valueNumeric="112.33"/>
+            <column name="delivery_time" valueNumeric="23"/>
+            <column name="available_quantity" valueNumeric="1995"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="12"/>
+            <column name="material_type_id" valueNumeric="18"/>
+            <column name="material_section_type_id" valueNumeric="12"/>
+            <column name="price_per_unit" valueNumeric="111.76"/>
+            <column name="delivery_time" valueNumeric="17"/>
+            <column name="available_quantity" valueNumeric="1376"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="13"/>
+            <column name="material_type_id" valueNumeric="20"/>
+            <column name="material_section_type_id" valueNumeric="28"/>
+            <column name="price_per_unit" valueNumeric="92.43"/>
+            <column name="delivery_time" valueNumeric="7"/>
+            <column name="available_quantity" valueNumeric="1088"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="13"/>
+            <column name="material_type_id" valueNumeric="6"/>
+            <column name="material_section_type_id" valueNumeric="22"/>
+            <column name="price_per_unit" valueNumeric="143.51"/>
+            <column name="delivery_time" valueNumeric="9"/>
+            <column name="available_quantity" valueNumeric="1477"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="13"/>
+            <column name="material_type_id" valueNumeric="6"/>
+            <column name="material_section_type_id" valueNumeric="18"/>
+            <column name="price_per_unit" valueNumeric="92.91"/>
+            <column name="delivery_time" valueNumeric="9"/>
+            <column name="available_quantity" valueNumeric="1411"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="13"/>
+            <column name="material_type_id" valueNumeric="8"/>
+            <column name="material_section_type_id" valueNumeric="22"/>
+            <column name="price_per_unit" valueNumeric="204.66"/>
+            <column name="delivery_time" valueNumeric="5"/>
+            <column name="available_quantity" valueNumeric="1310"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="13"/>
+            <column name="material_type_id" valueNumeric="13"/>
+            <column name="material_section_type_id" valueNumeric="10"/>
+            <column name="price_per_unit" valueNumeric="143.09"/>
+            <column name="delivery_time" valueNumeric="3"/>
+            <column name="available_quantity" valueNumeric="672"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="13"/>
+            <column name="material_type_id" valueNumeric="6"/>
+            <column name="material_section_type_id" valueNumeric="7"/>
+            <column name="price_per_unit" valueNumeric="147.38"/>
+            <column name="delivery_time" valueNumeric="12"/>
+            <column name="available_quantity" valueNumeric="1292"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="14"/>
+            <column name="material_type_id" valueNumeric="9"/>
+            <column name="material_section_type_id" valueNumeric="15"/>
+            <column name="price_per_unit" valueNumeric="149.59"/>
+            <column name="delivery_time" valueNumeric="6"/>
+            <column name="available_quantity" valueNumeric="1096"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="14"/>
+            <column name="material_type_id" valueNumeric="9"/>
+            <column name="material_section_type_id" valueNumeric="26"/>
+            <column name="price_per_unit" valueNumeric="232.21"/>
+            <column name="delivery_time" valueNumeric="5"/>
+            <column name="available_quantity" valueNumeric="1399"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="14"/>
+            <column name="material_type_id" valueNumeric="2"/>
+            <column name="material_section_type_id" valueNumeric="10"/>
+            <column name="price_per_unit" valueNumeric="162.78"/>
+            <column name="delivery_time" valueNumeric="12"/>
+            <column name="available_quantity" valueNumeric="736"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="14"/>
+            <column name="material_type_id" valueNumeric="2"/>
+            <column name="material_section_type_id" valueNumeric="27"/>
+            <column name="price_per_unit" valueNumeric="241.36"/>
+            <column name="delivery_time" valueNumeric="6"/>
+            <column name="available_quantity" valueNumeric="1427"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="14"/>
+            <column name="material_type_id" valueNumeric="6"/>
+            <column name="material_section_type_id" valueNumeric="8"/>
+            <column name="price_per_unit" valueNumeric="215.18"/>
+            <column name="delivery_time" valueNumeric="5"/>
+            <column name="available_quantity" valueNumeric="100"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="14"/>
+            <column name="material_type_id" valueNumeric="1"/>
+            <column name="material_section_type_id" valueNumeric="8"/>
+            <column name="price_per_unit" valueNumeric="247.11"/>
+            <column name="delivery_time" valueNumeric="12"/>
+            <column name="available_quantity" valueNumeric="199"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="15"/>
+            <column name="material_type_id" valueNumeric="12"/>
+            <column name="material_section_type_id" valueNumeric="29"/>
+            <column name="price_per_unit" valueNumeric="551.91"/>
+            <column name="delivery_time" valueNumeric="11"/>
+            <column name="available_quantity" valueNumeric="387"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="15"/>
+            <column name="material_type_id" valueNumeric="12"/>
+            <column name="material_section_type_id" valueNumeric="16"/>
+            <column name="price_per_unit" valueNumeric="459.86"/>
+            <column name="delivery_time" valueNumeric="9"/>
+            <column name="available_quantity" valueNumeric="355"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="15"/>
+            <column name="material_type_id" valueNumeric="11"/>
+            <column name="material_section_type_id" valueNumeric="29"/>
+            <column name="price_per_unit" valueNumeric="600.39"/>
+            <column name="delivery_time" valueNumeric="8"/>
+            <column name="available_quantity" valueNumeric="237"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="15"/>
+            <column name="material_type_id" valueNumeric="11"/>
+            <column name="material_section_type_id" valueNumeric="6"/>
+            <column name="price_per_unit" valueNumeric="621.64"/>
+            <column name="delivery_time" valueNumeric="19"/>
+            <column name="available_quantity" valueNumeric="45"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="15"/>
+            <column name="material_type_id" valueNumeric="11"/>
+            <column name="material_section_type_id" valueNumeric="30"/>
+            <column name="price_per_unit" valueNumeric="639.33"/>
+            <column name="delivery_time" valueNumeric="19"/>
+            <column name="available_quantity" valueNumeric="88"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="15"/>
+            <column name="material_type_id" valueNumeric="12"/>
+            <column name="material_section_type_id" valueNumeric="22"/>
+            <column name="price_per_unit" valueNumeric="512.45"/>
+            <column name="delivery_time" valueNumeric="15"/>
+            <column name="available_quantity" valueNumeric="246"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="15"/>
+            <column name="material_type_id" valueNumeric="12"/>
+            <column name="material_section_type_id" valueNumeric="27"/>
+            <column name="price_per_unit" valueNumeric="662.74"/>
+            <column name="delivery_time" valueNumeric="19"/>
+            <column name="available_quantity" valueNumeric="101"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="16"/>
+            <column name="material_type_id" valueNumeric="9"/>
+            <column name="material_section_type_id" valueNumeric="9"/>
+            <column name="price_per_unit" valueNumeric="205.32"/>
+            <column name="delivery_time" valueNumeric="7"/>
+            <column name="available_quantity" valueNumeric="1117"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="16"/>
+            <column name="material_type_id" valueNumeric="9"/>
+            <column name="material_section_type_id" valueNumeric="21"/>
+            <column name="price_per_unit" valueNumeric="113.06"/>
+            <column name="delivery_time" valueNumeric="10"/>
+            <column name="available_quantity" valueNumeric="208"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="16"/>
+            <column name="material_type_id" valueNumeric="6"/>
+            <column name="material_section_type_id" valueNumeric="8"/>
+            <column name="price_per_unit" valueNumeric="118.91"/>
+            <column name="delivery_time" valueNumeric="8"/>
+            <column name="available_quantity" valueNumeric="1156"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="16"/>
+            <column name="material_type_id" valueNumeric="2"/>
+            <column name="material_section_type_id" valueNumeric="5"/>
+            <column name="price_per_unit" valueNumeric="97.15"/>
+            <column name="delivery_time" valueNumeric="9"/>
+            <column name="available_quantity" valueNumeric="1471"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="16"/>
+            <column name="material_type_id" valueNumeric="3"/>
+            <column name="material_section_type_id" valueNumeric="23"/>
+            <column name="price_per_unit" valueNumeric="108.51"/>
+            <column name="delivery_time" valueNumeric="9"/>
+            <column name="available_quantity" valueNumeric="884"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="16"/>
+            <column name="material_type_id" valueNumeric="7"/>
+            <column name="material_section_type_id" valueNumeric="18"/>
+            <column name="price_per_unit" valueNumeric="153.87"/>
+            <column name="delivery_time" valueNumeric="3"/>
+            <column name="available_quantity" valueNumeric="473"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="16"/>
+            <column name="material_type_id" valueNumeric="8"/>
+            <column name="material_section_type_id" valueNumeric="13"/>
+            <column name="price_per_unit" valueNumeric="232.87"/>
+            <column name="delivery_time" valueNumeric="12"/>
+            <column name="available_quantity" valueNumeric="1474"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="17"/>
+            <column name="material_type_id" valueNumeric="13"/>
+            <column name="material_section_type_id" valueNumeric="13"/>
+            <column name="price_per_unit" valueNumeric="155.86"/>
+            <column name="delivery_time" valueNumeric="8"/>
+            <column name="available_quantity" valueNumeric="661"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="17"/>
+            <column name="material_type_id" valueNumeric="8"/>
+            <column name="material_section_type_id" valueNumeric="28"/>
+            <column name="price_per_unit" valueNumeric="230.5"/>
+            <column name="delivery_time" valueNumeric="9"/>
+            <column name="available_quantity" valueNumeric="1152"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="17"/>
+            <column name="material_type_id" valueNumeric="10"/>
+            <column name="material_section_type_id" valueNumeric="26"/>
+            <column name="price_per_unit" valueNumeric="178.59"/>
+            <column name="delivery_time" valueNumeric="6"/>
+            <column name="available_quantity" valueNumeric="1049"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="17"/>
+            <column name="material_type_id" valueNumeric="4"/>
+            <column name="material_section_type_id" valueNumeric="9"/>
+            <column name="price_per_unit" valueNumeric="148.45"/>
+            <column name="delivery_time" valueNumeric="3"/>
+            <column name="available_quantity" valueNumeric="846"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="18"/>
+            <column name="material_type_id" valueNumeric="19"/>
+            <column name="material_section_type_id" valueNumeric="24"/>
+            <column name="price_per_unit" valueNumeric="79.81"/>
+            <column name="delivery_time" valueNumeric="21"/>
+            <column name="available_quantity" valueNumeric="1983"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="18"/>
+            <column name="material_type_id" valueNumeric="18"/>
+            <column name="material_section_type_id" valueNumeric="20"/>
+            <column name="price_per_unit" valueNumeric="124.09"/>
+            <column name="delivery_time" valueNumeric="19"/>
+            <column name="available_quantity" valueNumeric="1312"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="18"/>
+            <column name="material_type_id" valueNumeric="18"/>
+            <column name="material_section_type_id" valueNumeric="3"/>
+            <column name="price_per_unit" valueNumeric="137.13"/>
+            <column name="delivery_time" valueNumeric="11"/>
+            <column name="available_quantity" valueNumeric="1875"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="18"/>
+            <column name="material_type_id" valueNumeric="19"/>
+            <column name="material_section_type_id" valueNumeric="6"/>
+            <column name="price_per_unit" valueNumeric="66.03"/>
+            <column name="delivery_time" valueNumeric="19"/>
+            <column name="available_quantity" valueNumeric="770"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="18"/>
+            <column name="material_type_id" valueNumeric="18"/>
+            <column name="material_section_type_id" valueNumeric="15"/>
+            <column name="price_per_unit" valueNumeric="99.22"/>
+            <column name="delivery_time" valueNumeric="19"/>
+            <column name="available_quantity" valueNumeric="669"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="18"/>
+            <column name="material_type_id" valueNumeric="19"/>
+            <column name="material_section_type_id" valueNumeric="9"/>
+            <column name="price_per_unit" valueNumeric="160.19"/>
+            <column name="delivery_time" valueNumeric="22"/>
+            <column name="available_quantity" valueNumeric="139"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="19"/>
+            <column name="material_type_id" valueNumeric="16"/>
+            <column name="material_section_type_id" valueNumeric="8"/>
+            <column name="price_per_unit" valueNumeric="362.54"/>
+            <column name="delivery_time" valueNumeric="14"/>
+            <column name="available_quantity" valueNumeric="71"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="19"/>
+            <column name="material_type_id" valueNumeric="5"/>
+            <column name="material_section_type_id" valueNumeric="8"/>
+            <column name="price_per_unit" valueNumeric="249.84"/>
+            <column name="delivery_time" valueNumeric="4"/>
+            <column name="available_quantity" valueNumeric="186"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="19"/>
+            <column name="material_type_id" valueNumeric="5"/>
+            <column name="material_section_type_id" valueNumeric="5"/>
+            <column name="price_per_unit" valueNumeric="318.39"/>
+            <column name="delivery_time" valueNumeric="5"/>
+            <column name="available_quantity" valueNumeric="253"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="19"/>
+            <column name="material_type_id" valueNumeric="16"/>
+            <column name="material_section_type_id" valueNumeric="23"/>
+            <column name="price_per_unit" valueNumeric="264.06"/>
+            <column name="delivery_time" valueNumeric="9"/>
+            <column name="available_quantity" valueNumeric="201"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="20"/>
+            <column name="material_type_id" valueNumeric="3"/>
+            <column name="material_section_type_id" valueNumeric="10"/>
+            <column name="price_per_unit" valueNumeric="89.46"/>
+            <column name="delivery_time" valueNumeric="3"/>
+            <column name="available_quantity" valueNumeric="688"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="20"/>
+            <column name="material_type_id" valueNumeric="13"/>
+            <column name="material_section_type_id" valueNumeric="22"/>
+            <column name="price_per_unit" valueNumeric="233.44"/>
+            <column name="delivery_time" valueNumeric="9"/>
+            <column name="available_quantity" valueNumeric="862"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="20"/>
+            <column name="material_type_id" valueNumeric="13"/>
+            <column name="material_section_type_id" valueNumeric="23"/>
+            <column name="price_per_unit" valueNumeric="219.5"/>
+            <column name="delivery_time" valueNumeric="6"/>
+            <column name="available_quantity" valueNumeric="258"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="20"/>
+            <column name="material_type_id" valueNumeric="6"/>
+            <column name="material_section_type_id" valueNumeric="28"/>
+            <column name="price_per_unit" valueNumeric="193.17"/>
+            <column name="delivery_time" valueNumeric="4"/>
+            <column name="available_quantity" valueNumeric="1209"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="21"/>
+            <column name="material_type_id" valueNumeric="7"/>
+            <column name="material_section_type_id" valueNumeric="18"/>
+            <column name="price_per_unit" valueNumeric="147.11"/>
+            <column name="delivery_time" valueNumeric="8"/>
+            <column name="available_quantity" valueNumeric="191"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="21"/>
+            <column name="material_type_id" valueNumeric="10"/>
+            <column name="material_section_type_id" valueNumeric="21"/>
+            <column name="price_per_unit" valueNumeric="131.42"/>
+            <column name="delivery_time" valueNumeric="9"/>
+            <column name="available_quantity" valueNumeric="1053"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="21"/>
+            <column name="material_type_id" valueNumeric="2"/>
+            <column name="material_section_type_id" valueNumeric="14"/>
+            <column name="price_per_unit" valueNumeric="242.94"/>
+            <column name="delivery_time" valueNumeric="10"/>
+            <column name="available_quantity" valueNumeric="1498"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="21"/>
+            <column name="material_type_id" valueNumeric="3"/>
+            <column name="material_section_type_id" valueNumeric="14"/>
+            <column name="price_per_unit" valueNumeric="101.7"/>
+            <column name="delivery_time" valueNumeric="11"/>
+            <column name="available_quantity" valueNumeric="1382"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="22"/>
+            <column name="material_type_id" valueNumeric="13"/>
+            <column name="material_section_type_id" valueNumeric="26"/>
+            <column name="price_per_unit" valueNumeric="235.53"/>
+            <column name="delivery_time" valueNumeric="10"/>
+            <column name="available_quantity" valueNumeric="1002"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="22"/>
+            <column name="material_type_id" valueNumeric="8"/>
+            <column name="material_section_type_id" valueNumeric="27"/>
+            <column name="price_per_unit" valueNumeric="201.58"/>
+            <column name="delivery_time" valueNumeric="7"/>
+            <column name="available_quantity" valueNumeric="710"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="22"/>
+            <column name="material_type_id" valueNumeric="4"/>
+            <column name="material_section_type_id" valueNumeric="27"/>
+            <column name="price_per_unit" valueNumeric="238.23"/>
+            <column name="delivery_time" valueNumeric="7"/>
+            <column name="available_quantity" valueNumeric="973"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="22"/>
+            <column name="material_type_id" valueNumeric="4"/>
+            <column name="material_section_type_id" valueNumeric="25"/>
+            <column name="price_per_unit" valueNumeric="153.65"/>
+            <column name="delivery_time" valueNumeric="12"/>
+            <column name="available_quantity" valueNumeric="1418"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="22"/>
+            <column name="material_type_id" valueNumeric="8"/>
+            <column name="material_section_type_id" valueNumeric="11"/>
+            <column name="price_per_unit" valueNumeric="75.17"/>
+            <column name="delivery_time" valueNumeric="8"/>
+            <column name="available_quantity" valueNumeric="422"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="22"/>
+            <column name="material_type_id" valueNumeric="9"/>
+            <column name="material_section_type_id" valueNumeric="7"/>
+            <column name="price_per_unit" valueNumeric="133.87"/>
+            <column name="delivery_time" valueNumeric="7"/>
+            <column name="available_quantity" valueNumeric="747"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="23"/>
+            <column name="material_type_id" valueNumeric="13"/>
+            <column name="material_section_type_id" valueNumeric="23"/>
+            <column name="price_per_unit" valueNumeric="228.42"/>
+            <column name="delivery_time" valueNumeric="11"/>
+            <column name="available_quantity" valueNumeric="70"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="23"/>
+            <column name="material_type_id" valueNumeric="10"/>
+            <column name="material_section_type_id" valueNumeric="7"/>
+            <column name="price_per_unit" valueNumeric="85.41"/>
+            <column name="delivery_time" valueNumeric="9"/>
+            <column name="available_quantity" valueNumeric="1050"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="23"/>
+            <column name="material_type_id" valueNumeric="10"/>
+            <column name="material_section_type_id" valueNumeric="25"/>
+            <column name="price_per_unit" valueNumeric="113.26"/>
+            <column name="delivery_time" valueNumeric="10"/>
+            <column name="available_quantity" valueNumeric="1372"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="23"/>
+            <column name="material_type_id" valueNumeric="9"/>
+            <column name="material_section_type_id" valueNumeric="15"/>
+            <column name="price_per_unit" valueNumeric="212.73"/>
+            <column name="delivery_time" valueNumeric="4"/>
+            <column name="available_quantity" valueNumeric="652"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="23"/>
+            <column name="material_type_id" valueNumeric="4"/>
+            <column name="material_section_type_id" valueNumeric="13"/>
+            <column name="price_per_unit" valueNumeric="194.52"/>
+            <column name="delivery_time" valueNumeric="7"/>
+            <column name="available_quantity" valueNumeric="1409"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="23"/>
+            <column name="material_type_id" valueNumeric="13"/>
+            <column name="material_section_type_id" valueNumeric="12"/>
+            <column name="price_per_unit" valueNumeric="155.19"/>
+            <column name="delivery_time" valueNumeric="11"/>
+            <column name="available_quantity" valueNumeric="754"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="24"/>
+            <column name="material_type_id" valueNumeric="15"/>
+            <column name="material_section_type_id" valueNumeric="12"/>
+            <column name="price_per_unit" valueNumeric="751.43"/>
+            <column name="delivery_time" valueNumeric="9"/>
+            <column name="available_quantity" valueNumeric="88"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="24"/>
+            <column name="material_type_id" valueNumeric="15"/>
+            <column name="material_section_type_id" valueNumeric="8"/>
+            <column name="price_per_unit" valueNumeric="460.33"/>
+            <column name="delivery_time" valueNumeric="8"/>
+            <column name="available_quantity" valueNumeric="90"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="24"/>
+            <column name="material_type_id" valueNumeric="14"/>
+            <column name="material_section_type_id" valueNumeric="24"/>
+            <column name="price_per_unit" valueNumeric="667.93"/>
+            <column name="delivery_time" valueNumeric="17"/>
+            <column name="available_quantity" valueNumeric="186"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="24"/>
+            <column name="material_type_id" valueNumeric="14"/>
+            <column name="material_section_type_id" valueNumeric="7"/>
+            <column name="price_per_unit" valueNumeric="508.19"/>
+            <column name="delivery_time" valueNumeric="12"/>
+            <column name="available_quantity" valueNumeric="80"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="24"/>
+            <column name="material_type_id" valueNumeric="15"/>
+            <column name="material_section_type_id" valueNumeric="4"/>
+            <column name="price_per_unit" valueNumeric="816.31"/>
+            <column name="delivery_time" valueNumeric="9"/>
+            <column name="available_quantity" valueNumeric="68"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="24"/>
+            <column name="material_type_id" valueNumeric="15"/>
+            <column name="material_section_type_id" valueNumeric="6"/>
+            <column name="price_per_unit" valueNumeric="551.13"/>
+            <column name="delivery_time" valueNumeric="16"/>
+            <column name="available_quantity" valueNumeric="146"/>
+        </insert>
+        <insert tableName="supplier_material">
+            <column name="supplier_id" valueNumeric="24"/>
+            <column name="material_type_id" valueNumeric="14"/>
+            <column name="material_section_type_id" valueNumeric="9"/>
+            <column name="price_per_unit" valueNumeric="422.76"/>
+            <column name="delivery_time" valueNumeric="5"/>
+            <column name="available_quantity" valueNumeric="151"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

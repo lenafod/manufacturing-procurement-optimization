@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <!-- stanje magacina za prosireni sifarnik materijala/preseka - quantity je u mm (ukupna
+         raspoloziva duzina). NAMERNO izostavljene kombinacije: (materijal 2, preseci 3/4/6/7/9/10)
+         i (materijal 4, preseci 3/10) - te kombinacije koristi RN-TEST-MULTISOURCE test scenario
+         koji zavisi od toga da magacin NEMA zalihe (da bi se aktivirala nabavka od dobavljaca) -->
+    <changeSet id="010-1-more-inventory-data" author="lenafod">
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="1"/>
+            <column name="material_section_id" valueNumeric="13"/>
+            <column name="quantity" valueNumeric="22129"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="1"/>
+            <column name="material_section_id" valueNumeric="3"/>
+            <column name="quantity" valueNumeric="27711"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="1"/>
+            <column name="material_section_id" valueNumeric="18"/>
+            <column name="quantity" valueNumeric="3884"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="1"/>
+            <column name="material_section_id" valueNumeric="12"/>
+            <column name="quantity" valueNumeric="19896"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="1"/>
+            <column name="material_section_id" valueNumeric="30"/>
+            <column name="quantity" valueNumeric="17427"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="1"/>
+            <column name="material_section_id" valueNumeric="7"/>
+            <column name="quantity" valueNumeric="2028"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="2"/>
+            <column name="material_section_id" valueNumeric="14"/>
+            <column name="quantity" valueNumeric="14502"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="2"/>
+            <column name="material_section_id" valueNumeric="8"/>
+            <column name="quantity" valueNumeric="3772"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="2"/>
+            <column name="material_section_id" valueNumeric="18"/>
+            <column name="quantity" valueNumeric="14710"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="2"/>
+            <column name="material_section_id" valueNumeric="2"/>
+            <column name="quantity" valueNumeric="27894"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="3"/>
+            <column name="material_section_id" valueNumeric="8"/>
+            <column name="quantity" valueNumeric="21464"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="3"/>
+            <column name="material_section_id" valueNumeric="21"/>
+            <column name="quantity" valueNumeric="19903"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="3"/>
+            <column name="material_section_id" valueNumeric="2"/>
+            <column name="quantity" valueNumeric="19710"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="3"/>
+            <column name="material_section_id" valueNumeric="19"/>
+            <column name="quantity" valueNumeric="13798"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="4"/>
+            <column name="material_section_id" valueNumeric="8"/>
+            <column name="quantity" valueNumeric="2326"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="4"/>
+            <column name="material_section_id" valueNumeric="18"/>
+            <column name="quantity" valueNumeric="28930"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="4"/>
+            <column name="material_section_id" valueNumeric="5"/>
+            <column name="quantity" valueNumeric="10289"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="4"/>
+            <column name="material_section_id" valueNumeric="14"/>
+            <column name="quantity" valueNumeric="5526"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="5"/>
+            <column name="material_section_id" valueNumeric="19"/>
+            <column name="quantity" valueNumeric="3027"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="5"/>
+            <column name="material_section_id" valueNumeric="18"/>
+            <column name="quantity" valueNumeric="7185"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="5"/>
+            <column name="material_section_id" valueNumeric="22"/>
+            <column name="quantity" valueNumeric="1980"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="5"/>
+            <column name="material_section_id" valueNumeric="4"/>
+            <column name="quantity" valueNumeric="5264"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="6"/>
+            <column name="material_section_id" valueNumeric="12"/>
+            <column name="quantity" valueNumeric="3992"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="6"/>
+            <column name="material_section_id" valueNumeric="18"/>
+            <column name="quantity" valueNumeric="24134"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="6"/>
+            <column name="material_section_id" valueNumeric="3"/>
+            <column name="quantity" valueNumeric="19293"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="6"/>
+            <column name="material_section_id" valueNumeric="2"/>
+            <column name="quantity" valueNumeric="21083"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="6"/>
+            <column name="material_section_id" valueNumeric="7"/>
+            <column name="quantity" valueNumeric="17066"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="7"/>
+            <column name="material_section_id" valueNumeric="25"/>
+            <column name="quantity" valueNumeric="11093"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="7"/>
+            <column name="material_section_id" valueNumeric="15"/>
+            <column name="quantity" valueNumeric="19987"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="7"/>
+            <column name="material_section_id" valueNumeric="30"/>
+            <column name="quantity" valueNumeric="15649"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="7"/>
+            <column name="material_section_id" valueNumeric="12"/>
+            <column name="quantity" valueNumeric="10622"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="7"/>
+            <column name="material_section_id" valueNumeric="8"/>
+            <column name="quantity" valueNumeric="26830"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="7"/>
+            <column name="material_section_id" valueNumeric="6"/>
+            <column name="quantity" valueNumeric="23704"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="7"/>
+            <column name="material_section_id" valueNumeric="3"/>
+            <column name="quantity" valueNumeric="19622"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="8"/>
+            <column name="material_section_id" valueNumeric="17"/>
+            <column name="quantity" valueNumeric="17023"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="8"/>
+            <column name="material_section_id" valueNumeric="29"/>
+            <column name="quantity" valueNumeric="12055"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="8"/>
+            <column name="material_section_id" valueNumeric="24"/>
+            <column name="quantity" valueNumeric="15507"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="8"/>
+            <column name="material_section_id" valueNumeric="10"/>
+            <column name="quantity" valueNumeric="20754"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="8"/>
+            <column name="material_section_id" valueNumeric="3"/>
+            <column name="quantity" valueNumeric="4668"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="8"/>
+            <column name="material_section_id" valueNumeric="14"/>
+            <column name="quantity" valueNumeric="6205"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="9"/>
+            <column name="material_section_id" valueNumeric="5"/>
+            <column name="quantity" valueNumeric="16822"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="9"/>
+            <column name="material_section_id" valueNumeric="14"/>
+            <column name="quantity" valueNumeric="2084"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="9"/>
+            <column name="material_section_id" valueNumeric="22"/>
+            <column name="quantity" valueNumeric="3343"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="9"/>
+            <column name="material_section_id" valueNumeric="25"/>
+            <column name="quantity" valueNumeric="19087"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="9"/>
+            <column name="material_section_id" valueNumeric="19"/>
+            <column name="quantity" valueNumeric="26657"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="9"/>
+            <column name="material_section_id" valueNumeric="29"/>
+            <column name="quantity" valueNumeric="27615"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="10"/>
+            <column name="material_section_id" valueNumeric="11"/>
+            <column name="quantity" valueNumeric="23583"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="10"/>
+            <column name="material_section_id" valueNumeric="12"/>
+            <column name="quantity" valueNumeric="20276"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="10"/>
+            <column name="material_section_id" valueNumeric="16"/>
+            <column name="quantity" valueNumeric="19802"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="10"/>
+            <column name="material_section_id" valueNumeric="26"/>
+            <column name="quantity" valueNumeric="15748"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="10"/>
+            <column name="material_section_id" valueNumeric="3"/>
+            <column name="quantity" valueNumeric="28324"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="10"/>
+            <column name="material_section_id" valueNumeric="9"/>
+            <column name="quantity" valueNumeric="16335"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="11"/>
+            <column name="material_section_id" valueNumeric="2"/>
+            <column name="quantity" valueNumeric="3294"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="11"/>
+            <column name="material_section_id" valueNumeric="23"/>
+            <column name="quantity" valueNumeric="1568"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="11"/>
+            <column name="material_section_id" valueNumeric="21"/>
+            <column name="quantity" valueNumeric="2667"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="11"/>
+            <column name="material_section_id" valueNumeric="22"/>
+            <column name="quantity" valueNumeric="3666"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="12"/>
+            <column name="material_section_id" valueNumeric="10"/>
+            <column name="quantity" valueNumeric="3235"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="12"/>
+            <column name="material_section_id" valueNumeric="13"/>
+            <column name="quantity" valueNumeric="3933"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="12"/>
+            <column name="material_section_id" valueNumeric="22"/>
+            <column name="quantity" valueNumeric="1721"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="12"/>
+            <column name="material_section_id" valueNumeric="1"/>
+            <column name="quantity" valueNumeric="2191"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="12"/>
+            <column name="material_section_id" valueNumeric="12"/>
+            <column name="quantity" valueNumeric="988"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="12"/>
+            <column name="material_section_id" valueNumeric="20"/>
+            <column name="quantity" valueNumeric="779"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="12"/>
+            <column name="material_section_id" valueNumeric="16"/>
+            <column name="quantity" valueNumeric="541"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="13"/>
+            <column name="material_section_id" valueNumeric="25"/>
+            <column name="quantity" valueNumeric="10218"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="13"/>
+            <column name="material_section_id" valueNumeric="5"/>
+            <column name="quantity" valueNumeric="24994"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="13"/>
+            <column name="material_section_id" valueNumeric="8"/>
+            <column name="quantity" valueNumeric="13838"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="13"/>
+            <column name="material_section_id" valueNumeric="13"/>
+            <column name="quantity" valueNumeric="29354"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="13"/>
+            <column name="material_section_id" valueNumeric="16"/>
+            <column name="quantity" valueNumeric="3440"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="14"/>
+            <column name="material_section_id" valueNumeric="15"/>
+            <column name="quantity" valueNumeric="1795"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="14"/>
+            <column name="material_section_id" valueNumeric="18"/>
+            <column name="quantity" valueNumeric="1288"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="14"/>
+            <column name="material_section_id" valueNumeric="29"/>
+            <column name="quantity" valueNumeric="710"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="14"/>
+            <column name="material_section_id" valueNumeric="27"/>
+            <column name="quantity" valueNumeric="1913"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="14"/>
+            <column name="material_section_id" valueNumeric="28"/>
+            <column name="quantity" valueNumeric="2403"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="15"/>
+            <column name="material_section_id" valueNumeric="23"/>
+            <column name="quantity" valueNumeric="1851"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="15"/>
+            <column name="material_section_id" valueNumeric="12"/>
+            <column name="quantity" valueNumeric="1708"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="15"/>
+            <column name="material_section_id" valueNumeric="8"/>
+            <column name="quantity" valueNumeric="768"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="15"/>
+            <column name="material_section_id" valueNumeric="3"/>
+            <column name="quantity" valueNumeric="871"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="15"/>
+            <column name="material_section_id" valueNumeric="5"/>
+            <column name="quantity" valueNumeric="1100"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="15"/>
+            <column name="material_section_id" valueNumeric="22"/>
+            <column name="quantity" valueNumeric="1105"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="16"/>
+            <column name="material_section_id" valueNumeric="16"/>
+            <column name="quantity" valueNumeric="7308"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="16"/>
+            <column name="material_section_id" valueNumeric="19"/>
+            <column name="quantity" valueNumeric="1993"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="16"/>
+            <column name="material_section_id" valueNumeric="9"/>
+            <column name="quantity" valueNumeric="2809"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="16"/>
+            <column name="material_section_id" valueNumeric="1"/>
+            <column name="quantity" valueNumeric="1693"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="17"/>
+            <column name="material_section_id" valueNumeric="18"/>
+            <column name="quantity" valueNumeric="3524"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="17"/>
+            <column name="material_section_id" valueNumeric="20"/>
+            <column name="quantity" valueNumeric="5139"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="17"/>
+            <column name="material_section_id" valueNumeric="11"/>
+            <column name="quantity" valueNumeric="1528"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="17"/>
+            <column name="material_section_id" valueNumeric="23"/>
+            <column name="quantity" valueNumeric="7538"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="17"/>
+            <column name="material_section_id" valueNumeric="17"/>
+            <column name="quantity" valueNumeric="5559"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="17"/>
+            <column name="material_section_id" valueNumeric="21"/>
+            <column name="quantity" valueNumeric="6039"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="17"/>
+            <column name="material_section_id" valueNumeric="24"/>
+            <column name="quantity" valueNumeric="942"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="18"/>
+            <column name="material_section_id" valueNumeric="29"/>
+            <column name="quantity" valueNumeric="19326"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="18"/>
+            <column name="material_section_id" valueNumeric="13"/>
+            <column name="quantity" valueNumeric="14043"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="18"/>
+            <column name="material_section_id" valueNumeric="4"/>
+            <column name="quantity" valueNumeric="16778"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="18"/>
+            <column name="material_section_id" valueNumeric="21"/>
+            <column name="quantity" valueNumeric="14121"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="18"/>
+            <column name="material_section_id" valueNumeric="2"/>
+            <column name="quantity" valueNumeric="7245"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="18"/>
+            <column name="material_section_id" valueNumeric="3"/>
+            <column name="quantity" valueNumeric="7840"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="18"/>
+            <column name="material_section_id" valueNumeric="15"/>
+            <column name="quantity" valueNumeric="6318"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="19"/>
+            <column name="material_section_id" valueNumeric="11"/>
+            <column name="quantity" valueNumeric="2722"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="19"/>
+            <column name="material_section_id" valueNumeric="4"/>
+            <column name="quantity" valueNumeric="1007"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="19"/>
+            <column name="material_section_id" valueNumeric="19"/>
+            <column name="quantity" valueNumeric="5956"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="19"/>
+            <column name="material_section_id" valueNumeric="18"/>
+            <column name="quantity" valueNumeric="4324"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="20"/>
+            <column name="material_section_id" valueNumeric="20"/>
+            <column name="quantity" valueNumeric="1635"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="20"/>
+            <column name="material_section_id" valueNumeric="3"/>
+            <column name="quantity" valueNumeric="29450"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="20"/>
+            <column name="material_section_id" valueNumeric="7"/>
+            <column name="quantity" valueNumeric="20921"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="20"/>
+            <column name="material_section_id" valueNumeric="13"/>
+            <column name="quantity" valueNumeric="5667"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="20"/>
+            <column name="material_section_id" valueNumeric="21"/>
+            <column name="quantity" valueNumeric="9065"/>
+        </insert>
+        <insert tableName="inventory">
+            <column name="material_type_id" valueNumeric="20"/>
+            <column name="material_section_id" valueNumeric="12"/>
+            <column name="quantity" valueNumeric="20535"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

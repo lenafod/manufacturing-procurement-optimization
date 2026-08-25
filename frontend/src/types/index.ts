@@ -9,6 +9,8 @@ export type PurchaseRequestStatus =
   | 'DELIVERED'
   | 'CANCELED';
 
+export type ProcurementInquiryStatus = 'POSLAT' | 'ODGOVOREN';
+
 export interface MaterialType {
   id: number;
   materialName: string;
@@ -53,6 +55,7 @@ export interface SupplierMaterial {
   materialSectionType: MaterialSectionType;
   pricePerUnit: number;
   deliveryTime: number;
+  availableQuantity: number;
 }
 
 export interface Inventory {
@@ -105,7 +108,30 @@ export interface SkippedPosition {
   reason: string;
 }
 
+export interface PartialFulfillment {
+  positionName: string;
+  missingQuantity: number;
+}
+
+export interface InquiryEmailPreview {
+  to: string;
+  subject: string;
+  text: string;
+}
+
+export interface ProcurementInquiry {
+  id: number;
+  technicalSheet: TechnicalSheet | null;
+  supplierMaterial: SupplierMaterial;
+  requestedQuantity: number | null;
+  confirmedQuantity: number | null;
+  status: ProcurementInquiryStatus;
+  sentAt: string;
+  respondedAt: string | null;
+}
+
 export interface OptimizationResult {
   created: PurchaseRequest[];
+  partial: PartialFulfillment[];
   skipped: SkippedPosition[];
 }

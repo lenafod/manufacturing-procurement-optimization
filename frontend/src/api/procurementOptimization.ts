@@ -7,4 +7,9 @@ export const procurementOptimizationApi = {
       `/procurement-optimization/optimize/${encodeURIComponent(workOrderId)}` +
         `?weightPrice=${weightPrice}&weightDeliveryTime=${weightDeliveryTime}`,
     ),
+  preview: (workOrderId: string, weightPrice: number, weightDeliveryTime: number) =>
+    apiClient.get<OptimizationResult>(
+      `/procurement-optimization/preview/${encodeURIComponent(workOrderId)}` +
+        `?weightPrice=${weightPrice}&weightDeliveryTime=${weightDeliveryTime}`,
+    ),
 };

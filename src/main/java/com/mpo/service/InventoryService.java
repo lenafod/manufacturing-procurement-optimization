@@ -66,4 +66,24 @@ public class InventoryService {
         return inventoryRepository.save(inventory);
     }
 
+    // trenutno raspoloziva kolicina na lageru (0 ako red uopste ne postoji) - za razliku od
+    // checkInventory (samo da/ne), ovo vraca konkretan broj da bi optimizacija mogla da odbije
+    // ono sto vec imamo na stanju pre nego sto pita dobavljace za ostatak
+    public double getAvailableQuantity(MaterialType materialType, MaterialSectionType materialSectionType) {
+        return inventoryRepository
+                .findByMaterialTypeAndMaterialSectionType(materialType, materialSectionType)
+                .map(Inventory::getQuantity)
+                .orElse(0.0);
+    }
+
+    // trosi kolicinu sa lagera kad se iskoristi za pokrivanje pozicije radnog naloga
+    public void decreaseQuantity(MaterialType materialType, MaterialSectionType materialSectionType, Double amount) {
+        Inventory inventory = inventoryRepository
+                .findByMaterialTypeAndMaterialSectionType(materialType, materialSectionType)
+                .orElseThrow(() -> new ResourceNotFoundException("inventory for this material/section does not exist"));
+
+        inventory.setQuantity(inventory.getQuantity() - amount);
+        inventoryRepository.save(inventory);
+    }
+
 }

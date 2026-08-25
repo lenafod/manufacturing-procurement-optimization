@@ -33,4 +33,14 @@ public class ProcurementOptimizationController {
 
         return procurementOptimizationService.optimizeProcurementForWorkOrder(workOrder, weightPrice, weightDeliveryTime);
     }
+
+    @GetMapping("/preview/{workOrderId}")
+    public OptimizationResult previewProcurement(@PathVariable String workOrderId,
+                                                  @RequestParam Double weightPrice,
+                                                  @RequestParam Double weightDeliveryTime) {
+
+        WorkOrder workOrder = workOrderService.getById(workOrderId);
+
+        return procurementOptimizationService.previewProcurementForWorkOrder(workOrder, weightPrice, weightDeliveryTime);
+    }
 }
