@@ -125,6 +125,8 @@ export interface ProcurementInquiry {
   supplierMaterial: SupplierMaterial;
   requestedQuantity: number | null;
   confirmedQuantity: number | null;
+  confirmedPrice: number | null;
+  confirmedDeliveryTime: number | null;
   status: ProcurementInquiryStatus;
   sentAt: string;
   respondedAt: string | null;

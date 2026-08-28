@@ -95,15 +95,23 @@ public class ProcurementInquiryService {
         return sentInquiries;
     }
 
-    public ProcurementInquiry recordResponse(Long inquiryId, Double confirmedQuantity) {
+    // odgovor dobavljaca nosi sve troje - cena i rok su isto tako nepouzdani kao i kolicina dok
+    // se ne potvrde u razgovoru, ne samo kolicina. Sve troje se odjednom upisuje na ponudu.
+    public ProcurementInquiry recordResponse(Long inquiryId, Double confirmedQuantity, Double confirmedPrice, Integer confirmedDeliveryTime) {
         ProcurementInquiry inquiry = procurementInquiryRepository.findById(inquiryId)
                 .orElseThrow(() -> new ResourceNotFoundException("procurement inquiry with id " + inquiryId + " not found"));
 
         inquiry.setConfirmedQuantity(confirmedQuantity);
+        inquiry.setConfirmedPrice(confirmedPrice);
+        inquiry.setConfirmedDeliveryTime(confirmedDeliveryTime);
         inquiry.setStatus(ProcurementInquiryStatus.ODGOVOREN);
         inquiry.setRespondedAt(LocalDate.now());
 
-        supplierMaterialService.setAvailableQuantity(inquiry.getSupplierMaterial(), confirmedQuantity);
+        SupplierMaterial updatedOffer = new SupplierMaterial();
+        updatedOffer.setPricePerUnit(confirmedPrice);
+        updatedOffer.setDeliveryTime(confirmedDeliveryTime);
+        updatedOffer.setAvailableQuantity(confirmedQuantity);
+        supplierMaterialService.updateSupplierMaterial(inquiry.getSupplierMaterial().getId(), updatedOffer);
 
         return procurementInquiryRepository.save(inquiry);
     }

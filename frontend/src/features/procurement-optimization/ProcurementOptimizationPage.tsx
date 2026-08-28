@@ -6,7 +6,6 @@ import { useApiMutation } from '../../hooks/useApiMutation';
 import { Button } from '../../components/Button';
 import { Select } from '../../components/Select';
 import { Modal } from '../../components/Modal';
-import { WeightStepper } from '../../components/WeightStepper';
 import { DataTable } from '../../components/DataTable';
 import { PurchaseRequestStatusPill } from '../../components/StatusPill';
 import { ErrorBanner } from '../../components/ErrorBanner';
@@ -62,14 +61,36 @@ export function ProcurementOptimizationPage() {
         />
       )}
 
-      <div className="panel-section-label">2. Odnos kriterijuma</div>
-      <WeightStepper
-        pricePercent={pricePercent}
-        onChange={(value) => {
-          setPricePercent(value);
-          resetResults();
-        }}
-      />
+      <div className="panel-section-label">2. Strategija izbora dobavljača</div>
+      <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.2rem' }}>
+        <Button
+          variant={pricePercent === 100 ? 'accent' : 'ghost'}
+          onClick={() => {
+            setPricePercent(100);
+            resetResults();
+          }}
+        >
+          Najniža cena
+        </Button>
+        <Button
+          variant={pricePercent === 50 ? 'accent' : 'ghost'}
+          onClick={() => {
+            setPricePercent(50);
+            resetResults();
+          }}
+        >
+          Balans
+        </Button>
+        <Button
+          variant={pricePercent === 0 ? 'accent' : 'ghost'}
+          onClick={() => {
+            setPricePercent(0);
+            resetResults();
+          }}
+        >
+          Najkraći rok
+        </Button>
+      </div>
 
       <div style={{ marginTop: '1.2rem' }}>
         <Button

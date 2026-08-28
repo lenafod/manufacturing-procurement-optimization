@@ -31,8 +31,7 @@ export function HomePage() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.1rem' }}>
       <div>
-        <h1 style={{ margin: '0 0 0.2rem' }}>Manufacturing Procurement Optimization</h1>
-        <p style={{ margin: 0, color: 'var(--steel)' }}>Pregled trenutnog stanja nabavke.</p>
+        <h1 style={{ margin: 0 }}>Manufacturing Procurement Optimization</h1>
       </div>
 
       {isLoading ? (

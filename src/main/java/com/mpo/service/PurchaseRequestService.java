@@ -1,7 +1,11 @@
 package com.mpo.service;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import com.mpo.entity.MaterialSectionType;
 import com.mpo.entity.PurchaseRequest;
 import com.mpo.enums.PurchaseRequestStatus;
 import com.mpo.exception.InvalidRequestException;
@@ -17,11 +21,17 @@ public class PurchaseRequestService {
     private final PurchaseRequestRepository purchaseRequestRepository;
     private final InventoryService inventoryService;
     private final SupplierMaterialService supplierMaterialService;
+    private final JavaMailSender mailSender;
 
-    public PurchaseRequestService(PurchaseRequestRepository purchaseRequestRepository, InventoryService inventoryService, SupplierMaterialService supplierMaterialService) {
+    @Value("${procurement.mail.from}")
+    private String fromAddress;
+
+    public PurchaseRequestService(PurchaseRequestRepository purchaseRequestRepository, InventoryService inventoryService,
+                                   SupplierMaterialService supplierMaterialService, JavaMailSender mailSender) {
         this.purchaseRequestRepository = purchaseRequestRepository;
         this.inventoryService = inventoryService;
         this.supplierMaterialService = supplierMaterialService;
+        this.mailSender = mailSender;
     }
 
     public List<PurchaseRequest> getPurchaseRequestsByStatus(PurchaseRequestStatus status) {
@@ -79,7 +89,41 @@ public class PurchaseRequestService {
             );
         }
 
+        // CREATED->SENT je trenutak kad porudzbina stvarno ide dobavljacu - do sada je "kreiran"
+        // bio samo interna odluka (napravljena u Optimizaciji), mejl se salje tek na "Posalji"
+        if (newStatus == PurchaseRequestStatus.SENT) {
+            sendOrderEmail(purchaseRequest);
+        }
+
         return purchaseRequestRepository.save(purchaseRequest);
+    }
+
+    private void sendOrderEmail(PurchaseRequest purchaseRequest) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom(fromAddress);
+        message.setTo(purchaseRequest.getSupplierMaterial().getSupplier().getEmail());
+        message.setSubject("Porudžbina — " + purchaseRequest.getTechnicalSheet().getPositionName());
+        message.setText(
+                "Poštovani,\n\n" +
+                "Ovim putem Vam šaljemo porudžbinu:\n\n" +
+                "Pozicija: " + purchaseRequest.getTechnicalSheet().getPositionName() + "\n" +
+                "Materijal: " + purchaseRequest.getSupplierMaterial().getMaterialType().getMaterialName() + "\n" +
+                "Presek: " + formatSection(purchaseRequest.getSupplierMaterial().getMaterialSectionType()) + "\n" +
+                "Količina: " + purchaseRequest.getRequiredQuantity() + " mm\n" +
+                "Cena po jedinici: " + purchaseRequest.getSupplierMaterial().getPricePerUnit() + "\n" +
+                "Ukupna cena: " + purchaseRequest.getTotalPrice() + "\n" +
+                "Očekivan datum isporuke: " + purchaseRequest.getExpectedDeliveryDate() + "\n\n" +
+                "Molimo potvrdite prijem porudžbine.\n\n" +
+                "Hvala,\nNabavka"
+        );
+        mailSender.send(message);
+    }
+
+    private String formatSection(MaterialSectionType sectionType) {
+        String dims = Boolean.TRUE.equals(sectionType.getUsesDim2())
+                ? sectionType.getDim1() + "x" + sectionType.getDim2()
+                : String.valueOf(sectionType.getDim1());
+        return sectionType.getTypeName().getDisplayName() + " " + dims + " mm";
     }
 
     private void validateStatusChange(PurchaseRequest purchaseRequest, PurchaseRequestStatus newStatus) {

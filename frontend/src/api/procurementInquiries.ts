@@ -18,6 +18,9 @@ export const procurementInquiriesApi = {
       `/procurement-inquiries/preview?supplierMaterialId=${supplierMaterialId}` +
         (technicalSheetId ? `&technicalSheetId=${encodeURIComponent(technicalSheetId)}` : ''),
     ),
-  recordResponse: (id: number, confirmedQuantity: number) =>
-    apiClient.patch<ProcurementInquiry>(`/procurement-inquiries/${id}/respond?confirmedQuantity=${confirmedQuantity}`),
+  recordResponse: (id: number, confirmedQuantity: number, confirmedPrice: number, confirmedDeliveryTime: number) =>
+    apiClient.patch<ProcurementInquiry>(
+      `/procurement-inquiries/${id}/respond?confirmedQuantity=${confirmedQuantity}` +
+        `&confirmedPrice=${confirmedPrice}&confirmedDeliveryTime=${confirmedDeliveryTime}`,
+    ),
 };

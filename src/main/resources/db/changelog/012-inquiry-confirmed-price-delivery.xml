@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <!-- odgovor na upit sad hvata i cenu i rok isporuke, ne samo kolicinu - sve troje se
+         dobavljac potvrdjuje kroz isti razgovor, ne samo kolicina -->
+    <changeSet id="012-1-inquiry-confirmed-price-delivery" author="lenafod">
+        <addColumn tableName="procurement_inquiry">
+            <column name="confirmed_price" type="DOUBLE PRECISION"/>
+            <column name="confirmed_delivery_time" type="INT"/>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

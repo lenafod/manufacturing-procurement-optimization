@@ -36,6 +36,8 @@ public class ProcurementInquiry {
 
     private Double requestedQuantity; // potrebna kolicina u trenutku slanja upita
     private Double confirmedQuantity; // stvarna kolicina koju je dobavljac potvrdio (null dok ne odgovori)
+    private Double confirmedPrice; // stvarna cena po jedinici koju je dobavljac potvrdio
+    private Integer confirmedDeliveryTime; // stvaran rok isporuke (dana) koji je dobavljac potvrdio
 
     @Enumerated(EnumType.STRING)
     private ProcurementInquiryStatus status;

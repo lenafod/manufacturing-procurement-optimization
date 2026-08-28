@@ -52,6 +52,8 @@ export function ProcurementInquiriesPage() {
                 { header: 'Materijal', render: (i) => i.supplierMaterial.materialType.materialName },
                 { header: 'Tražena količina', render: (i) => i.requestedQuantity ?? '—', numeric: true },
                 { header: 'Potvrđena količina', render: (i) => i.confirmedQuantity ?? '—', numeric: true },
+                { header: 'Potvrđena cena', render: (i) => i.confirmedPrice ?? '—', numeric: true },
+                { header: 'Potvrđen rok', render: (i) => (i.confirmedDeliveryTime != null ? `${i.confirmedDeliveryTime} d` : '—'), numeric: true },
                 { header: 'Poslato', render: (i) => i.sentAt },
                 { header: 'Status', render: (i) => <ProcurementInquiryStatusPill status={i.status} /> },
                 {
@@ -59,8 +61,8 @@ export function ProcurementInquiriesPage() {
                   render: (i) =>
                     i.status === 'POSLAT' ? (
                       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                        <Button variant="ghost" onClick={() => setRespondingTo(i)}>
-                          Unesi stvarnu količinu
+                        <Button variant="accent" onClick={() => setRespondingTo(i)}>
+                          Unesi odgovor
                         </Button>
                       </div>
                     ) : null,
@@ -283,12 +285,24 @@ function InquiryPreviewModal({
 }
 
 function RespondModal({ inquiry, onClose }: { inquiry: ProcurementInquiry; onClose: () => void }) {
+  // cena i rok su isto tako nepouzdani kao i kolicina dok dobavljac ne odgovori - unosi se sve
+  // troje odjednom, unapred popunjeno poznatim (starim) vrednostima kao polazna tacka
   const [confirmedQuantity, setConfirmedQuantity] = useState('');
+  const [confirmedPrice, setConfirmedPrice] = useState(String(inquiry.supplierMaterial.pricePerUnit));
+  const [confirmedDeliveryTime, setConfirmedDeliveryTime] = useState(String(inquiry.supplierMaterial.deliveryTime));
 
   const recordResponse = useApiMutation(
-    (quantity: number) => procurementInquiriesApi.recordResponse(inquiry.id, quantity),
+    () =>
+      procurementInquiriesApi.recordResponse(
+        inquiry.id,
+        Number(confirmedQuantity),
+        Number(confirmedPrice),
+        Number(confirmedDeliveryTime),
+      ),
     { invalidateKeys: [['procurementInquiries'], ['supplierMaterials']], onSuccess: onClose },
   );
+
+  const canSubmit = confirmedQuantity !== '' && confirmedPrice !== '' && confirmedDeliveryTime !== '';
 
   return (
     <Modal title={`Odgovor — ${inquiry.supplierMaterial.supplier.name}`} onClose={onClose}>
@@ -299,20 +313,28 @@ function RespondModal({ inquiry, onClose }: { inquiry: ProcurementInquiry; onClo
         {inquiry.requestedQuantity != null ? `. Traženo: ${inquiry.requestedQuantity}.` : '.'}
       </p>
       <TextField
-        label="Stvarna raspoloživa količina"
+        label="Stvarna raspoloživa količina (mm)"
         type="number"
         value={confirmedQuantity}
         onChange={(e) => setConfirmedQuantity(e.target.value)}
+      />
+      <TextField
+        label="Stvarna cena po jedinici"
+        type="number"
+        value={confirmedPrice}
+        onChange={(e) => setConfirmedPrice(e.target.value)}
+      />
+      <TextField
+        label="Stvaran rok isporuke (dana)"
+        type="number"
+        value={confirmedDeliveryTime}
+        onChange={(e) => setConfirmedDeliveryTime(e.target.value)}
       />
       <div className="modal-actions">
         <Button variant="ghost" onClick={onClose}>
           Otkaži
         </Button>
-        <Button
-          variant="accent"
-          disabled={confirmedQuantity === '' || recordResponse.isPending}
-          onClick={() => recordResponse.mutate(Number(confirmedQuantity))}
-        >
+        <Button variant="accent" disabled={!canSubmit || recordResponse.isPending} onClick={() => recordResponse.mutate(undefined)}>
           {recordResponse.isPending ? 'Čuvanje...' : 'Sačuvaj odgovor'}
         </Button>
       </div>

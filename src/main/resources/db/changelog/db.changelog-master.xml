@@ -16,5 +16,6 @@
     <include file="db/changelog/009-seed-more-supplier-materials.xml" relativeToChangelogFile="false"/>
     <include file="db/changelog/010-seed-more-inventory.xml" relativeToChangelogFile="false"/>
     <include file="db/changelog/011-round-inventory-quantities.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/012-inquiry-confirmed-price-delivery.xml" relativeToChangelogFile="false"/>
 
 </databaseChangeLog>

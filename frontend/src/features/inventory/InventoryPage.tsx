@@ -15,6 +15,7 @@ import { ErrorBanner } from '../../components/ErrorBanner';
 import { LoadingState } from '../../components/LoadingState';
 import { ErrorState } from '../../components/ErrorState';
 import { formatMaterialSection } from '../../utils/formatMaterialSection';
+import { groupSectionsByShape } from '../../utils/groupSections';
 import { SendInquiryButton } from '../procurement-inquiries/ProcurementInquiriesPage';
 import type { Inventory, SupplierMaterial } from '../../types';
 
@@ -50,7 +51,7 @@ export function InventoryPage() {
                   { header: 'Presek', render: (i) => formatMaterialSection(i.materialSectionType) },
                   { header: 'Količina (mm)', render: (i) => i.quantity, numeric: true },
                 ]}
-                rows={inventory.data}
+                rows={[...inventory.data].sort((a, b) => a.materialType.materialName.localeCompare(b.materialType.materialName))}
                 rowKey={(i) => i.id}
                 emptyMessage="Magacin je prazan — dodaj prvu stavku."
               />
@@ -88,17 +89,16 @@ function NewInventoryModal({ onClose }: { onClose: () => void }) {
       <Select
         label="Vrsta materijala"
         placeholder="Izaberi materijal"
-        options={(materialTypes.data ?? []).map((m) => ({ value: String(m.id), label: m.materialName }))}
+        options={[...(materialTypes.data ?? [])]
+          .sort((a, b) => a.materialName.localeCompare(b.materialName))
+          .map((m) => ({ value: String(m.id), label: m.materialName }))}
         value={materialTypeId}
         onChange={(e) => setMaterialTypeId(e.target.value)}
       />
       <Select
         label="Presek"
         placeholder="Izaberi presek"
-        options={(materialSectionTypes.data ?? []).map((s) => ({
-          value: String(s.id),
-          label: formatMaterialSection(s),
-        }))}
+        groups={groupSectionsByShape(materialSectionTypes.data ?? [])}
         value={materialSectionTypeId}
         onChange={(e) => setMaterialSectionTypeId(e.target.value)}
       />
@@ -173,7 +173,9 @@ function CheckStockCard() {
       <Select
         label="Vrsta materijala"
         placeholder="Izaberi materijal"
-        options={(materialTypes.data ?? []).map((m) => ({ value: String(m.id), label: m.materialName }))}
+        options={[...(materialTypes.data ?? [])]
+          .sort((a, b) => a.materialName.localeCompare(b.materialName))
+          .map((m) => ({ value: String(m.id), label: m.materialName }))}
         value={materialTypeId}
         onChange={(e) => {
           setMaterialTypeId(e.target.value);
@@ -183,10 +185,7 @@ function CheckStockCard() {
       <Select
         label="Presek"
         placeholder="Izaberi presek"
-        options={(materialSectionTypes.data ?? []).map((s) => ({
-          value: String(s.id),
-          label: formatMaterialSection(s),
-        }))}
+        groups={groupSectionsByShape(materialSectionTypes.data ?? [])}
         value={materialSectionTypeId}
         onChange={(e) => {
           setMaterialSectionTypeId(e.target.value);

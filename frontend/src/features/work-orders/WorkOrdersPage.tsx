@@ -2,11 +2,13 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { workOrdersApi } from '../../api/workOrders';
+import { materialTypesApi } from '../../api/materialTypes';
 import { useApiMutation } from '../../hooks/useApiMutation';
 import { DataTable } from '../../components/DataTable';
 import { Button } from '../../components/Button';
 import { Modal } from '../../components/Modal';
 import { TextField } from '../../components/TextField';
+import { Select } from '../../components/Select';
 import { ErrorBanner } from '../../components/ErrorBanner';
 import { LoadingState } from '../../components/LoadingState';
 import { ErrorState } from '../../components/ErrorState';
@@ -15,8 +17,23 @@ import type { WorkOrder } from '../../types';
 export function WorkOrdersPage() {
   const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false);
+  const [idFilter, setIdFilter] = useState('');
+  const [materialTypeId, setMaterialTypeId] = useState('');
+  const [positionFilter, setPositionFilter] = useState('');
 
-  const workOrders = useQuery({ queryKey: ['workOrders'], queryFn: workOrdersApi.getAll });
+  const materialTypes = useQuery({ queryKey: ['materialTypes'], queryFn: materialTypesApi.getAll });
+
+  const workOrders = useQuery({
+    queryKey: ['workOrders', 'search', idFilter, materialTypeId, positionFilter],
+    queryFn: () =>
+      workOrdersApi.search({
+        id: idFilter || undefined,
+        materialTypeId: materialTypeId ? Number(materialTypeId) : undefined,
+        positionName: positionFilter || undefined,
+      }),
+  });
+
+  const hasFilters = idFilter || materialTypeId || positionFilter;
 
   return (
     <div className="card">
@@ -25,6 +42,28 @@ export function WorkOrdersPage() {
         <Button variant="accent" onClick={() => setModalOpen(true)}>
           + Novi radni nalog
         </Button>
+      </div>
+
+      <div className="panel-grid" style={{ marginBottom: '0.9rem' }}>
+        <TextField
+          label="Pretraga po ID-ju"
+          placeholder="npr. RN-2026"
+          value={idFilter}
+          onChange={(e) => setIdFilter(e.target.value)}
+        />
+        <Select
+          label="Materijal"
+          placeholder="Svi materijali"
+          options={(materialTypes.data ?? []).map((m) => ({ value: String(m.id), label: m.materialName }))}
+          value={materialTypeId}
+          onChange={(e) => setMaterialTypeId(e.target.value)}
+        />
+        <TextField
+          label="Pretraga po poziciji"
+          placeholder="naziv pozicije"
+          value={positionFilter}
+          onChange={(e) => setPositionFilter(e.target.value)}
+        />
       </div>
 
       {workOrders.isLoading && <LoadingState />}
@@ -42,7 +81,7 @@ export function WorkOrdersPage() {
           ]}
           rows={workOrders.data}
           rowKey={(w) => w.id}
-          emptyMessage="Još nema radnih naloga — kreiraj prvi."
+          emptyMessage={hasFilters ? 'Nijedan radni nalog ne odgovara filterima.' : 'Još nema radnih naloga — kreiraj prvi.'}
           onRowClick={(w) => navigate(`/work-orders/${w.id}`)}
         />
       )}

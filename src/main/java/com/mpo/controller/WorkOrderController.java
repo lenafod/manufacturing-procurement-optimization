@@ -28,8 +28,15 @@ public class WorkOrderController {
     private final PdfService pdfService;
 
     @GetMapping
-    public List<WorkOrder> getAll() {
-        return workOrderService.getAll();
+    public List<WorkOrder> getAll(
+            @RequestParam(required = false) String id,
+            @RequestParam(required = false) Integer materialTypeId,
+            @RequestParam(required = false) String positionName) {
+
+        if (id == null && materialTypeId == null && positionName == null) {
+            return workOrderService.getAll();
+        }
+        return workOrderService.search(id, materialTypeId, positionName);
     }
 
     @GetMapping("/test-pdf")

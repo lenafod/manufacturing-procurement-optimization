@@ -14,10 +14,9 @@ export function Layout() {
   return (
     <div className="app-shell">
       <header className="app-header">
-        <span className="app-header-brand">MPO</span>
+        <span className="app-header-badge">MPO</span>
+        <span className="app-header-title">Manufacturing Procurement Optimization</span>
       </header>
-
-      <div className="app-title">Manufacturing Procurement Optimization</div>
 
       <div className="app-frame">
         <nav className="nav-underline">

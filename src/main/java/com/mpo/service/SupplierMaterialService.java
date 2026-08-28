@@ -176,11 +176,4 @@ public class SupplierMaterialService {
         offer.setAvailableQuantity(current + quantity);
         supplierMaterialRepository.save(offer);
     }
-
-    // zamenjuje priblizan broj stvarno potvrdjenom kolicinom (odgovor na upit dobavljacu),
-    // za razliku od increase/decrease koji dodaju/oduzimaju u odnosu na postojecu vrednost
-    public void setAvailableQuantity(SupplierMaterial offer, double quantity) {
-        offer.setAvailableQuantity(quantity);
-        supplierMaterialRepository.save(offer);
-    }
 }

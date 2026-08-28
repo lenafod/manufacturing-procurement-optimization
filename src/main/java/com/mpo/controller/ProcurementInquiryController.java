@@ -44,7 +44,10 @@ public class ProcurementInquiryController {
     }
 
     @PatchMapping("/{id}/respond")
-    public ProcurementInquiry recordResponse(@PathVariable Long id, @RequestParam Double confirmedQuantity) {
-        return procurementInquiryService.recordResponse(id, confirmedQuantity);
+    public ProcurementInquiry recordResponse(@PathVariable Long id,
+                                              @RequestParam Double confirmedQuantity,
+                                              @RequestParam Double confirmedPrice,
+                                              @RequestParam Integer confirmedDeliveryTime) {
+        return procurementInquiryService.recordResponse(id, confirmedQuantity, confirmedPrice, confirmedDeliveryTime);
     }
 }
