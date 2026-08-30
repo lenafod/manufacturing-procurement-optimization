@@ -81,7 +81,7 @@ export function WorkOrdersPage() {
           ]}
           rows={workOrders.data}
           rowKey={(w) => w.id}
-          emptyMessage={hasFilters ? 'Nijedan radni nalog ne odgovara filterima.' : 'Još nema radnih naloga — kreiraj prvi.'}
+          emptyMessage={hasFilters ? 'Nijedan radni nalog ne odgovara filterima.' : 'Još nema radnih naloga. Kreiraj prvi.'}
           onRowClick={(w) => navigate(`/work-orders/${w.id}`)}
         />
       )}
@@ -104,7 +104,7 @@ function NewWorkOrderModal({ onClose, onCreated }: { onClose: () => void; onCrea
       <ErrorBanner error={createWorkOrder.error} />
       <TextField
         label="ID radnog naloga"
-        hint="Poslovni ključ — mora biti jedinstven"
+        hint="Poslovni ključ, mora biti jedinstven"
         mono
         autoFocus
         error={createWorkOrder.isError}

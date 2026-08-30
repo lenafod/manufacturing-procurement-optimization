@@ -1,15 +1,24 @@
 package com.mpo.service;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.mpo.entity.MaterialSectionType;
 import com.mpo.entity.TechnicalSheet;
+import com.mpo.exception.InvalidRequestException;
 import com.mpo.exception.ResourceNotFoundException;
 import com.mpo.repository.TechnicalSheetRepository;
 
 import static com.mpo.enums.SectionShape.*;
 
 import lombok.RequiredArgsConstructor;
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import org.springframework.data.domain.Sort;
 @Service
@@ -19,6 +28,9 @@ public class TechnicalSheetService {
     private final TechnicalSheetRepository technicalSheetRepository;
     private final MaterialTypeService materialTypeService;
     private final MaterialSectionTypeService materialSectionTypeService;
+
+    @Value("${procurement.uploads.drawings-dir}")
+    private String drawingsDir;
 
     public List<TechnicalSheet> getTechnicalSheetsBySheetId(String sheetId, String sortDirection) {
         Sort sort = sortDirection.equalsIgnoreCase("asc") ? Sort.by("sheetVersion").ascending() : Sort.by("sheetVersion").descending();
@@ -64,6 +76,57 @@ public class TechnicalSheetService {
     public TechnicalSheet getById(String id) {
         return technicalSheetRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("technical sheet with id " + id + " not found"));
+    }
+
+    // crtez se cuva na disku kao {technicalSheetId}.{ekstenzija} - jedan fajl po poziciji (novi
+    // upload prepisuje stari). baza pamti samo originalni naziv, sluzi za Content-Disposition
+    // pri preuzimanju i da front zna da li je crtez uopste otpremljen (drawingFileName != null)
+    public TechnicalSheet uploadDrawing(String id, MultipartFile file) {
+        TechnicalSheet technicalSheet = getById(id);
+
+        if (file == null || file.isEmpty()) {
+            throw new InvalidRequestException("uploaded file must not be empty");
+        }
+
+        String extension = extractExtension(file.getOriginalFilename());
+
+        try {
+            Path dir = Path.of(drawingsDir);
+            Files.createDirectories(dir);
+            Path target = dir.resolve(id + extension);
+            file.transferTo(target);
+        } catch (IOException e) {
+            throw new UncheckedIOException("failed to store drawing for technical sheet " + id, e);
+        }
+
+        technicalSheet.setDrawingFileName(file.getOriginalFilename());
+        return technicalSheetRepository.save(technicalSheet);
+    }
+
+    public Resource getDrawingResource(String id) {
+        TechnicalSheet technicalSheet = getById(id);
+
+        if (technicalSheet.getDrawingFileName() == null) {
+            throw new ResourceNotFoundException("technical sheet with id " + id + " has no uploaded drawing");
+        }
+
+        String extension = extractExtension(technicalSheet.getDrawingFileName());
+        Path target = Path.of(drawingsDir).resolve(id + extension);
+        return new FileSystemResource(target);
+    }
+
+    // technicalSheet.id je vec ljudski citljiv (sheetId + "-" + verzija) i koristi se direktno kao
+    // naziv fajla na disku - uzimamo samo ekstenziju iz ORIGINALNOG imena, ne ceo naziv, da upload
+    // ne moze da izadje van drawingsDir (path traversal) preko zlonamerno sastavljenog imena fajla
+    private String extractExtension(String originalFilename) {
+        if (originalFilename == null) {
+            return "";
+        }
+        int dotIndex = originalFilename.lastIndexOf('.');
+        if (dotIndex < 0) {
+            return "";
+        }
+        return originalFilename.substring(dotIndex).replaceAll("[^a-zA-Z0-9.]", "");
     }
 
     private Double calculatePrepLength(Double partLength, Double technicalAllowance) {

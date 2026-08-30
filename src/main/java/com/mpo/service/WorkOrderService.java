@@ -12,7 +12,6 @@ import com.mpo.repository.WorkOrderRepository;
 
 import jakarta.persistence.criteria.Join;
 import lombok.RequiredArgsConstructor;
-import java.util.ArrayList;
 import java.util.List;
 @Service
 @RequiredArgsConstructor
@@ -32,8 +31,10 @@ public class WorkOrderService {
     }
 
     // pretraga radnih naloga po vise nezavisnih kriterijuma - svi opcioni, kombinuju se sa AND.
-    // id je pretraga po delu teksta (case-insensitive); materialTypeId i positionName gledaju
-    // da li BAR JEDNA pozicija (tehnicki list) u nalogu odgovara tom kriterijumu
+    // id je pretraga po delu teksta (case-insensitive); materialTypeId i positionName svaki
+    // dobija SVOJ join na technicalSheets, tako da nalog odgovara ako BILO KOJA pozicija ima taj
+    // materijal I (nezavisno, moguce druga) pozicija odgovara tom nazivu - a ne samo ako JEDNA
+    // ista pozicija zadovoljava oba uslova istovremeno
     public List<WorkOrder> search(String id, Integer materialTypeId, String positionName) {
         Specification<WorkOrder> spec = null;
 
@@ -43,22 +44,23 @@ public class WorkOrderService {
             spec = (spec == null) ? idSpec : spec.and(idSpec);
         }
 
-        if (materialTypeId != null || (positionName != null && !positionName.isBlank())) {
-            Specification<WorkOrder> sheetSpec = (root, query, cb) -> {
+        if (materialTypeId != null) {
+            Specification<WorkOrder> materialSpec = (root, query, cb) -> {
                 query.distinct(true);
                 Join<WorkOrder, TechnicalSheet> sheets = root.join("technicalSheets");
-                List<jakarta.persistence.criteria.Predicate> predicates = new ArrayList<>();
-
-                if (materialTypeId != null) {
-                    predicates.add(cb.equal(sheets.get("materialType").get("id"), materialTypeId));
-                }
-                if (positionName != null && !positionName.isBlank()) {
-                    predicates.add(cb.like(cb.lower(sheets.get("positionName")), "%" + positionName.toLowerCase() + "%"));
-                }
-
-                return cb.and(predicates.toArray(new jakarta.persistence.criteria.Predicate[0]));
+                return cb.equal(sheets.get("materialType").get("id"), materialTypeId);
             };
-            spec = (spec == null) ? sheetSpec : spec.and(sheetSpec);
+            spec = (spec == null) ? materialSpec : spec.and(materialSpec);
+        }
+
+        if (positionName != null && !positionName.isBlank()) {
+            String pattern = "%" + positionName.toLowerCase() + "%";
+            Specification<WorkOrder> positionSpec = (root, query, cb) -> {
+                query.distinct(true);
+                Join<WorkOrder, TechnicalSheet> sheets = root.join("technicalSheets");
+                return cb.like(cb.lower(sheets.get("positionName")), pattern);
+            };
+            spec = (spec == null) ? positionSpec : spec.and(positionSpec);
         }
 
         return spec == null ? workOrderRepository.findAll() : workOrderRepository.findAll(spec);

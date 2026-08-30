@@ -89,6 +89,7 @@ export interface TechnicalSheet {
   partMass: number | null;
   blankMass: number | null;
   removedMass: number | null;
+  drawingFileName: string | null;
 }
 
 export interface PurchaseRequest {

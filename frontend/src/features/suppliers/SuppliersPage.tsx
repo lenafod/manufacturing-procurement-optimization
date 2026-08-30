@@ -39,7 +39,7 @@ export function SuppliersPage() {
           ]}
           rows={suppliers.data}
           rowKey={(s) => s.id}
-          emptyMessage="Još nema dobavljača — dodaj prvog."
+          emptyMessage="Još nema dobavljača. Dodaj prvog."
           onRowClick={(s) => navigate(`/suppliers/${s.id}`)}
         />
       )}

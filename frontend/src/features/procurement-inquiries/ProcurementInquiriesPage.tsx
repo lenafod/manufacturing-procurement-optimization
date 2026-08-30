@@ -47,13 +47,13 @@ export function ProcurementInquiriesPage() {
           {inquiries.data && (
             <DataTable<ProcurementInquiry>
               columns={[
-                { header: 'Pozicija', render: (i) => i.technicalSheet?.positionName ?? '— (opšti upit)' },
+                { header: 'Pozicija', render: (i) => i.technicalSheet?.positionName ?? '(opšti upit)' },
                 { header: 'Dobavljač', render: (i) => i.supplierMaterial.supplier.name },
                 { header: 'Materijal', render: (i) => i.supplierMaterial.materialType.materialName },
-                { header: 'Tražena količina', render: (i) => i.requestedQuantity ?? '—', numeric: true },
-                { header: 'Potvrđena količina', render: (i) => i.confirmedQuantity ?? '—', numeric: true },
-                { header: 'Potvrđena cena', render: (i) => i.confirmedPrice ?? '—', numeric: true },
-                { header: 'Potvrđen rok', render: (i) => (i.confirmedDeliveryTime != null ? `${i.confirmedDeliveryTime} d` : '—'), numeric: true },
+                { header: 'Tražena količina', render: (i) => i.requestedQuantity ?? '-', numeric: true },
+                { header: 'Potvrđena količina', render: (i) => i.confirmedQuantity ?? '-', numeric: true },
+                { header: 'Potvrđena cena', render: (i) => i.confirmedPrice ?? '-', numeric: true },
+                { header: 'Potvrđen rok', render: (i) => (i.confirmedDeliveryTime != null ? `${i.confirmedDeliveryTime} d` : '-'), numeric: true },
                 { header: 'Poslato', render: (i) => i.sentAt },
                 { header: 'Status', render: (i) => <ProcurementInquiryStatusPill status={i.status} /> },
                 {
@@ -305,10 +305,10 @@ function RespondModal({ inquiry, onClose }: { inquiry: ProcurementInquiry; onClo
   const canSubmit = confirmedQuantity !== '' && confirmedPrice !== '' && confirmedDeliveryTime !== '';
 
   return (
-    <Modal title={`Odgovor — ${inquiry.supplierMaterial.supplier.name}`} onClose={onClose}>
+    <Modal title={`Odgovor: ${inquiry.supplierMaterial.supplier.name}`} onClose={onClose}>
       <ErrorBanner error={recordResponse.error} />
       <p style={{ margin: '0 0 0.9rem', color: 'var(--steel)', fontSize: '0.86rem' }}>
-        {inquiry.technicalSheet ? `${inquiry.technicalSheet.positionName} — ` : ''}
+        {inquiry.technicalSheet ? `${inquiry.technicalSheet.positionName}: ` : ''}
         {inquiry.supplierMaterial.materialType.materialName}, {formatMaterialSection(inquiry.supplierMaterial.materialSectionType)}
         {inquiry.requestedQuantity != null ? `. Traženo: ${inquiry.requestedQuantity}.` : '.'}
       </p>

@@ -6,7 +6,7 @@ import { DataTable } from '../../components/DataTable';
 import { Select } from '../../components/Select';
 import { Button } from '../../components/Button';
 import { ErrorBanner } from '../../components/ErrorBanner';
-import { PurchaseRequestStatusPill } from '../../components/StatusPill';
+import { PurchaseRequestStatusPill, StatusPill } from '../../components/StatusPill';
 import { LoadingState } from '../../components/LoadingState';
 import { ErrorState } from '../../components/ErrorState';
 import type { PurchaseRequest, PurchaseRequestStatus } from '../../types';
@@ -39,6 +39,7 @@ export function PurchaseRequestsPage() {
   });
 
   const overdue = useQuery({ queryKey: ['purchaseRequests', 'overdue'], queryFn: purchaseRequestsApi.getOverdue });
+  const overdueIds = new Set((overdue.data ?? []).map((p) => p.id));
 
   return (
     <div className="card">
@@ -62,7 +63,7 @@ export function PurchaseRequestsPage() {
             <ul>
               {overdue.data.map((p) => (
                 <li key={p.id}>
-                  {p.technicalSheet.positionName} — očekivano {p.expectedDeliveryDate}
+                  {p.technicalSheet.positionName}: očekivano {p.expectedDeliveryDate}
                 </li>
               ))}
             </ul>
@@ -82,7 +83,15 @@ export function PurchaseRequestsPage() {
             { header: 'Cena', render: (p) => p.totalPrice.toFixed(2), numeric: true },
             { header: 'Status', render: (p) => <PurchaseRequestStatusPill status={p.status} /> },
             { header: 'Kreiran', render: (p) => p.createdAt },
-            { header: 'Očekivana isporuka', render: (p) => p.expectedDeliveryDate },
+            {
+              header: 'Očekivana isporuka',
+              render: (p) => (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                  {p.expectedDeliveryDate}
+                  {overdueIds.has(p.id) && <StatusPill tone="crit">KASNI</StatusPill>}
+                </div>
+              ),
+            },
             { header: 'Akcija', render: (p) => <StatusActions request={p} /> },
           ]}
           rows={purchaseRequests.data}

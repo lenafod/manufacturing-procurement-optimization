@@ -30,4 +30,10 @@ export const technicalSheetsApi = {
     apiClient.post<TechnicalSheet>('/technical-sheets', payload),
   pdfUrl: (id: string, version: string) =>
     `/api/technical-sheets/by-id-and-version/pdf?id=${encodeURIComponent(id)}&version=${encodeURIComponent(version)}`,
+  uploadDrawing: (id: string, file: File) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    return apiClient.uploadFile<TechnicalSheet>(`/technical-sheets/${encodeURIComponent(id)}/drawing`, formData);
+  },
+  drawingUrl: (id: string) => `/api/technical-sheets/${encodeURIComponent(id)}/drawing`,
 };

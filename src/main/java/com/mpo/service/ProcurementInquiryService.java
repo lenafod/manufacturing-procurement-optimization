@@ -1,10 +1,10 @@
 package com.mpo.service;
 
-import com.mpo.entity.MaterialSectionType;
 import com.mpo.entity.ProcurementInquiry;
 import com.mpo.entity.SupplierMaterial;
 import com.mpo.entity.TechnicalSheet;
 import com.mpo.enums.ProcurementInquiryStatus;
+import com.mpo.exception.InvalidRequestException;
 import com.mpo.exception.ResourceNotFoundException;
 import com.mpo.repository.ProcurementInquiryRepository;
 import org.springframework.beans.factory.annotation.Value;
@@ -101,6 +101,11 @@ public class ProcurementInquiryService {
         ProcurementInquiry inquiry = procurementInquiryRepository.findById(inquiryId)
                 .orElseThrow(() -> new ResourceNotFoundException("procurement inquiry with id " + inquiryId + " not found"));
 
+        // sprecava da dupli/stale submit tiho prepise vec potvrdjen odgovor drugim brojevima
+        if (inquiry.getStatus() == ProcurementInquiryStatus.ODGOVOREN) {
+            throw new InvalidRequestException("inquiry with id " + inquiryId + " has already been answered");
+        }
+
         inquiry.setConfirmedQuantity(confirmedQuantity);
         inquiry.setConfirmedPrice(confirmedPrice);
         inquiry.setConfirmedDeliveryTime(confirmedDeliveryTime);
@@ -128,7 +133,7 @@ public class ProcurementInquiryService {
     private InquiryEmailPreview buildInquiryEmail(TechnicalSheet technicalSheet, SupplierMaterial offer, Double neededQuantity) {
         String positionLine = technicalSheet != null ? "Pozicija: " + technicalSheet.getPositionName() + "\n" : "";
         String quantityLine = neededQuantity != null ? "Potrebna količina: " + neededQuantity + "\n" : "";
-        String subjectSuffix = technicalSheet != null ? " — " + technicalSheet.getPositionName() : "";
+        String subjectSuffix = technicalSheet != null ? ": " + technicalSheet.getPositionName() : "";
 
         String subject = "Upit za raspoloživu količinu" + subjectSuffix;
         String text =
@@ -136,7 +141,7 @@ public class ProcurementInquiryService {
                 "Molimo za informaciju o trenutno raspoloživoj količini sledećeg materijala:\n\n" +
                 positionLine +
                 "Materijal: " + offer.getMaterialType().getMaterialName() + "\n" +
-                "Presek: " + formatSection(offer.getMaterialSectionType()) + "\n" +
+                "Presek: " + offer.getMaterialSectionType().toDisplayString() + "\n" +
                 quantityLine +
                 "Poznata cena po jedinici: " + offer.getPricePerUnit() + "\n" +
                 "Poznat rok isporuke: " + offer.getDeliveryTime() + " dana\n\n" +
@@ -144,12 +149,5 @@ public class ProcurementInquiryService {
                 "Hvala,\nNabavka";
 
         return new InquiryEmailPreview(offer.getSupplier().getEmail(), subject, text);
-    }
-
-    private String formatSection(MaterialSectionType sectionType) {
-        String dims = Boolean.TRUE.equals(sectionType.getUsesDim2())
-                ? sectionType.getDim1() + "x" + sectionType.getDim2()
-                : String.valueOf(sectionType.getDim1());
-        return sectionType.getTypeName().getDisplayName() + " " + dims + " mm";
     }
 }

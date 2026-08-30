@@ -34,6 +34,9 @@ export function ProcurementOptimizationPage() {
     setPreviewOpen(false);
   };
 
+  const selectedWorkOrder = workOrders.data?.find((w) => w.id === workOrderId);
+  const hasPositions = !!selectedWorkOrder && selectedWorkOrder.technicalSheets.length > 0;
+
   return (
     <div className="card">
       <div className="card-toolbar">
@@ -95,7 +98,7 @@ export function ProcurementOptimizationPage() {
       <div style={{ marginTop: '1.2rem' }}>
         <Button
           variant="accent"
-          disabled={!workOrderId || preview.isPending}
+          disabled={!workOrderId || !hasPositions || preview.isPending}
           onClick={() => {
             setPreviewOpen(true);
             preview.mutate(undefined);
@@ -103,10 +106,15 @@ export function ProcurementOptimizationPage() {
         >
           {preview.isPending ? 'Učitavam pregled...' : 'Prikaži pregled'}
         </Button>
+        {workOrderId && !hasPositions && (
+          <p style={{ margin: '0.5rem 0 0', color: 'var(--steel)', fontSize: '0.82rem' }}>
+            Ovaj radni nalog nema nijednu poziciju — nema šta da se optimizuje.
+          </p>
+        )}
       </div>
 
       {previewOpen && (
-        <Modal title={`Pregled — ${workOrderId}`} onClose={resetResults} wide>
+        <Modal title={`Pregled: ${workOrderId}`} onClose={resetResults} wide>
           {preview.isError && <ErrorBanner error={preview.error} />}
           {preview.isPending && <LoadingState />}
 
@@ -126,7 +134,7 @@ export function ProcurementOptimizationPage() {
             preview.isSuccess && (
               <>
                 <p style={{ margin: '0 0 0.9rem', color: 'var(--steel)', fontSize: '0.86rem' }}>
-                  Predlog na osnovu trenutno poznatih količina — ništa još nije sačuvano.
+                  Predlog na osnovu trenutno poznatih količina, ništa još nije sačuvano.
                 </p>
                 <OptimizationResultView result={preview.data} draft />
                 <ErrorBanner error={optimize.error} />
@@ -171,12 +179,12 @@ function OptimizationResultView({ result, draft = false }: { result: Optimizatio
         <div className="warn-banner">
           <span className="icon">⚠</span>
           <div>
-            Kombinovana raspoloživa količina svih dobavljača nije dovoljna za sledeće pozicije — {draft ? 'bila bi' : 'je'}{' '}
+            Kombinovana raspoloživa količina svih dobavljača nije dovoljna za sledeće pozicije, {draft ? 'bila bi' : 'je'}{' '}
             napravljen zahtev za ono što je pokriveno, ostatak nedostaje:
             <ul>
               {result.partial.map((p: PartialFulfillment) => (
                 <li key={p.positionName}>
-                  <strong>{p.positionName}</strong> — nedostaje {p.missingQuantity.toFixed(2)}
+                  <strong>{p.positionName}</strong>: nedostaje {p.missingQuantity.toFixed(2)}
                 </li>
               ))}
             </ul>
@@ -188,7 +196,7 @@ function OptimizationResultView({ result, draft = false }: { result: Optimizatio
         <ul style={{ marginTop: '0.9rem', paddingLeft: '1.1rem', color: 'var(--steel)', fontSize: '0.86rem' }}>
           {result.skipped.map((s: SkippedPosition) => (
             <li key={s.positionName}>
-              <strong style={{ color: 'var(--ink)' }}>{s.positionName}</strong> — {s.reason}
+              <strong style={{ color: 'var(--ink)' }}>{s.positionName}</strong>: {s.reason}
             </li>
           ))}
         </ul>

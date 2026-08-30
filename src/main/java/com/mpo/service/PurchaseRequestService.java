@@ -5,7 +5,6 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import com.mpo.entity.MaterialSectionType;
 import com.mpo.entity.PurchaseRequest;
 import com.mpo.enums.PurchaseRequestStatus;
 import com.mpo.exception.InvalidRequestException;
@@ -70,9 +69,12 @@ public class PurchaseRequestService {
         PurchaseRequest purchaseRequest = purchaseRequestRepository.findById(purchaseRequestId)
                 .orElseThrow(() -> new ResourceNotFoundException("purchase request with id " + purchaseRequestId + " not found"));
         validateStatusChange(purchaseRequest, newStatus);
+        PurchaseRequestStatus previousStatus = purchaseRequest.getStatus();
         purchaseRequest.setStatus(newStatus);
 
-        if(newStatus == PurchaseRequestStatus.DELIVERED) {
+        // isti prelaz se ne primenjuje dvaput - retry/dupli klik na vec DELIVERED ne sme ponovo
+        // da uveca magacin za istu kolicinu
+        if (newStatus == PurchaseRequestStatus.DELIVERED && previousStatus != PurchaseRequestStatus.DELIVERED) {
             purchaseRequest.setActualDeliveryDate(LocalDate.now());
             inventoryService.increaseQuantity(
                     purchaseRequest.getTechnicalSheet().getMaterialType(),
@@ -81,8 +83,10 @@ public class PurchaseRequestService {
             );
         }
 
-        // otkazivanje vraca rezervisanu kolicinu nazad dobavljacu (oduzeta je od availableQuantity kad je zahtev napravljen)
-        if (newStatus == PurchaseRequestStatus.CANCELED) {
+        // otkazivanje vraca rezervisanu kolicinu nazad dobavljacu (oduzeta je od availableQuantity kad je zahtev napravljen).
+        // validateStatusChange dozvoljava CANCELED->CANCELED bez greske (vec-otkazan zahtev ostaje
+        // otkazan), ali ovo ne sme ponovo da vrati kolicinu koja je vec vracena
+        if (newStatus == PurchaseRequestStatus.CANCELED && previousStatus != PurchaseRequestStatus.CANCELED) {
             supplierMaterialService.increaseAvailableQuantity(
                     purchaseRequest.getSupplierMaterial(),
                     purchaseRequest.getRequiredQuantity()
@@ -90,8 +94,10 @@ public class PurchaseRequestService {
         }
 
         // CREATED->SENT je trenutak kad porudzbina stvarno ide dobavljacu - do sada je "kreiran"
-        // bio samo interna odluka (napravljena u Optimizaciji), mejl se salje tek na "Posalji"
-        if (newStatus == PurchaseRequestStatus.SENT) {
+        // bio samo interna odluka (napravljena u Optimizaciji), mejl se salje tek na "Posalji".
+        // salje se samo pri STVARNOM prelazu u SENT (ne i kad je vec SENT) da dupli klik/retry
+        // ne posalje dobavljacu istu porudzbinu dvaput
+        if (newStatus == PurchaseRequestStatus.SENT && previousStatus != PurchaseRequestStatus.SENT) {
             sendOrderEmail(purchaseRequest);
         }
 
@@ -102,13 +108,13 @@ public class PurchaseRequestService {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(fromAddress);
         message.setTo(purchaseRequest.getSupplierMaterial().getSupplier().getEmail());
-        message.setSubject("Porudžbina — " + purchaseRequest.getTechnicalSheet().getPositionName());
+        message.setSubject("Porudžbina: " + purchaseRequest.getTechnicalSheet().getPositionName());
         message.setText(
                 "Poštovani,\n\n" +
                 "Ovim putem Vam šaljemo porudžbinu:\n\n" +
                 "Pozicija: " + purchaseRequest.getTechnicalSheet().getPositionName() + "\n" +
                 "Materijal: " + purchaseRequest.getSupplierMaterial().getMaterialType().getMaterialName() + "\n" +
-                "Presek: " + formatSection(purchaseRequest.getSupplierMaterial().getMaterialSectionType()) + "\n" +
+                "Presek: " + purchaseRequest.getSupplierMaterial().getMaterialSectionType().toDisplayString() + "\n" +
                 "Količina: " + purchaseRequest.getRequiredQuantity() + " mm\n" +
                 "Cena po jedinici: " + purchaseRequest.getSupplierMaterial().getPricePerUnit() + "\n" +
                 "Ukupna cena: " + purchaseRequest.getTotalPrice() + "\n" +
@@ -117,13 +123,6 @@ public class PurchaseRequestService {
                 "Hvala,\nNabavka"
         );
         mailSender.send(message);
-    }
-
-    private String formatSection(MaterialSectionType sectionType) {
-        String dims = Boolean.TRUE.equals(sectionType.getUsesDim2())
-                ? sectionType.getDim1() + "x" + sectionType.getDim2()
-                : String.valueOf(sectionType.getDim1());
-        return sectionType.getTypeName().getDisplayName() + " " + dims + " mm";
     }
 
     private void validateStatusChange(PurchaseRequest purchaseRequest, PurchaseRequestStatus newStatus) {

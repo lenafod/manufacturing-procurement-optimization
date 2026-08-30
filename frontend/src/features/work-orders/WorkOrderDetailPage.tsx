@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { workOrdersApi } from '../../api/workOrders';
@@ -17,6 +17,7 @@ import { ErrorBanner } from '../../components/ErrorBanner';
 import { LoadingState } from '../../components/LoadingState';
 import { ErrorState } from '../../components/ErrorState';
 import { formatMaterialSection } from '../../utils/formatMaterialSection';
+import type { TechnicalSheet } from '../../types';
 
 export function WorkOrderDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -76,12 +77,13 @@ export function WorkOrderDetailPage() {
               {sheet.sheetId} · {sheet.sheetVersion} · {sheet.quantity} kom
             </span>
           </div>
-          <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+          <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'flex-end' }}>
             <span className="chip">
               {sheet.materialType.materialName} · {formatMaterialSection(sheet.materialSectionType)}
             </span>
             {sheet.prepLength != null && <span className="chip">pripremak {sheet.prepLength} mm</span>}
             {sheet.partMass != null && <span className="chip">masa {sheet.partMass} g</span>}
+            <DrawingButton sheet={sheet} workOrderId={workOrderId} />
           </div>
         </div>
       ))}
@@ -94,6 +96,41 @@ export function WorkOrderDetailPage() {
 
       {panelOpen && <AddPositionPanel workOrderId={workOrderId} onClose={() => setPanelOpen(false)} />}
     </div>
+  );
+}
+
+function DrawingButton({ sheet, workOrderId }: { sheet: TechnicalSheet; workOrderId: string }) {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const uploadDrawing = useApiMutation((file: File) => technicalSheetsApi.uploadDrawing(sheet.id, file), {
+    invalidateKeys: [['workOrders', workOrderId], ['workOrders']],
+  });
+
+  if (sheet.drawingFileName) {
+    return (
+      <Button variant="ghost" onClick={() => window.open(technicalSheetsApi.drawingUrl(sheet.id), '_blank')}>
+        Pogledaj crtež
+      </Button>
+    );
+  }
+
+  return (
+    <>
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept=".pdf,.jpg,.jpeg,.png"
+        style={{ display: 'none' }}
+        onChange={(e) => {
+          const file = e.target.files?.[0];
+          if (file) uploadDrawing.mutate(file);
+        }}
+      />
+      {uploadDrawing.isError && <ErrorBanner error={uploadDrawing.error} />}
+      <Button variant="accent" disabled={uploadDrawing.isPending} onClick={() => fileInputRef.current?.click()}>
+        {uploadDrawing.isPending ? 'Dodajem...' : 'Dodaj crtež'}
+      </Button>
+    </>
   );
 }
 

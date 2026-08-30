@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+### Otpremljeni crtezi (runtime podaci, ne u git) ###
+uploads/

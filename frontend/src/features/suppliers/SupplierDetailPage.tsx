@@ -185,7 +185,7 @@ function EditOfferModal({ offer, onClose }: { offer: SupplierMaterial; onClose: 
   const canSubmit = pricePerUnit && deliveryTime && availableQuantity;
 
   return (
-    <Modal title={`Izmena ponude — ${offer.materialType.materialName}`} onClose={onClose}>
+    <Modal title={`Izmena ponude: ${offer.materialType.materialName}`} onClose={onClose}>
       <ErrorBanner error={updateOffer.error} />
       <TextField
         label="Cena po jedinici"

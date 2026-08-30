@@ -61,7 +61,9 @@ public class TechnicalSheet {
     private Double partMass;     // masa izratka
 
     private Double blankMass;    // masa pripremka
-    
+
     private Double removedMass;  // masa koja se uklanja
+
+    private String drawingFileName; 
 
 }

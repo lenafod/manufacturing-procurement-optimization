@@ -53,7 +53,7 @@ export function ReferenceDataPage() {
           <ul>
             {materialSectionTypes.data.map((s) => (
               <li key={s.id}>
-                {sectionShapeLabel(s.typeName)} — dim1: {s.dim1}
+                {sectionShapeLabel(s.typeName)}, dim1: {s.dim1}
                 {s.usesDim2 ? `, dim2: ${s.dim2}` : ''}
               </li>
             ))}

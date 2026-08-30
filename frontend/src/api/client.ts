@@ -19,9 +19,9 @@ interface SpringErrorBody {
   path?: string;
 }
 
-async function request<T>(path: string, init?: RequestInit): Promise<T> {
+async function request<T>(path: string, init?: RequestInit, jsonBody = true): Promise<T> {
   const response = await fetch(`${BASE_URL}${path}`, {
-    headers: { 'Content-Type': 'application/json' },
+    ...(jsonBody ? { headers: { 'Content-Type': 'application/json' } } : {}),
     ...init,
   });
 
@@ -50,4 +50,7 @@ export const apiClient = {
   put: <T>(path: string, body: unknown) =>
     request<T>(path, { method: 'PUT', body: JSON.stringify(body) }),
   patch: <T>(path: string) => request<T>(path, { method: 'PATCH' }),
+  // bez 'Content-Type': 'application/json' - browser sam postavlja tacan multipart/form-data
+  // boundary kad je telo FormData, rucno postavljanje bi ga pokvarilo
+  uploadFile: <T>(path: string, formData: FormData) => request<T>(path, { method: 'POST', body: formData }, false),
 };

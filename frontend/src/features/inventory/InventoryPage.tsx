@@ -53,7 +53,7 @@ export function InventoryPage() {
                 ]}
                 rows={[...inventory.data].sort((a, b) => a.materialType.materialName.localeCompare(b.materialType.materialName))}
                 rowKey={(i) => i.id}
-                emptyMessage="Magacin je prazan — dodaj prvu stavku."
+                emptyMessage="Magacin je prazan. Dodaj prvu stavku."
               />
             )}
           </>
@@ -245,7 +245,7 @@ function SuppliersForMaterialModal({
       <p style={{ margin: '0 0 0.9rem', color: 'var(--steel)', fontSize: '0.86rem' }}>
         Za <strong style={{ color: 'var(--ink)' }}>{materialName}</strong> ({sectionLabel}) treba{' '}
         <strong style={{ color: 'var(--ink)' }}>{requiredQuantity} mm</strong>, a magacin nema dovoljno. Ovi dobavljači
-        prodaju taj materijal i presek — pošalji upit direktno odavde.
+        prodaju taj materijal i presek. Pošalji upit direktno odavde.
       </p>
       <DataTable<SupplierMaterial>
         columns={[
